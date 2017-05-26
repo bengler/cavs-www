@@ -18,6 +18,7 @@ class Navigation extends React.Component {
     return (
       <div className={s.root} role="navigation">
         <Link className={s.link} to="/about">About</Link>
+        <Link className={s.link} to="/persons">Persons</Link>
       </div>
     );
   }

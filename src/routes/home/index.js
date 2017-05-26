@@ -16,10 +16,17 @@ export default {
   path: '/',
 
   async action({ fetch }) {
-    const resp = await fetch('*[_type=="person"]', {});
+    const query = `
+      *[_type=="event"] {
+        name,
+        startDate
+      }
+    `;
+    const events = await fetch(query, {});
+    console.log('events', events);
     return {
       title: 'React Starter Kit',
-      component: <Layout><Home /></Layout>,
+      component: <Layout><Home events={events} /></Layout>,
     };
   },
 

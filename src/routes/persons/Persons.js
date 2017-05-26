@@ -11,6 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Persons.css';
+import Link from '../../components/Link';
 
 class Persons extends React.Component {
 
@@ -20,18 +21,20 @@ class Persons extends React.Component {
 
   render() {
     const { persons } = this.props;
-    console.log('persons', persons);
     return (
       <div className={s.root}>
         <div className={s.container}>
           <h1>Persons</h1>
           <ul>
             {
-              persons.map(person => (
-                <li>
-                  {person.name}
-                </li>
-                ))
+              persons.map((person) => {
+                const id = person._id;
+                return (
+                  <li>
+                    <Link to={`/person/${id}`}>{person.name}</Link>
+                  </li>
+                );
+              })
             }
           </ul>
         </div>

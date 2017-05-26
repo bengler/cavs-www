@@ -16,8 +16,7 @@ export default {
   path: '/persons',
 
   async action({ fetch }) {
-    const resp = await fetch('*[_type=="person"]', {});
-    console.log('persons resp', resp);
+    const resp = await fetch('*[_type=="person"][0..5000]', {});
     return {
       title: 'React Starter Kit',
       component: <Layout><Persons persons={resp} /></Layout>,

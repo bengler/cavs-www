@@ -7,25 +7,19 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+@import '../../components/variables.css';
+
 .root {
-  float: right;
-  margin: 6px 0 0;
-  background-color: red;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.link {
-  display: inline-block;
-  padding: 3px 8px;
-  text-decoration: none;
-  font-size: 1.125em; /* ~18px */
+.container {
+  margin: 0 auto;
+  padding: 0 0 40px;
+  max-width: var(--max-content-width);
 }
 
-.link,
-.link:active,
-.link:visited {
-  color: #fff;
-}
-
-.link:hover {
-  color: #fff;
+.name {
+  font-size: 10vw;
 }

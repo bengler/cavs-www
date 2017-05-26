@@ -26,7 +26,9 @@ class Layout extends React.Component {
     return (
       <div>
         <Header />
-        {this.props.children}
+        <div className={s.content}>
+          {this.props.children}
+        </div>
         <Footer />
       </div>
     );
