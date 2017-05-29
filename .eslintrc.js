@@ -57,6 +57,7 @@ module.exports = {
 
       // Allow js files to use jsx syntax, too
       'react/jsx-filename-extension': 'off',
+      'no-underscore-dangle': 'off',
 
       // https://github.com/kriasoft/react-starter-kit/pull/961
       // You can reopen this if you still want this rule

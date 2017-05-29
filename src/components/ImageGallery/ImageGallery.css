@@ -1,0 +1,8 @@
+.root {
+  border: 10px solid red;
+}
+
+.image {
+  width: 300px;
+  height: auto;
+}

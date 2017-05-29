@@ -10,7 +10,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { get } from 'lodash';
 import s from './Person.css';
+import Link from '../../components/Link';
+import ImageGallery from '../../components/ImageGallery/ImageGallery';
 
 class Persons extends React.Component {
 
@@ -30,35 +33,43 @@ class Persons extends React.Component {
 
   render() {
     const { person } = this.props;
-    const { name, portraits, shortBio, stillImageCollection } = person;
-
+    const { name, portraits, shortBio, references } = person;
     return (
       <div className={s.root}>
         <div className={s.container}>
           <h1 className={s.name}>{name}</h1>
           <p>{shortBio}</p>
+
+          <ImageGallery images={portraits} />
+
+          <h2>References</h2>
           {
-            portraits && portraits.length > 0 && (
-              <img src={`${portraits[0].asset.url}?w=500`} alt="" />
-            )
+            references && references.length && references.map((reference) => {
+              const year = get(reference, 'date.date.utc');
+              // title,
+              // description,
+              // identifier,
+              // date,
+              // subjects,
+              // format,
+              // rights,
+              return (
+                <div>
+                  <h3>
+                    <Link to={`/item/${reference.identifier}`}>{reference.title}</Link>
+                    {year && year.split('-')[0]}
+                  </h3>
+                  {
+                    reference.imageAssets
+                    && reference.imageAssets.length
+                    && reference.imageAssets.map(image => (
+                      <img src={`${image.asset.url}?w=300`} alt="" />
+                    ))
+                  }
+                </div>
+              );
+            })
           }
-
-          <h2>Still images</h2>
-          {
-            stillImageCollection && stillImageCollection.map(stillImage => (
-              <div>
-                <h3>{stillImage.title}</h3>
-                {
-                  stillImage.imageAssets.map(image => (
-                    <img src={`${image.asset.url}?w=300`} alt="" />
-                  ))
-                }
-              </div>
-              ))
-          }
-          <h2>Work2d</h2>
-
-
         </div>
       </div>
     );

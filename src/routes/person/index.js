@@ -23,23 +23,22 @@ export default {
           ...,
           asset -> {url}
         },
-        "stillImageCollection": *[_type == "stillImage" && references(^._id)]{
-          ...,
+        "references": *[references(^._id)]{
+          title,
+          description,
+          identifier,
+          date,
+          subjects,
+          format,
+          rights,
           imageAssets[] {
             asset -> {url}
           }
-        },
-        "documentCollection": *[_type == "document" && references(^._id)]{
-          ...
-        },
-        "work2dCollection": *[_type == "work2d" && references(^._id)]{
-          ...
-        },
-
+        } | order(date.date.utc asc)
       }
     `;
     const result = await fetch(query, {});
-    console.log(result[0]);
+    console.log('result', result.length);
     return {
       title: 'Person',
       component: <Layout><Person person={result[0]} /></Layout>,
