@@ -33,7 +33,7 @@ class Persons extends React.Component {
 
   render() {
     const { person } = this.props;
-    const { name, portraits, shortBio, references } = person;
+    const { name, portraits, shortBio, references = [] } = person;
     return (
       <div className={s.root}>
         <div className={s.container}>
@@ -44,15 +44,8 @@ class Persons extends React.Component {
 
           <h2>References</h2>
           {
-            references && references.length && references.map((reference) => {
+            references.length && references.map((reference) => {
               const year = get(reference, 'date.date.utc');
-              // title,
-              // description,
-              // identifier,
-              // date,
-              // subjects,
-              // format,
-              // rights,
               return (
                 <div>
                   <h3>
@@ -62,9 +55,7 @@ class Persons extends React.Component {
                   {
                     reference.imageAssets
                     && reference.imageAssets.length
-                    && reference.imageAssets.map(image => (
-                      <img src={`${image.asset.url}?w=300`} alt="" />
-                    ))
+                    && <ImageGallery images={reference.imageAssets} />
                   }
                 </div>
               );

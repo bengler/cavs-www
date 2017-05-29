@@ -16,7 +16,12 @@ import Link from '../../components/Link';
 class Persons extends React.Component {
 
   static propTypes = {
-    persons: PropTypes.array.isRequired,
+    persons: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        references: PropTypes.array,
+      }),
+    ).isRequired,
   }
 
   render() {
@@ -30,8 +35,9 @@ class Persons extends React.Component {
               persons.map((person) => {
                 const id = person._id;
                 return (
-                  <li>
+                  <li key={person._id}>
                     <Link to={`/person/${id}`}>{person.name}</Link>
+                    <span style={{ fontWeight: '400' }}> {person.references.length}</span>
                   </li>
                 );
               })

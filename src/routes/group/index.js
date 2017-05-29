@@ -8,25 +8,27 @@
  */
 
 import React from 'react';
-import Persons from './Persons';
+import Group from './Group';
 import Layout from '../../components/Layout';
 
 export default {
 
-  path: '/persons',
+  path: '/group/:id',
 
-  async action({ fetch }) {
-    const resp = await fetch(`
-      *[_type=="person"]{
-        _id,
+  async action({ fetch, params }) {
+    const query = `
+      *[_id =="${params.id}"] {
         name,
-        "references": *[references(^._id)]
+        description,
+        subjects,
+        creators[] -> {_id, name},
+        locations
       }
-      [0..5000]
-    `, {});
+    `;
+    const result = await fetch(query, {});
     return {
-      title: 'React Starter Kit',
-      component: <Layout><Persons persons={resp} /></Layout>,
+      title: 'Item',
+      component: <Layout><Group group={result[0]} /></Layout>,
     };
   },
 };

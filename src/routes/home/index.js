@@ -23,7 +23,6 @@ export default {
       }
     `;
     const events = await fetch(query, {});
-    console.log('events', events);
     return {
       title: 'React Starter Kit',
       component: <Layout><Home events={events} /></Layout>,

@@ -20,6 +20,7 @@ export default {
     require('./person').default,
     require('./persons').default,
     require('./item').default,
+    require('./group').default,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
   ],

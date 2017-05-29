@@ -21,7 +21,7 @@ class Header extends React.Component {
           <Navigation />
           <Link to="/" className={s.brand}>
             <span className={s.brandTxt}>
-              <strong>MIT</strong> Center for Advanced Visual Studies Archive
+              <strong>MIT</strong> Center for Advanced Visual Studies Special Collection
             </span>
           </Link>
         </div>

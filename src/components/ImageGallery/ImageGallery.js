@@ -33,7 +33,6 @@ class ImageGallery extends React.Component {
     }
     return (
       <div className={s.root}>
-        <h1>Image Gallery</h1>
         {
           images.map((image) => {
             const url = get(image, 'asset.url');

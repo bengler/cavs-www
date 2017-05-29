@@ -28,6 +28,11 @@ export default {
         imageAssets[] {
           asset -> {url}
         },
+        partOf[] -> {
+          _id,
+          name,
+          ...
+        },
         creators[] -> {
           name,
           _id
@@ -35,6 +40,12 @@ export default {
       }
     `;
     const result = await fetch(query, {});
+    if (!result) {
+      return {
+        title: 'Error',
+        component: <Layout>Not found</Layout>,
+      };
+    }
     return {
       title: 'Item',
       component: <Layout><Item item={result[0]} /></Layout>,

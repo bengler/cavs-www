@@ -14,7 +14,7 @@ import dateFns from 'date-fns';
 
 import s from './Item.css';
 import Link from '../../components/Link';
-
+import ImageGallery from '../../components/ImageGallery/ImageGallery';
 
 class Item extends React.Component {
 
@@ -35,6 +35,12 @@ class Item extends React.Component {
       }),
       imageAssets: PropTypes.array,
       creators: PropTypes.array,
+      partOf: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string,
+          _id: PropTypes.string,
+        }),
+      ),
     }),
   }
 
@@ -55,23 +61,19 @@ class Item extends React.Component {
       format = [],
       creators = [],
       subjects = [],
+      partOf = [],
     } = item;
 
     return (
       <div className={s.root}>
         {
-          imageAssets && imageAssets.length && imageAssets.map(image => (
-            <img className={s.mainImage} src={`${image.asset.url}?w=500`} alt="" />
-          ))
+          imageAssets && imageAssets[0]
+          && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
         }
         <h1>{title}</h1>
         <p>{dateFns.format(new Date(date.date.utc), 'YYYY')}</p>
         <p>{description}</p>
-        {
-          imageAssets && imageAssets.length && imageAssets.map(image => (
-            <img className={s.mainImage} src={`${image.asset.url}?w=500`} alt="" />
-          ))
-        }
+        <ImageGallery images={imageAssets} />
         <h2>Creators</h2>
         <ul>
           {
@@ -103,6 +105,19 @@ class Item extends React.Component {
 
         <h2>Rights</h2>
         <p>{rights.holdingInstitution}</p>
+
+        <h2>Part of</h2>
+        <ul>
+          {
+            partOf.map(part => (
+              part._id && (
+                <li>
+                  <Link to={`/group/${part._id}`}>{part.name || 'Untitled'}</Link>
+                </li>
+              )
+            ))
+          }
+        </ul>
       </div>
     );
   }
