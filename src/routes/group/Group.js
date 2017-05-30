@@ -14,6 +14,7 @@ import s from './Group.css';
 import ReferenceList from '../../components/ReferenceList/ReferenceList';
 import Subjects from '../../components/Subjects/Subjects';
 import Creators from '../../components/Creators/Creators';
+import Locations from '../../components/Locations/Locations';
 
 
 class Item extends React.Component {
@@ -44,17 +45,19 @@ class Item extends React.Component {
   render() {
     const { group } = this.props;
     const {
+      _type,
       name,
       description,
       subjects = [],
       creators = [],
       references = [],
+      locations = [],
     } = group;
 
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1 className={s.title}>{name}</h1>
+          <h1 className={s.title}>{name} ({_type})</h1>
           <p className={s.description}>{description}</p>
 
           <ReferenceList references={references} />
@@ -62,6 +65,8 @@ class Item extends React.Component {
           <Subjects subjects={subjects} />
 
           <Creators creators={creators} />
+
+          <Locations locations={locations} />
 
         </div>
       </div>

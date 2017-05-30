@@ -19,6 +19,7 @@ export default {
     const query = `
       *[_id =="${params.id}"] {
         name,
+        _type,
         description,
         subjects,
         creators[] -> {_id, name},
@@ -28,7 +29,7 @@ export default {
           _type,
           title,
           identifier,
-          imageAssets[] {asset -> {url}}
+          imageAssets[] {_key, asset -> {url}}
         }
       }
     `;
