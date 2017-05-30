@@ -11,7 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Subject.css';
-import Link from '../../components/Link';
+import LinkResolver from '../../components/Link/Resolver';
 
 class Subject extends React.Component {
 
@@ -30,29 +30,17 @@ class Subject extends React.Component {
   render() {
     const { items, subject } = this.props;
     return (
-      <div className={s.root}>
-        <h1>{subject}</h1>
-        <ul>
-          {
-            items.map((item) => {
-              if (item.identifier) {
-                return (
-                  <li key={item.identifier}>
-                    <Link to={`/item/${item.identifier}`}>{item.name || item.title}</Link> ({item._type}) identifier
-                  </li>
-                );
-              }
-              if (!item.identifier) {
-                return (
-                  <li key={item._id}>
-                    <Link to={`/group/${item._id}`}>{item.name || item.title}</Link> ({item._type}) id
-                  </li>
-                );
-              }
-              return false;
-            })
-          }
-        </ul>
+      <div>
+        <div className={s.container}>
+          <h1 className={s.title}>{subject}</h1>
+          <ul>
+            {
+              items.map(item => (
+                <li key={item._id}><LinkResolver item={item} /></li>
+                ))
+            }
+          </ul>
+        </div>
       </div>
     );
   }

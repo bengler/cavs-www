@@ -53,46 +53,48 @@ class Item extends React.Component {
 
     return (
       <div className={s.root}>
-        <h1>{name}</h1>
-        <p>{description}</p>
+        <div className={s.container}>
+          <h1 className={s.title}>{name}</h1>
+          <p className={s.description}>{description}</p>
 
-        <h2>Subjects</h2>
-        <ul>
-          {
-            subjects.map(subject => (
-              <li key={subject}><Link to={`/subject/${subject}`}>{subject}</Link></li>
-              ))
-          }
-        </ul>
+          <h2>Subjects</h2>
+          <ul>
+            {
+              subjects.map(subject => (
+                <li key={subject}><Link to={`/subject/${subject}`}>{subject}</Link></li>
+                ))
+            }
+          </ul>
 
-        <h2>Creators</h2>
-        <ul>
-          {
-            creators.map(creator => (
-              <li key={creator._id}>
-                <Link to={`/person/${creator._id}`}>{creator.name}</Link>
-              </li>
-              ))
-          }
-        </ul>
+          <h2>Creators</h2>
+          <ul>
+            {
+              creators.map(creator => (
+                <li key={creator._id}>
+                  <Link to={`/person/${creator._id}`}>{creator.name}</Link>
+                </li>
+                ))
+            }
+          </ul>
 
-        <h2>References</h2>
-        <ul>
-          {
-            references.map((item) => {
-              if (item.identifier) {
+          <h2>References</h2>
+          <ul>
+            {
+              references.map((item) => {
+                if (item.identifier) {
+                  return (
+                    <li key={item.identifier}>
+                      <Link to={`/item/${item.identifier}`}>{item.title}</Link> ({item._type})
+                    </li>
+                  );
+                }
                 return (
-                  <li key={item.identifier}>
-                    <Link to={`/item/${item.identifier}`}>{item.title}</Link> ({item._type})
-                  </li>
+                  <div>{JSON.stringify(item)}</div>
                 );
-              }
-              return (
-                <div>{JSON.stringify(item)}</div>
-              );
-            })
-          }
-        </ul>
+              })
+            }
+          </ul>
+        </div>
       </div>
     );
   }

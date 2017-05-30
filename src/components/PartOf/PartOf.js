@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from '../Link/Link';
+import LinkResolver from '../Link/Resolver';
 
 class PartOf extends React.Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class PartOf extends React.Component {
             partOf.map(part => (
               part._id && (
                 <li key={part._id}>
-                  <Link to={`/group/${part._id}`}>{part.name || 'Untitled'}</Link> ({part._type})
+                  <LinkResolver item={part} /> ({part._type})
                 </li>
               )
             ))

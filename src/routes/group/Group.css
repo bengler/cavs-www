@@ -1,3 +1,15 @@
 .root {
-  border: 10px solid red;
+  display: block;
+}
+
+.title {
+  composes: title from '../../components/common.css';
+}
+
+.container {
+  composes: container from '../../components/common.css';
+}
+
+.description {
+  composes: description from '../../components/common.css';
 }

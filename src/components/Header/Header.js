@@ -17,14 +17,12 @@ class Header extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <div className={s.container}>
-          <Navigation />
-          <Link to="/" className={s.brand}>
-            <span className={s.brandTxt}>
-              <strong>MIT</strong> Center for Advanced Visual Studies Special Collection
-            </span>
-          </Link>
-        </div>
+        <Navigation />
+        <Link to="/" className={s.brand}>
+          <span className={s.brandTxt}>
+            <strong>MIT</strong> Center for Advanced Visual Studies Special Collection
+          </span>
+        </Link>
       </div>
     );
   }

@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import { get } from 'lodash';
 import s from './Person.css';
-import Link from '../../components/Link';
+import LinkResolver from '../../components/Link/Resolver';
 import ImageGallery from '../../components/ImageGallery/ImageGallery';
 
 class Persons extends React.Component {
@@ -35,10 +35,10 @@ class Persons extends React.Component {
     const { person } = this.props;
     const { name, portraits, shortBio, references = [] } = person;
     return (
-      <div className={s.root}>
+      <div>
         <div className={s.container}>
-          <h1 className={s.name}>{name}</h1>
-          <p>{shortBio}</p>
+          <h1 className={s.title}>{name}</h1>
+          <p className={s.description}>{shortBio}</p>
 
           <ImageGallery images={portraits} />
 
@@ -54,7 +54,7 @@ class Persons extends React.Component {
               return (
                 <div key={reference.identifier}>
                   <h3>
-                    <Link to={`/item/${reference.identifier}`}>{reference.title || 'Untitled…'}</Link>
+                    <LinkResolver item={reference}>{reference.title || 'Untitled…'}</LinkResolver>
                     {year && year.split('-')[0]} ({reference._type})
                   </h3>
                   {

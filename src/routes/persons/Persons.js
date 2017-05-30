@@ -27,9 +27,9 @@ class Persons extends React.Component {
   render() {
     const { persons } = this.props;
     return (
-      <div className={s.root}>
+      <div>
         <div className={s.container}>
-          <h1>Persons</h1>
+          <h1 className={s.title}>Persons</h1>
           <ul>
             {
               persons.map((person) => {
