@@ -13,8 +13,12 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import dateFns from 'date-fns';
 
 import s from './Item.css';
-import Link from '../../components/Link';
 import ImageGallery from '../../components/ImageGallery/ImageGallery';
+import PartOf from '../../components/PartOf/PartOf';
+import Subjects from '../../components/Subjects/Subjects';
+import Creators from '../../components/Creators/Creators';
+import Formats from '../../components/Formats/Formats';
+import Rights from '../../components/Rights/Rights';
 
 class Item extends React.Component {
 
@@ -50,6 +54,8 @@ class Item extends React.Component {
     },
   }
 
+  getYear = date => dateFns.format(new Date(date.date.utc), 'YYYY')
+
   render() {
     const { item } = this.props;
     const {
@@ -74,60 +80,19 @@ class Item extends React.Component {
           imageAssets && imageAssets[0]
           && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
         }
-        <h1>{title} ({item._type})</h1>
-        {
-          date && (
-            <p>{dateFns.format(new Date(date.date.utc), 'YYYY')}</p>
-          )
-        }
-        <p>{description}</p>
-        <ImageGallery images={imageAssets} />
-        <h2>Creators</h2>
-        <ul>
-          {
-            creators.map(creator => (
-              <li key={creator._id}>
-                <Link to={`/person/${creator._id}`}>{creator.name}</Link>
-              </li>
-              ))
-          }
-        </ul>
 
-        <h2>Subjects</h2>
-        <ul>
-          {
-            subjects.map(subject => (
-              <li key={subject}>
-                <Link to={`/subject/${subject}`}>{subject}</Link>
-              </li>
-              ))
-          }
-        </ul>
-
-        <h2>Format</h2>
-        <ul>
-          {
-            format.map(formatTitle => (
-              <li key={formatTitle}>{formatTitle}</li>
-              ))
-          }
-        </ul>
-
-        <h2>Rights</h2>
-        <p>{rights.holdingInstitution}</p>
-
-        <h2>Part of</h2>
-        <ul>
-          {
-            partOf.map(part => (
-              part._id && (
-                <li key={part._id}>
-                  <Link to={`/group/${part._id}`}>{part.name || 'Untitled'}</Link> ({part._type})
-                </li>
-              )
-            ))
-          }
-        </ul>
+        <div className={s.container}>
+          <h1 className={s.title}>{title} ({item._type}) {this.getYear(date)}</h1>
+          <p className={s.description}>
+            {description || 'No description'}
+          </p>
+          <ImageGallery images={imageAssets} />
+          <Creators creators={creators} />
+          <Subjects subjects={subjects} />
+          <Formats formats={format} />
+          <Rights rights={rights} />
+          <PartOf partOf={partOf} />
+        </div>
       </div>
     );
   }
