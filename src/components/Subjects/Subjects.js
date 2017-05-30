@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './Subjects.css';
+
 import Link from '../Link/Link';
 
 class Subjects extends React.Component {
@@ -20,11 +23,11 @@ class Subjects extends React.Component {
     return (
       <div>
         <h2>Subjects</h2>
-        <ul>
+        <ul className={s.list}>
           {
             subjects.map(subject => (
-              <li key={subject}>
-                <Link to={`/subject/${subject}`}>{subject || 'No subject'}</Link>
+              <li key={subject} className={s.subject}>
+                <Link className={s.subjectLink} to={`/subject/${subject}`}>{subject || 'No subject'}</Link>
               </li>
               ))
           }
@@ -34,4 +37,4 @@ class Subjects extends React.Component {
   }
 }
 
-export default Subjects;
+export default withStyles(s)(Subjects);

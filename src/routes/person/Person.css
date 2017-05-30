@@ -9,3 +9,9 @@
 .description {
   composes: description from '../../components/common.css';
 }
+
+.mainImage {
+  width: 100%;
+  display: block;
+  height: auto;
+}

@@ -23,7 +23,13 @@ export default {
         subjects,
         creators[] -> {_id, name},
         locations,
-        "references": *[references(^._id)] {_id, _type, title, identifier}
+        "references": *[references(^._id)] {
+          _id,
+          _type,
+          title,
+          identifier,
+          imageAssets[] {asset -> {url}}
+        }
       }
     `;
     const result = await fetch(query, {});

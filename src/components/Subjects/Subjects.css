@@ -1,3 +1,27 @@
-.root {
-  border: 5px solid blue;
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.subject {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  margin-right: 0.5em;
+  line-height: 3em;
+}
+
+.subjectLink {
+  background-color: blue;
+  color: #fff;
+  padding: 0.5em;
+  text-decoration: none;
+
+  @nest &:visited {
+    background-color: purple;
+  }
+
+  @nest &:hover {
+    background-color: black;
+  }
 }

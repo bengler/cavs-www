@@ -19,6 +19,7 @@ export default {
           _id,
           _type,
           title,
+          name,
           description,
           identifier,
           date,

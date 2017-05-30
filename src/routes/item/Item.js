@@ -11,6 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import dateFns from 'date-fns';
+import { get } from 'lodash';
 
 import s from './Item.css';
 import ImageGallery from '../../components/ImageGallery/ImageGallery';
@@ -54,7 +55,14 @@ class Item extends React.Component {
     },
   }
 
-  getYear = date => dateFns.format(new Date(date.date.utc), 'YYYY')
+  getYear = (date) => {
+    const utc = get(date, 'date.utc');
+    if (utc) {
+      return dateFns.format(new Date(utc), 'YYYY');
+    }
+
+    return '';
+  }
 
   render() {
     const { item } = this.props;

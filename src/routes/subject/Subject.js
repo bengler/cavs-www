@@ -11,7 +11,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Subject.css';
-import LinkResolver from '../../components/Link/Resolver';
+import ReferenceList from '../../components/ReferenceList/ReferenceList';
 
 class Subject extends React.Component {
 
@@ -33,13 +33,7 @@ class Subject extends React.Component {
       <div>
         <div className={s.container}>
           <h1 className={s.title}>{subject}</h1>
-          <ul>
-            {
-              items.map(item => (
-                <li key={item._id}><LinkResolver item={item} /></li>
-                ))
-            }
-          </ul>
+          <ReferenceList references={items} />
         </div>
       </div>
     );
