@@ -46,11 +46,16 @@ class Persons extends React.Component {
           {
             references.length && references.map((reference) => {
               const year = get(reference, 'date.date.utc');
+              if (!reference.identifier) {
+                return (
+                  <div key={reference._id}>{reference._type} ({reference._id})</div>
+                );
+              }
               return (
-                <div>
+                <div key={reference.identifier}>
                   <h3>
-                    <Link to={`/item/${reference.identifier}`}>{reference.title}</Link>
-                    {year && year.split('-')[0]}
+                    <Link to={`/item/${reference.identifier}`}>{reference.title || 'Untitled…'}</Link>
+                    {year && year.split('-')[0]} ({reference._type})
                   </h3>
                   {
                     reference.imageAssets

@@ -19,7 +19,7 @@ class Persons extends React.Component {
     persons: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string,
-        references: PropTypes.array,
+        references: PropTypes.number,
       }),
     ).isRequired,
   }
@@ -36,8 +36,8 @@ class Persons extends React.Component {
                 const id = person._id;
                 return (
                   <li key={person._id}>
-                    <Link to={`/person/${id}`}>{person.name}</Link>
-                    <span style={{ fontWeight: '400' }}> {person.references.length}</span>
+                    <Link to={`/person/${id}`}>{person.name || 'No name…'}</Link>
+                    <span style={{ fontWeight: '400' }}> {person.references}</span>
                   </li>
                 );
               })

@@ -8,28 +8,27 @@
  */
 
 import React from 'react';
-import Group from './Group';
+import Subject from './Subject';
 import Layout from '../../components/Layout';
 
 export default {
 
-  path: '/group/:id',
+  path: '/subject/:subject',
 
   async action({ fetch, params }) {
-    const query = `
-      *[_id =="${params.id}"] {
+    const resp = await fetch(`
+      *["${params.subject}" in subjects] {
+        _id,
+        identifier,
+        _type,
         name,
-        description,
-        subjects,
-        creators[] -> {_id, name},
-        locations,
-        "references": *[references(^._id)] {_id, _type, title, identifier}
+        title,
+        imageAssets[] { asset -> {url}}
       }
-    `;
-    const result = await fetch(query, {});
+    `, {});
     return {
-      title: `Group ${result[0].name}`,
-      component: <Layout><Group group={result[0]} /></Layout>,
+      title: params.subject,
+      component: <Layout><Subject items={resp} subject={params.subject} /></Layout>,
     };
   },
 };

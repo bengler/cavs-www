@@ -18,6 +18,8 @@ export default {
   async action({ fetch, params }) {
     const query = `
       *[identifier=="${params.identifier}"] {
+        _id,
+        _type,
         title,
         description,
         identifier,
@@ -26,10 +28,12 @@ export default {
         format,
         rights,
         imageAssets[] {
+          _key,
           asset -> {url}
         },
         partOf[] -> {
           _id,
+          _type,
           name,
           ...
         },
@@ -47,7 +51,7 @@ export default {
       };
     }
     return {
-      title: 'Item',
+      title: result[0].title,
       component: <Layout><Item item={result[0]} /></Layout>,
     };
   },

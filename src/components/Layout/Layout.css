@@ -19,6 +19,10 @@
  * Base styles
  * ========================================================================== */
 
+:global(#mfPreviewBar.normal) {
+  display: none !important;
+}
+
 html {
   color: #222;
   font-weight: 600;

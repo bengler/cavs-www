@@ -20,7 +20,7 @@ export default {
       *[_type=="person"]{
         _id,
         name,
-        "references": *[references(^._id)]
+        "references": count(*[references(^._id)])
       }
       [0..5000]
     `, {});

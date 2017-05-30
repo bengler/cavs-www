@@ -16,6 +16,7 @@ import s from './ImageGallery.css';
 class ImageGallery extends React.Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.shape({
+      _key: PropTypes.string.isRequired,
       asset: PropTypes.shape({
         url: PropTypes.string,
       }),
@@ -37,7 +38,7 @@ class ImageGallery extends React.Component {
           images.map((image) => {
             const url = get(image, 'asset.url');
             return (
-              <img className={s.image} src={`${url}?w=300`} alt="" />
+              <img key={image._key} className={s.image} src={`${url}?w=300`} alt="" />
             );
           })
         }

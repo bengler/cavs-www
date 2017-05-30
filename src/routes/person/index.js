@@ -18,12 +18,15 @@ export default {
   async action({ fetch, params }) {
     const query = `
       *[_id=="${params.id}"] {
-        ...,
+        name,
+        description,
         portraits[] {
           ...,
           asset -> {url}
         },
         "references": *[references(^._id)]{
+          _id,
+          _type,
           title,
           description,
           identifier,
@@ -32,15 +35,15 @@ export default {
           format,
           rights,
           imageAssets[] {
+            _key,
             asset -> {url}
           }
         } | order(date.date.utc asc)
       }
     `;
     const result = await fetch(query, {});
-    console.log('result', result.length);
     return {
-      title: 'Person',
+      title: result[0].name,
       component: <Layout><Person person={result[0]} /></Layout>,
     };
   },

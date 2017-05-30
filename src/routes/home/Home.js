@@ -28,7 +28,7 @@ class Home extends React.Component {
                 events.map((event) => {
                   const startYear = get(event, 'startDate.date.utc');
 
-                  if (startYear && (startYear.split('-')[0] == year)) {
+                  if (startYear && (startYear.split('-')[0] === year)) {
                     return (
                       <div style={{ fontSize: '50px' }}>
                         {event.name}

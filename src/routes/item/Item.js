@@ -64,21 +64,29 @@ class Item extends React.Component {
       partOf = [],
     } = item;
 
+    if (!item) {
+      return <div>Nothing here</div>;
+    }
+
     return (
       <div className={s.root}>
         {
           imageAssets && imageAssets[0]
           && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
         }
-        <h1>{title}</h1>
-        <p>{dateFns.format(new Date(date.date.utc), 'YYYY')}</p>
+        <h1>{title} ({item._type})</h1>
+        {
+          date && (
+            <p>{dateFns.format(new Date(date.date.utc), 'YYYY')}</p>
+          )
+        }
         <p>{description}</p>
         <ImageGallery images={imageAssets} />
         <h2>Creators</h2>
         <ul>
           {
             creators.map(creator => (
-              <li>
+              <li key={creator._id}>
                 <Link to={`/person/${creator._id}`}>{creator.name}</Link>
               </li>
               ))
@@ -89,7 +97,9 @@ class Item extends React.Component {
         <ul>
           {
             subjects.map(subject => (
-              <li>{subject}</li>
+              <li key={subject}>
+                <Link to={`/subject/${subject}`}>{subject}</Link>
+              </li>
               ))
           }
         </ul>
@@ -98,7 +108,7 @@ class Item extends React.Component {
         <ul>
           {
             format.map(formatTitle => (
-              <li>{formatTitle}</li>
+              <li key={formatTitle}>{formatTitle}</li>
               ))
           }
         </ul>
@@ -111,8 +121,8 @@ class Item extends React.Component {
           {
             partOf.map(part => (
               part._id && (
-                <li>
-                  <Link to={`/group/${part._id}`}>{part.name || 'Untitled'}</Link>
+                <li key={part._id}>
+                  <Link to={`/group/${part._id}`}>{part.name || 'Untitled'}</Link> ({part._type})
                 </li>
               )
             ))

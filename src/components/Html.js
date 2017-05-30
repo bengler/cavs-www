@@ -65,6 +65,22 @@ class Html extends React.Component {
           {config.analytics.googleTrackingId &&
             <script src="https://www.google-analytics.com/analytics.js" async defer />
           }
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{ __html:
+              `
+              (function() {
+                var path = '//easy.myfonts.net/v2/js?sid=270903(font-family=Neue+Haas+Unica+Pro+Bold)&sid=270910(font-family=Neue+Haas+Unica+Pro+Medium)&sid=270912(font-family=Neue+Haas+Unica+Pro)&sid=270916(font-family=Neue+Haas+Unica+Pro+Ultra+Light)&key=kI8HouJ5d3',
+                    protocol = ('https:' == document.location.protocol ? 'https:' : 'http:'),
+                    trial = document.createElement('script');
+                trial.type = 'text/javascript';
+                trial.async = true;
+                trial.src = protocol + path;
+                var head = document.getElementsByTagName("head")[0];
+                head.appendChild(trial);
+              })();`,
+            }}
+          />
         </body>
       </html>
     );

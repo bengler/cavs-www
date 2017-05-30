@@ -28,6 +28,10 @@ class Item extends React.Component {
         _id: PropTypes.string,
       })),
       locations: PropTypes.arrayOf(PropTypes.object),
+      references: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+        name: PropTypes.title,
+      })),
     }),
   }
 
@@ -44,6 +48,7 @@ class Item extends React.Component {
       description,
       subjects = [],
       creators = [],
+      references = [],
     } = group;
 
     return (
@@ -55,7 +60,7 @@ class Item extends React.Component {
         <ul>
           {
             subjects.map(subject => (
-              <li>{subject}</li>
+              <li key={subject}><Link to={`/subject/${subject}`}>{subject}</Link></li>
               ))
           }
         </ul>
@@ -64,10 +69,28 @@ class Item extends React.Component {
         <ul>
           {
             creators.map(creator => (
-              <li>
+              <li key={creator._id}>
                 <Link to={`/person/${creator._id}`}>{creator.name}</Link>
               </li>
               ))
+          }
+        </ul>
+
+        <h2>References</h2>
+        <ul>
+          {
+            references.map((item) => {
+              if (item.identifier) {
+                return (
+                  <li key={item.identifier}>
+                    <Link to={`/item/${item.identifier}`}>{item.title}</Link> ({item._type})
+                  </li>
+                );
+              }
+              return (
+                <div>{JSON.stringify(item)}</div>
+              );
+            })
           }
         </ul>
       </div>
