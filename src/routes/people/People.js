@@ -10,7 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Persons.css';
+import s from './People.css';
 import Link from '../../components/Link';
 
 class Persons extends React.Component {

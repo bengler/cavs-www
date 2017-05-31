@@ -1,0 +1,18 @@
+.root {
+  border: 2px solid #000;
+  border-left: 0;
+  border-right: 0;
+  padding: 0.5rem;
+  font-size: 2em;
+}
+
+.list {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: inline-block;
+  margin-right: 1em;
+}

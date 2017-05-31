@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '../Link/Link';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './Creators.css';
 
 class Creators extends React.Component {
   static propTypes = {
@@ -18,12 +20,12 @@ class Creators extends React.Component {
   render() {
     const { creators } = this.props;
     return (
-      <div>
-        <h2>Creators</h2>
-        <ul>
+      <div className={s.root}>
+        {/* <h2>Creators</h2> */}
+        <ul className={s.list}>
           {
             creators.map(creator => (
-              <li key={creator._id}>
+              <li key={creator._id} className={s.item}>
                 <Link to={`/person/${creator._id}`}>{creator.name}</Link>
               </li>
               ))
@@ -34,4 +36,4 @@ class Creators extends React.Component {
   }
 }
 
-export default Creators;
+export default withStyles(s)(Creators);

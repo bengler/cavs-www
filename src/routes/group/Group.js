@@ -28,6 +28,12 @@ class Item extends React.Component {
         name: PropTypes.string,
         _id: PropTypes.string,
       })),
+      extents: PropTypes.shape({
+        depth: PropTypes.number,
+        description: PropTypes.string,
+        height: PropTypes.number,
+        width: PropTypes.number,
+      }),
       locations: PropTypes.arrayOf(PropTypes.object),
       references: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string,
@@ -60,12 +66,14 @@ class Item extends React.Component {
           <h1 className={s.title}>{name} ({_type})</h1>
           <p className={s.description}>{description}</p>
 
-          <ReferenceList references={references} />
-
-          <Subjects subjects={subjects} />
-
           <Creators creators={creators} />
 
+          {
+            // _type === 'work3d' && (<Work3dMeta item={group} />)
+          }
+
+          <ReferenceList references={references} />
+          <Subjects subjects={subjects} />
           <Locations locations={locations} />
 
         </div>

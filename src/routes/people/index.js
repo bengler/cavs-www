@@ -1,10 +1,10 @@
 import React from 'react';
-import Persons from './Persons';
+import People from './People';
 import Layout from '../../components/Layout';
 
 export default {
 
-  path: '/persons',
+  path: '/people',
 
   async action({ fetch }) {
     const resp = await fetch(`
@@ -17,7 +17,7 @@ export default {
     `, {});
     return {
       title: 'React Starter Kit',
-      component: <Layout><Persons persons={resp} /></Layout>,
+      component: <Layout><People persons={resp} /></Layout>,
     };
   },
 };
