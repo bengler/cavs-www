@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -15,6 +6,7 @@ import ReferenceList from '../../components/ReferenceList/ReferenceList';
 import Subjects from '../../components/Subjects/Subjects';
 import Creators from '../../components/Creators/Creators';
 import Locations from '../../components/Locations/Locations';
+import Extents from '../../components/Extents/Extents';
 
 
 class Item extends React.Component {
@@ -69,7 +61,9 @@ class Item extends React.Component {
           <Creators creators={creators} />
 
           {
-            // _type === 'work3d' && (<Work3dMeta item={group} />)
+             (_type === 'work3d' || _type === 'work2d') && (
+               <Extents extents={group.extents} type={group._type} />
+             )
           }
 
           <ReferenceList references={references} />

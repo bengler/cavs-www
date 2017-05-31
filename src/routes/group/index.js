@@ -24,6 +24,7 @@ export default {
         subjects,
         creators[] -> {_id, name},
         locations,
+        extents,
         "references": *[references(^._id)] {
           _id,
           _type,
