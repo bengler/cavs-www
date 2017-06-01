@@ -2,7 +2,6 @@ import React from 'react';
 import { sortBy, last } from 'lodash';
 
 import People from './People';
-
 import Layout from '../../components/Layout';
 
 export default {
