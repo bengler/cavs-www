@@ -16,4 +16,4 @@ RUN chown -R nodejs /srv/cavs-www \
 # Run application
 ENV NODE_ENV=production
 EXPOSE 3000
-CMD ["gosu", "nodejs", "node", "src/server.js"]
+CMD ["gosu", "nodejs", "node", "build/server.js"]
