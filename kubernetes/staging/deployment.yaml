@@ -23,7 +23,7 @@ spec:
         readinessProbe:
           httpGet:
             port: 3000
-            path: /css/main.css
+            path: /robots.txt
           initialDelaySeconds: 2
           timeoutSeconds: 5
         lifecycle:
