@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cavs-www
+  labels:
+    app: cavs-www
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        app: cavs-www
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: eu.gcr.io/sanity-cloud/cavs-www:master
+        imagePullPolicy: Always
+        name: cavs-www
+        ports:
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /css/main.css
+          initialDelaySeconds: 2
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 0.01
+            memory: '64M'
+        lifecycle:
+          preStop:
+            exec:
+              # Hack: wait for kube-proxy to remove endpoint before exiting
+              command: ["sleep", "3"]
