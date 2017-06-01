@@ -20,6 +20,7 @@ import Subjects from '../../components/Subjects/Subjects';
 import Creators from '../../components/Creators/Creators';
 import Formats from '../../components/Formats/Formats';
 import Rights from '../../components/Rights/Rights';
+import ResolveType from '../../components/ResolveType';
 
 class Item extends React.Component {
 
@@ -67,6 +68,7 @@ class Item extends React.Component {
   render() {
     const { item } = this.props;
     const {
+      _type,
       title,
       description,
       date,
@@ -89,7 +91,8 @@ class Item extends React.Component {
           && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
         }
         <div className={s.container}>
-          <h1 className={s.title}>{title} ({item._type}) {this.getYear(date)}</h1>
+          <div className={s.type}>{ResolveType(_type)}</div>
+          <h1 className={s.title}>{title}{this.getYear(date)}</h1>
           <Creators creators={creators} />
           <p className={s.description}>
             {description || 'No description'}
