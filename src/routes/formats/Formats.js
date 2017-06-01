@@ -7,14 +7,17 @@ class Home extends React.Component {
   render() {
     const { formats } = this.props;
     return (
-      <div>
-        {
+      <div className={s.container}>
+        <h1>Formats</h1>
+        <ul>
+          {
           formats.map(format => (
-            <div>
+            <li>
               <Link to={`/format/${format}`}>{format}</Link>
-            </div>
+            </li>
             ))
         }
+        </ul>
       </div>
     );
   }

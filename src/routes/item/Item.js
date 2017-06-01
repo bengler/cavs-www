@@ -88,14 +88,13 @@ class Item extends React.Component {
           imageAssets && imageAssets[0]
           && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
         }
-
         <div className={s.container}>
           <h1 className={s.title}>{title} ({item._type}) {this.getYear(date)}</h1>
+          <Creators creators={creators} />
           <p className={s.description}>
             {description || 'No description'}
           </p>
           <ImageGallery images={imageAssets} />
-          <Creators creators={creators} />
           <Subjects subjects={subjects} />
           <Formats formats={format} />
           <Rights rights={rights} />

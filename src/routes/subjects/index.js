@@ -15,7 +15,7 @@ export default {
 
     return {
       title: 'React Starter Kit',
-      component: <Layout><Subjects formats={union(flattenDeep(subjects))} /></Layout>,
+      component: <Layout><Subjects subjects={union(flattenDeep(subjects))} /></Layout>,
     };
   },
 

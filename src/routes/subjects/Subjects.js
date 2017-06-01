@@ -8,14 +8,16 @@ class Subjects extends React.Component {
   render() {
     const { subjects } = this.props;
     return (
-      <div>
-        {
-          subjects.map(subject => (
-            <div>
-              <Link to={`/subject/${subject}`}>{subject}</Link>
-            </div>
-            ))
-        }
+      <div className={s.container}>
+        <ul>
+          {
+            subjects.map(subject => (
+              <li>
+                <Link to={`/subject/${subject}`}>{subject}</Link>
+              </li>
+              ))
+          }
+        </ul>
       </div>
     );
   }
