@@ -13,6 +13,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './People.css';
 import Link from '../../components/Link';
 
+
 class Persons extends React.Component {
 
   static propTypes = {
