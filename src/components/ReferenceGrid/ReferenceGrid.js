@@ -35,7 +35,7 @@ class ReferencesGrid extends React.Component {
                 }
                 <h3>
                   <LinkResolver item={reference} />
-                  {year && year.split('-')[0]} ({ResolveType(reference._type)})
+                  {year && year.split('-')[0]} (<ResolveType type={reference._type} />)
                 </h3>
 
               </div>

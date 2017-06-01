@@ -7,7 +7,7 @@ import Subjects from '../../components/Subjects/Subjects';
 import Creators from '../../components/Creators/Creators';
 import Locations from '../../components/Locations/Locations';
 import Extents from '../../components/Extents/Extents';
-
+import ResolveType from '../../components/ResolveType';
 
 class Item extends React.Component {
 
@@ -55,7 +55,8 @@ class Item extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1 className={s.title}>{name} ({_type})</h1>
+          <div className={s.type}><ResolveType type={_type} /></div>
+          <h1 className={s.title}>{name}</h1>
           <p className={s.description}>{description}</p>
 
           <Creators creators={creators} />
@@ -66,6 +67,7 @@ class Item extends React.Component {
              )
           }
 
+          <h2>Documentation</h2>
           <ReferenceList references={references} />
           <Subjects subjects={subjects} />
           <Locations locations={locations} />

@@ -1,0 +1,11 @@
+.list {
+  composes: list from '../Subjects/Subjects.css';
+}
+
+.item {
+  composes: item from '../Subjects/Subjects.css';
+}
+
+.link {
+  composes: link from '../Subjects/Subjects.css';
+}

@@ -45,6 +45,7 @@ class Item extends React.Component {
         PropTypes.shape({
           name: PropTypes.string,
           _id: PropTypes.string,
+          imageAssets: PropTypes.array,
         }),
       ),
     }),
@@ -91,17 +92,17 @@ class Item extends React.Component {
           && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
         }
         <div className={s.container}>
-          <div className={s.type}>{ResolveType(_type)}</div>
+          <div className={s.type}><ResolveType type={_type} /></div>
           <h1 className={s.title}>{title}{this.getYear(date)}</h1>
           <Creators creators={creators} />
           <p className={s.description}>
             {description || 'No description'}
           </p>
           <ImageGallery images={imageAssets} />
+          <PartOf partOf={partOf} />
           <Subjects subjects={subjects} />
           <Formats formats={format} />
           <Rights rights={rights} />
-          <PartOf partOf={partOf} />
         </div>
       </div>
     );

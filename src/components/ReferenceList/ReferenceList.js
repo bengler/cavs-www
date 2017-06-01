@@ -21,7 +21,6 @@ class References extends React.Component {
     const { references } = this.props;
     return (
       <div>
-        <h2>References</h2>
         {
           references.map((reference) => {
             const year = get(reference, 'date.date.utc');
@@ -29,7 +28,7 @@ class References extends React.Component {
               <div key={reference._id}>
                 <h3>
                   <LinkResolver item={reference} />
-                  {year && year.split('-')[0]} ({ResolveType(reference._type)})
+                  {year && year.split('-')[0]} (<ResolveType type={reference._type} />)
                 </h3>
                 {
                   reference.imageAssets

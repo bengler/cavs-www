@@ -3,7 +3,7 @@
 }
 
 .title {
-  composes: title from '../../components/common.css';
+  composes: title from '../item/Item.css';
 }
 
 .container {
@@ -12,4 +12,8 @@
 
 .description {
   composes: description from '../../components/common.css';
+}
+
+.type {
+  composes: type from '../item/Item.css';
 }

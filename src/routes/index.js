@@ -25,6 +25,7 @@ export default {
     require('./subjects').default,
     require('./format').default,
     require('./formats').default,
+    require('./type').default,
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
   ],
