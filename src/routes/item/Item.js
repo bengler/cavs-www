@@ -98,7 +98,7 @@ class Item extends React.Component {
           <p className={s.description}>
             {description || 'No description'}
           </p>
-          <ImageGallery images={imageAssets} />
+          <ImageGallery images={imageAssets} excludeFirst />
           <PartOf partOf={partOf} />
           <Subjects subjects={subjects} />
           <Formats formats={format} />

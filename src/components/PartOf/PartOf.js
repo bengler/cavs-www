@@ -32,16 +32,25 @@ class PartOf extends React.Component {
         <ul>
           {
             partOf.map((part) => { // eslint-disable-line
-              const imageUrl = part.references.map(reference =>
-                 findLast(reference.imageAssets, asset => asset.asset.url).asset.url)[0];
+              const image = part.references && part.references.length && part.references.map((reference) => {
+                if (reference.imageAssets && reference.imageAssets.length) {
+                  return findLast(reference.imageAssets, (asset) => {
+                    if (asset && asset.asset && asset.asset.url) {
+                      return asset.asset.url;
+                    }
+                    return false;
+                  });
+                }
+              })[0];
 
+              console.log('imageUrl', image);
 
               if (part._id) {
                 return (
                   <li key={part._id}>
                     {
-                      imageUrl && (
-                        <img src={`${imageUrl}?w=100`} alt={part.name || part.title} />
+                      image && image.asset && image.asset.url && (
+                        <img src={`${image.asset.url}?w=100`} alt={part.name || part.title} />
                       )
                     }
                     <LinkResolver item={part} /> (<ResolveType type={part._type} />)
