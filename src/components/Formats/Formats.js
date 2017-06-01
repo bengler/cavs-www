@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from '../Link/Link';
 
 class Formats extends React.Component {
   static propTypes = {
@@ -18,8 +19,10 @@ class Formats extends React.Component {
         <ul>
           {
             formats.map(formatTitle => (
-              <li key={formatTitle}>{formatTitle}</li>
-              ))
+              <li key={formatTitle}>
+                <Link to={`/format/${formatTitle}`}>{formatTitle}</Link>
+              </li>
+            ))
           }
         </ul>
       </div>

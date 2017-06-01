@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import LinkResolver from '../Link/Resolver';
 import ImageGallery from '../ImageGallery/ImageGallery';
+import ResolveType from '../ResolveType';
 
 class References extends React.Component {
   static propTypes = {
@@ -28,7 +29,7 @@ class References extends React.Component {
               <div key={reference._id}>
                 <h3>
                   <LinkResolver item={reference} />
-                  {year && year.split('-')[0]} ({reference._type})
+                  {year && year.split('-')[0]} ({ResolveType(reference._type)})
                 </h3>
                 {
                   reference.imageAssets

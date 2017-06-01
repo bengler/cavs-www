@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Subject.css';
+import s from './Format.css';
 import ReferenceList from '../../components/ReferenceList/ReferenceList';
 
-class Subject extends React.Component {
+class Format extends React.Component {
 
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       title: PropTypes.string,
     })),
-    subject: PropTypes.string.isRequired,
+    format: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -19,11 +19,11 @@ class Subject extends React.Component {
   }
 
   render() {
-    const { items, subject } = this.props;
+    const { items, format } = this.props;
     return (
       <div>
         <div className={s.container}>
-          <h1 className={s.title}>{subject}</h1>
+          <h1 className={s.title}>{format}</h1>
           <ReferenceList references={items} />
         </div>
       </div>
@@ -31,4 +31,4 @@ class Subject extends React.Component {
   }
 }
 
-export default withStyles(s)(Subject);
+export default withStyles(s)(Format);

@@ -1,12 +1,3 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import Home from './Home';
 import Layout from '../../components/Layout';
@@ -17,15 +8,41 @@ export default {
 
   async action({ fetch }) {
     const query = `
-      *[_type=="event"] {
-        name,
-        startDate
+    *[
+        _type == "building" ||
+        _type == "event" ||
+        _type == "exhibition" ||
+        _type == "institution" ||
+        _type == "multipleInstallation" ||
+        _type == "multipleTimebased" ||
+        _type == "work2d" ||
+        _type == "work3d" ||
+        _type == "workTimebased" ||
+        _type == "audioRecording" ||
+        _type == "correspondence" ||
+        _type == "document" ||
+        _type == "ephemera" ||
+        _type == "eResource" ||
+        _type == "floorplan" ||
+        _type == "movingImage" ||
+        _type == "newsClipping" ||
+        _type == "poster" ||
+        _type == "publication" ||
+        _type == "stillImage"
+      ] {
+        _type,
+        _id,
+        _createdAt,
+        identifier,
+        title,
+        date,
+        name
       }
     `;
-    const events = await fetch(query, {});
+    const items = await fetch(query, {});
     return {
       title: 'React Starter Kit',
-      component: <Layout><Home events={events} /></Layout>,
+      component: <Layout><Home items={items} /></Layout>,
     };
   },
 
