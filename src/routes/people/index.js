@@ -1,5 +1,8 @@
 import React from 'react';
+import { sortBy, last } from 'lodash';
+
 import People from './People';
+
 import Layout from '../../components/Layout';
 
 export default {
@@ -15,9 +18,17 @@ export default {
       }
       [0..5000]
     `, {});
+
+    const people = sortBy(resp, (person) => {
+      if (person.name) {
+        return last(person.name.split(' '));
+      }
+      return false;
+    });
+
     return {
       title: 'React Starter Kit',
-      component: <Layout><People persons={resp} /></Layout>,
+      component: <Layout><People people={people} /></Layout>,
     };
   },
 };
