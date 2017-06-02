@@ -30,13 +30,15 @@ class ReferencesGrid extends React.Component {
             return (
               <div key={reference._id} className={s.item}>
                 <h3>
-                  <LinkResolver item={reference}>
-                    {
-                      reference.imageAssets
-                      && reference.imageAssets.length
-                      && <ImageGallery images={reference.imageAssets} />
-                    }
-                  </LinkResolver>
+                  {
+                    reference.imageAssets
+                    && reference.imageAssets.length
+                    && (
+                      <LinkResolver item={reference}>
+                        <ImageGallery images={reference.imageAssets} />
+                      </LinkResolver>
+                    )
+                  }
 
                   <div className={`${reference.imageAssets && reference.imageAssets.length ? s.itemTitle : s.itemTitleLarge}`}>
                     <LinkResolver item={reference}>
