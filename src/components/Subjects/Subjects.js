@@ -22,7 +22,11 @@ class Subjects extends React.Component {
     const { subjects } = this.props;
     return (
       <div>
-        <h2>Subjects</h2>
+        {
+          subjects && subjects.length > 0 && (
+            <h2>Subjects</h2>
+          )
+        }
         <ul className={s.list}>
           {
             subjects.map(subject => (

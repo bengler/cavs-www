@@ -1,7 +1,22 @@
 .title {
   composes: title from '../../components/common.css';
+  display: none;
 }
 
 .container {
   composes: container from '../../components/common.css';
+}
+
+.list {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: inline-block;
+  margin-right: 1em;
+  font-size: 2.5rem;
+  line-height: 1.5em;
 }

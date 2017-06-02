@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Person.css';
 import ImageGallery from '../../components/ImageGallery/ImageGallery';
-import ReferenceList from '../../components/ReferenceList/ReferenceList';
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
 
 class Persons extends React.Component {
 
@@ -35,9 +35,9 @@ class Persons extends React.Component {
           <p className={s.description}>{shortBio}</p>
 
           <ImageGallery images={portraits} excludeFirst />
-          <ReferenceList references={references} />
 
         </div>
+        <ReferenceGrid references={references} />
       </div>
     );
   }

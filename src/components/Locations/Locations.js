@@ -98,7 +98,6 @@ class Locations extends React.Component {
     }
     return (
       <div className={s.root}>
-        <h2>Locations</h2>
         <div className={s.popup} ref={this.setPopupElement}>Popup</div>
         <div className={s.mapContainer} ref={this.setMapElement} />
         <ul className={s.list}>

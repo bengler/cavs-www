@@ -41,6 +41,7 @@ a {
 
 .content {
   margin-top: 5rem;
+  min-height: 100vh;
 }
 
 /*

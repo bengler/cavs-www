@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import LinkResolver from '../Link/Resolver';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import ResolveType from '../ResolveType';
@@ -28,16 +29,21 @@ class ReferencesGrid extends React.Component {
             const year = get(reference, 'date.date.utc');
             return (
               <div key={reference._id} className={s.item}>
-                <LinkResolver item={reference}>
-                  {
-                    reference.imageAssets
-                    && reference.imageAssets.length
-                    && <ImageGallery images={reference.imageAssets} />
-                  }
-                </LinkResolver>
                 <h3>
-                  <LinkResolver item={reference} />
-                  {year && year.split('-')[0]} (<ResolveType type={reference._type} />)
+                  <LinkResolver item={reference}>
+                    {
+                      reference.imageAssets
+                      && reference.imageAssets.length
+                      && <ImageGallery images={reference.imageAssets} />
+                    }
+                  </LinkResolver>
+
+                  <div className={`${reference.imageAssets && reference.imageAssets.length ? s.itemTitle : s.itemTitleLarge}`}>
+                    <LinkResolver item={reference}>
+                      {reference.title || reference.name}, {year && year.split('-')[0]}
+                    </LinkResolver>&nbsp;
+                    <span className={s.reference}>(<ResolveType type={reference._type} />)</span>
+                  </div>
                 </h3>
 
               </div>
@@ -49,4 +55,4 @@ class ReferencesGrid extends React.Component {
   }
 }
 
-export default ReferencesGrid;
+export default withStyles(s)(ReferencesGrid);

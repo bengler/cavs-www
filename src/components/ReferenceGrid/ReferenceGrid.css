@@ -4,6 +4,28 @@
 }
 
 .item {
-  border: 2px solid #000;
+  border-top: 3px solid #000;
   padding: 1rem;
+  width: 32.333333%;
+  box-sizing: border-box;
+  margin-right: 1%;
+}
+
+.itemTitle {
+  margin-top: 1rem;
+}
+
+.reference {
+  font-size: 1em;
+
+  @nest .itemTitleLarge & {
+    display: block;
+    font-size: 1rem;
+  }
+}
+
+.itemTitleLarge {
+  composes: itemTitle;
+  font-size: 2rem;
+  line-height: 1em;
 }

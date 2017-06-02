@@ -12,17 +12,20 @@
 }
 
 .link {
-  background-color: blue;
-  color: #fff;
+  border: 3px solid #000;
+  border-color: blue;
+  color: blue;
   padding: 0.5em;
   text-decoration: none;
   letter-spacing: 0.05em;
 
   @nest &:visited {
-    background-color: purple;
+    border-color: purple;
+    color: purple;
   }
 
   @nest &:hover {
-    background-color: black;
+    border-color: black;
+    color: black;
   }
 }

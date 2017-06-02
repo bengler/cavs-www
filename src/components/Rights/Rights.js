@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
+import s from './Rights.css';
 
 class Rights extends React.Component {
   static propTypes = {
@@ -17,25 +20,22 @@ class Rights extends React.Component {
     const { rights } = this.props;
     return (
       <div>
-        <h2>Rights</h2>
-
-
         {
           rights.holdingInstitution && (
-            <div>
-              <h3>Holding Institution</h3>
-              <p>{rights.holdingInstitution}</p>
-            </div>
+            <h2>Holding Institution: {rights.holdingInstitution}</h2>
           )
         }
 
         {
           rights.copyrightHolders && rights.copyrightHolders.length && (
             <div>
-              <h3>Copyright Holders</h3>
-              {
-                rights.copyrightHolders.map(holder => <li key={holder}>{holder}</li>)
-              }
+              <h2>
+                Copyright Holders:&nbsp;
+                {
+                  rights.copyrightHolders.map(holder => <span key={holder} className={s.item}>{holder}</span>)
+                }
+              </h2>
+
             </div>
           )
         }

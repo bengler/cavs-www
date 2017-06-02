@@ -1,0 +1,9 @@
+.list {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.item {
+  display: block;
+}

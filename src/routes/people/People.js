@@ -21,13 +21,13 @@ class Persons extends React.Component {
       <div>
         <div className={s.container}>
           <h1 className={s.title}>People</h1>
-          <ul>
+          <ul className={s.list}>
             {
               people && people.length && people.map((person) => {
                 const id = person._id;
                 return (
-                  <li key={person._id}>
-                    <Link to={`/person/${id}`}>{person.name || 'No name…'}</Link>
+                  <li key={person._id} className={s.item}>
+                    <Link className={s.link} to={`/person/${id}`}>{person.name || 'No name…'}</Link>
                     <span style={{ fontWeight: '400' }}> {person.references}</span>
                   </li>
                 );

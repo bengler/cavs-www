@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findLast } from 'lodash';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import LinkResolver from '../Link/Resolver';
 import ResolveType from '../ResolveType';
+
+
+import s from './PartOf.css';
 
 class PartOf extends React.Component {
   static propTypes = {
@@ -21,54 +25,60 @@ class PartOf extends React.Component {
     onClick: null,
   };
 
+  renderParts() {
+    const { partOf } = this.props;
+    const parts = partOf.map((part) => { // eslint-disable-line
+      const image = part.references
+        && part.references.length
+        && part.references.map((reference) => {
+          if (reference.imageAssets && reference.imageAssets.length) {
+            return findLast(reference.imageAssets, (asset) => {
+              if (asset && asset.asset && asset.asset.url) {
+                return asset.asset.url;
+              }
+              return false;
+            });
+          }
+          return false;
+        },
+      )[0];
+      if (part._id) {
+        return (
+          <span key={part._id} className={s.part}>
+            {
+              image && image.asset && image.asset.url && (
+                <img className={s.image} src={`${image.asset.url}?w=100`} alt={part.name || part.title} />
+              )
+            }
+            <LinkResolver item={part} /> (<ResolveType type={part._type} />)
+          </span>
+        );
+      }
+    });
+
+    return parts;
+  }
+
   render() {
     const { partOf } = this.props;
 
     if (!partOf.length) {
       return (
-        <div>part of Nothing</div>
+        <div />
       );
     }
 
     return (
       <div>
-        <h2>Part of</h2>
-        <ul>
-          {
-            partOf.map((part) => { // eslint-disable-line
-              const image = part.references
-                && part.references.length
-                && part.references.map((reference) => {
-                  if (reference.imageAssets && reference.imageAssets.length) {
-                    return findLast(reference.imageAssets, (asset) => {
-                      if (asset && asset.asset && asset.asset.url) {
-                        return asset.asset.url;
-                      }
-                      return false;
-                    });
-                  }
-                  return false;
-                },
-              )[0];
+        {
+          partOf && partOf.length > 0 && (
+            <h2>Part of: {this.renderParts()}</h2>
+          )
+        }
 
-              if (part._id) {
-                return (
-                  <li key={part._id}>
-                    {
-                      image && image.asset && image.asset.url && (
-                        <img src={`${image.asset.url}?w=100`} alt={part.name || part.title} />
-                      )
-                    }
-                    <LinkResolver item={part} /> (<ResolveType type={part._type} />)
-                  </li>
-                );
-              }
-            })
-          }
-        </ul>
       </div>
     );
   }
 }
 
-export default PartOf;
+export default withStyles(s)(PartOf);

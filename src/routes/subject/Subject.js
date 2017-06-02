@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Subject.css';
-import ReferenceList from '../../components/ReferenceList/ReferenceList';
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
 
 class Subject extends React.Component {
 
@@ -24,7 +24,7 @@ class Subject extends React.Component {
       <div>
         <div className={s.container}>
           <h1 className={s.title}>{subject}</h1>
-          <ReferenceList references={items} />
+          <ReferenceGrid references={items} />
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 .root {
   display: block;
+  margin-bottom: 2rem;
 }
 
 .mainImage {
@@ -10,6 +11,7 @@
 
 .type {
   text-transform: uppercase;
+  margin-bottom: 0.5em;
 }
 
 .title {

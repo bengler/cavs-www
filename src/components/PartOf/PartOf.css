@@ -1,3 +1,13 @@
 .root {
-  border: 1px solid red;
+  display: block;
+}
+
+.part {
+  display: inline;
+}
+
+.image {
+  display: none;
+  height: 1em;
+  width: auto;
 }

@@ -21,11 +21,9 @@ class Format extends React.Component {
   render() {
     const { items, format } = this.props;
     return (
-      <div>
-        <div className={s.container}>
-          <h1 className={s.title}>{format}</h1>
-          <ReferenceList references={items} />
-        </div>
+      <div className={s.container}>
+        <h1 className={s.title}>{format}</h1>
+        <ReferenceList references={items} />
       </div>
     );
   }

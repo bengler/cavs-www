@@ -3,9 +3,9 @@
 }
 
 .item {
-  composes: item from '../Subjects/Subjects.css';
+  display: inline-block;
 }
 
 .link {
-  composes: link from '../Subjects/Subjects.css';
+  display: inline-block;
 }
