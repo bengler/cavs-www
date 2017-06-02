@@ -14,8 +14,10 @@
   composes: item from '../../components/Subjects/Subjects.css';
   display: block;
   float: left;
+  margin-left: 0;
 }
 
 .link {
   composes: link from '../../components/Subjects/Subjects.css';
+  margin-left: 0 !important;
 }
