@@ -21,15 +21,20 @@ class Subjects extends React.Component {
   render() {
     const { subjects } = this.props;
     return (
-      <div>
+      <div className={s.root}>
         {
           subjects && subjects.length > 0 && (
             <h2>
               Subjects
               {
-                subjects.map(subject => (
-                  <Link key={subject} className={s.link} to={`/subject/${subject}`}>{subject || 'No subject'}</Link>
-                  ))
+                subjects.map((subject) => {
+                  if (subject) {
+                    return (
+                      <Link key={subject} className={s.link} to={`/subject/${subject}`}>{subject || 'No subject'}</Link>
+                    );
+                  }
+                  return <span />;
+                })
               }
             </h2>
           )

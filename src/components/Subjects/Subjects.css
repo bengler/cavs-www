@@ -1,3 +1,7 @@
+.root {
+  clear: both;
+}
+
 .link {
   display: inline-block;
   font-size: 1rem;

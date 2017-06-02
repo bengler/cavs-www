@@ -20,11 +20,16 @@ class Subjects extends React.Component {
       <div className={s.container}>
         <ul className={s.list}>
           {
-            subjects.map(subject => (
-              <li className={s.item} key={subject}>
-                <Link className={s.link} to={`/subject/${subject}`}>{subject}</Link>
-              </li>
-              ))
+            subjects.map((subject) => {
+              if (subject) {
+                return (
+                  <li className={s.item} key={subject}>
+                    <Link className={s.link} to={`/subject/${subject}`}>{subject}</Link>
+                  </li>
+                );
+              }
+              return false;
+            })
           }
         </ul>
       </div>

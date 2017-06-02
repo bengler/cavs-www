@@ -1,11 +1,13 @@
 .container {
   composes: container from '../../components/common.css';
+  clear: both;
 }
 
 .list {
   margin: 0;
   display: block;
   padding: 0;
+  clear: both;
 }
 
 .item {
