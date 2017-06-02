@@ -55,7 +55,6 @@ class Item extends React.Component {
       locations = [],
     } = group;
 
-    console.log('date', group.date);
 
     const year = get(group, 'date.date.utc');
 

@@ -24,7 +24,9 @@
 }
 
 .reference {
-  font-size: 1em;
+  display: block;
+  font-size: 0.6em;
+  text-transform: uppercase;
 
   @nest .itemTitleLarge & {
     display: block;

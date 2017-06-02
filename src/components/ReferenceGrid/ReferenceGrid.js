@@ -41,13 +41,13 @@ class ReferencesGrid extends React.Component {
                   }
 
                   <div className={`${reference.imageAssets && reference.imageAssets.length ? s.itemTitle : s.itemTitleLarge}`}>
+                    <span className={s.reference}><ResolveType type={reference._type} /></span>
                     <LinkResolver item={reference}>
                       {reference.title || reference.name}
                       {year && (
                         <span>, {year.split('-')[0]}</span>
                       )}
                     </LinkResolver>&nbsp;
-                    <span className={s.reference}>(<ResolveType type={reference._type} />)</span>
                   </div>
                 </h3>
 
