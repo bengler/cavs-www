@@ -20,7 +20,7 @@ class Home extends React.Component {
         <ul className={s.list}>
           {
           formats.map(format => (
-            <li className={s.item}>
+            <li className={s.item} key={format}>
               <Link className={s.link} to={`/format/${format}`}>{format}</Link>
             </li>
             ))

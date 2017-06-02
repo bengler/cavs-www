@@ -3,11 +3,15 @@
 }
 
 .list {
-  composes: list from '../../components/Subjects/Subjects.css';
+  margin: 0;
+  display: block;
+  padding: 0;
 }
 
 .item {
   composes: item from '../../components/Subjects/Subjects.css';
+  display: block;
+  float: left;
 }
 
 .link {

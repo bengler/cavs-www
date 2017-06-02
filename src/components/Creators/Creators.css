@@ -9,7 +9,7 @@
 }
 
 .item {
-  display: inline-block;
+  display: inline;
 
   @nest &:not(:first-child):before {
     content: ',';

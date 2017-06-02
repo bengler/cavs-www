@@ -6,8 +6,12 @@
 }
 
 .container {
-  max-width: var(--max-content-width);
-  margin: 0 auto;
+  margin: 0 1rem;
+
+  @media (--screen-lg-min) {
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+  }
 }
 
 .description {
