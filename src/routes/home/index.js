@@ -40,6 +40,13 @@ export default {
         imageAssets[] {
           _key,
           asset -> {url}
+        },
+        "references": *[references(^._id)]{
+          _id,
+          imageAssets[] {
+            _key,
+            asset -> {url}
+          }
         }
       } | order(_createdAt desc) [0..20]
     `;

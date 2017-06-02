@@ -33,7 +33,7 @@ class ReferencesGrid extends React.Component {
 
             if (reference.imageAssets && reference.imageAssets.length > 0) {
               imageAssets = reference.imageAssets;
-            } else {
+            } else if (reference.references && reference.references.length > 0) {
               reference.references.forEach((ref) => {
                 if (ref.imageAssets && ref.imageAssets.length > 0) {
                   imageAssets = ref.imageAssets;
@@ -47,9 +47,7 @@ class ReferencesGrid extends React.Component {
               <div key={reference._id} className={s.item}>
                 <h3>
                   {
-                    imageAssets
-                    && imageAssets.length
-                    && (
+                    imageAssets && imageAssets.length > 0 && (
                       <LinkResolver item={reference}>
                         <ImageGallery images={imageAssets} />
                       </LinkResolver>
