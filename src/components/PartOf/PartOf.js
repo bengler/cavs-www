@@ -43,8 +43,6 @@ class PartOf extends React.Component {
                 }
               })[0];
 
-              console.log('imageUrl', image);
-
               if (part._id) {
                 return (
                   <li key={part._id}>

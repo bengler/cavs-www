@@ -37,11 +37,8 @@ class Extents extends React.Component {
       );
     }
 
-    return (
-      <div>
-        Bothing
-      </div>
-    );
+
+    return <div />;
   }
 }
 

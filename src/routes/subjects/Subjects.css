@@ -1,3 +1,15 @@
 .container {
   composes: container from '../../components/common.css';
 }
+
+.list {
+  composes: list from '../../components/Subjects/Subjects.css';
+}
+
+.item {
+  composes: item from '../../components/Subjects/Subjects.css';
+}
+
+.link {
+  composes: link from '../../components/Subjects/Subjects.css';
+}

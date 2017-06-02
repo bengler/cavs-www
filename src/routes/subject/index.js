@@ -14,7 +14,10 @@ export default {
         _type,
         name,
         title,
-        imageAssets[] { asset -> {url}}
+        imageAssets[] {
+          _key,
+          asset -> {url}
+        }
       }
     `, {});
     return {

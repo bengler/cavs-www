@@ -37,7 +37,10 @@ export default {
         title,
         date,
         name,
-        imageAssets[] {asset -> {url}}
+        imageAssets[] {
+          _key,
+          asset -> {url}
+        }
       } | order(_createdAt desc) [0..20]
     `;
     const items = await fetch(query, {});

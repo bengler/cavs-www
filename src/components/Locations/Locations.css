@@ -1,0 +1,21 @@
+.root {
+  border: 5px solid magenta;
+}
+
+.map {
+  position: relative;
+  border: 10px solid red;
+  overflow: hidden;
+  box-sizing: border-box;
+  clear: both;
+  width: 100%;
+  height: 100vh;
+}
+
+.leaflet {
+  border: 1px solid green;
+}
+
+.popup {
+  border: 1px solid blue;
+}

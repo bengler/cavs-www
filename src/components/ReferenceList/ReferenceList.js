@@ -28,7 +28,8 @@ class References extends React.Component {
               <div key={reference._id}>
                 <h3>
                   <LinkResolver item={reference} />
-                  {year && year.split('-')[0]} (<ResolveType type={reference._type} />)
+                  &nbsp;{year && year.split('-')[0]}
+                  {/* (<ResolveType type={reference._type} />) */}
                 </h3>
                 {
                   reference.imageAssets
