@@ -28,7 +28,7 @@ class Subjects extends React.Component {
               Subjects
               {
                 subjects.map(subject => (
-                  <Link className={s.link} to={`/subject/${subject}`}>{subject || 'No subject'}</Link>
+                  <Link key={subject} className={s.link} to={`/subject/${subject}`}>{subject || 'No subject'}</Link>
                   ))
               }
             </h2>

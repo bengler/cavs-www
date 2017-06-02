@@ -15,6 +15,7 @@ export default {
         description,
         identifier,
         date,
+        videoUrl,
         subjects,
         format,
         rights,

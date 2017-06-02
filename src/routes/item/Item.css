@@ -27,3 +27,12 @@
 .description {
   composes: description from '../../components/common.css';
 }
+
+.video {
+  width: 100%;
+
+  @nest & iframe {
+    width: 100%;
+    height: calc((100vw - 2rem) / (1280 / 720));
+  }
+}

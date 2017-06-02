@@ -1,18 +1,9 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import dateFns from 'date-fns';
 import { get } from 'lodash';
-
+import embed from 'embed-video';
 import s from './Item.css';
 import ImageGallery from '../../components/ImageGallery/ImageGallery';
 import PartOf from '../../components/PartOf/PartOf';
@@ -21,6 +12,7 @@ import Creators from '../../components/Creators/Creators';
 import Formats from '../../components/Formats/Formats';
 import Rights from '../../components/Rights/Rights';
 import ResolveType from '../../components/ResolveType';
+
 
 class Item extends React.Component {
 
@@ -41,6 +33,7 @@ class Item extends React.Component {
       }),
       imageAssets: PropTypes.array,
       creators: PropTypes.array,
+      videoUrl: PropTypes.string,
       partOf: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string,
@@ -79,6 +72,7 @@ class Item extends React.Component {
       creators = [],
       subjects = [],
       partOf = [],
+      videoUrl,
     } = item;
 
     if (!item) {
@@ -100,6 +94,16 @@ class Item extends React.Component {
           <p className={s.description}>
             {description || 'No description'}
           </p>
+          {
+            _type === 'movingImage' && videoUrl && (
+              <div
+                className={s.video}
+                dangerouslySetInnerHTML={{
+                  __html: embed(videoUrl, { image: 'thumbnail_large' }),
+                }}
+              />
+            )
+          }
           <ImageGallery images={imageAssets} excludeFirst />
           <PartOf partOf={partOf} />
           <Subjects subjects={subjects} />

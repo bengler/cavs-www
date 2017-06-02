@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { get } from 'lodash';
+
 import s from './Group.css';
 import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
 import Subjects from '../../components/Subjects/Subjects';
@@ -8,6 +10,7 @@ import Creators from '../../components/Creators/Creators';
 import Locations from '../../components/Locations/Locations';
 import Extents from '../../components/Extents/Extents';
 import ResolveType from '../../components/ResolveType';
+
 
 class Item extends React.Component {
 
@@ -52,11 +55,20 @@ class Item extends React.Component {
       locations = [],
     } = group;
 
+    console.log('date', group.date);
+
+    const year = get(group, 'date.date.utc');
+
     return (
       <div className={s.root}>
         <div className={s.container}>
           <div className={s.type}><ResolveType type={_type} /></div>
-          <h1 className={s.title}>{name}</h1>
+          <h1 className={s.title}>
+            {name}
+            {year && (
+              <span>, {year.split('-')[0]}</span>
+            )}
+          </h1>
           <p className={s.description}>{description}</p>
 
           <Creators creators={creators} />
