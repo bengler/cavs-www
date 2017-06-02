@@ -21,7 +21,7 @@ class Subjects extends React.Component {
         <ul className={s.list}>
           {
             subjects.map(subject => (
-              <li className={s.item}>
+              <li className={s.item} key={subject}>
                 <Link className={s.link} to={`/subject/${subject}`}>{subject}</Link>
               </li>
               ))

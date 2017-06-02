@@ -93,7 +93,9 @@ class Item extends React.Component {
         }
         <div className={s.container}>
           <div className={s.type}><ResolveType type={_type} /></div>
-          <h1 className={s.title}>{title}{this.getYear(date)}</h1>
+          <h1 className={s.title}>
+            {title}, {this.getYear(date)}
+          </h1>
           <Creators creators={creators} />
           <p className={s.description}>
             {description || 'No description'}

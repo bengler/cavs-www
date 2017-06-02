@@ -20,7 +20,7 @@ class Persons extends React.Component {
     return (
       <div>
         <div className={s.container}>
-          <h1 className={s.title}>Persons</h1>
+          <h1 className={s.title}>People</h1>
           <ul>
             {
               people && people.length && people.map((person) => {

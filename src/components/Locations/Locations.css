@@ -2,7 +2,7 @@
   border: 5px solid magenta;
 }
 
-.map {
+.mapContainer {
   position: relative;
   border: 10px solid red;
   overflow: hidden;
@@ -12,10 +12,18 @@
   height: 100vh;
 }
 
-.leaflet {
-  border: 1px solid green;
-}
-
 .popup {
   border: 1px solid blue;
+}
+
+.list {
+  border: 1px solid blue;
+}
+
+.item {
+  border: 1px solid red;
+}
+
+.mapLink {
+  border: 1px solid magenta;
 }

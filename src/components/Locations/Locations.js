@@ -1,9 +1,7 @@
-
 /* global L */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-
 import s from './Locations.css';
 
 class Locations extends React.Component {
@@ -25,24 +23,24 @@ class Locations extends React.Component {
     locations: [],
   }
 
-  componentDidMount() {
-    // const { locations } = this.props;
-    // require('mapbox.js');
-    // if (locations.length) {
-    //   L.mapbox.accessToken = 'pk.eyJ1IjoiZXZlbndlc3R2YW5nIiwiYSI6ImFBYWt4blUifQ.QwErrY0yQBcC9ST5UWp4Rg';
-    //
-    //   this.map = L.mapbox.map(findDOMNode(this._mapElement), 'evenwestvang.792b3ceb', { attributionControl: true });
-    //   this.map.scrollWheelZoom.disable();
-    //   // this.popupEl = ReactDOM.findDOMNode(this.refs.popup);
-    //
-    //   // this.addAllMarkers();
-    //
-    //
-    //   const location = this.props.locations[0];
-    //   const latlon = location && location.location;
-    //   this.map.setView([latlon.lat, latlon.lng], 10);
-    // }
-  }
+  // componentDidMount() {
+  // const { locations } = this.props;
+  // require('mapbox.js');
+  // if (locations.length) {
+  //   L.mapbox.accessToken = 'pk.eyJ1IjoiZXZlbndlc3R2YW5nIiwiYSI6ImFBYWt4blUifQ.QwErrY0yQBcC9ST5UWp4Rg';
+  //
+  //   this.map = L.mapbox.map(findDOMNode(this._mapElement), 'evenwestvang.792b3ceb', { attributionControl: true });
+  //   this.map.scrollWheelZoom.disable();
+  //   // this.popupEl = ReactDOM.findDOMNode(this.refs.popup);
+  //
+  //   // this.addAllMarkers();
+  //
+  //
+  //   const location = this.props.locations[0];
+  //   const latlon = location && location.location;
+  //   this.map.setView([latlon.lat, latlon.lng], 10);
+  // }
+  // }
 
   // setMapElement = (element) => {
   //   this._mapElement = element;
@@ -90,18 +88,14 @@ class Locations extends React.Component {
     return (
       <div className={s.root}>
         <h2>Locations</h2>
-        {/* <div ref={this.setPopupElement} className={s.popup} /> */}
-        <div className={s.map}>
-          {/* <div ref={this.setMapElement} className={s.leaflet} /> */}
-        </div>
-        <ul>
+        <ul className={s.list}>
           {
           locations.map(location => (
-            <li key={location._key}>
+            <li key={location._key} className={s.item}>
               {location.city}, {location.country}&nbsp;
               {
                 location.location && location.location.lat && location.location.lng && (
-                  <a href={`http://maps.google.com/?q=${location.location.lat},${location.location.lng}`}>Map</a>
+                  <a className={s.mapLink} href={`http://maps.google.com/?q=${location.location.lat},${location.location.lng}`}>Map</a>
                 )
               }
             </li>
