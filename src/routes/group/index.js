@@ -36,7 +36,7 @@ export default {
     `;
     const result = await fetch(query, {});
     return {
-      title: `Group ${result[0].name}`,
+      title: `${result[0].name}`,
       component: <Layout><Group group={result[0]} /></Layout>,
     };
   },

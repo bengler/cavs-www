@@ -45,7 +45,7 @@ export default {
     `;
     const items = await fetch(query, {});
     return {
-      title: 'React Starter Kit',
+      title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: <Layout><Home items={items} /></Layout>,
     };
   },

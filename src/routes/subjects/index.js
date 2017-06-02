@@ -14,7 +14,7 @@ export default {
     const subjects = await fetch(query, {});
 
     return {
-      title: 'React Starter Kit',
+      title: 'Subjects',
       component: <Layout><Subjects subjects={union(flattenDeep(subjects))} /></Layout>,
     };
   },

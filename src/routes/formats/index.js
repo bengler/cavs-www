@@ -14,7 +14,7 @@ export default {
     const formats = await fetch(query, {});
 
     return {
-      title: 'React Starter Kit',
+      title: 'Formats',
       component: <Layout><Formats formats={union(flattenDeep(formats))} /></Layout>,
     };
   },

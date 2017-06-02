@@ -28,7 +28,7 @@ export default {
     });
 
     return {
-      title: 'React Starter Kit',
+      title: 'People',
       component: <Layout><People people={people} /></Layout>,
     };
   },
