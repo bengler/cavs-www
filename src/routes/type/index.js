@@ -1,5 +1,4 @@
 import React from 'react';
-import { union, flattenDeep } from 'lodash';
 import Type from './Type';
 import Layout from '../../components/Layout';
 

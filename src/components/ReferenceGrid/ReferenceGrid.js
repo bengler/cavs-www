@@ -28,11 +28,13 @@ class ReferencesGrid extends React.Component {
             const year = get(reference, 'date.date.utc');
             return (
               <div key={reference._id} className={s.item}>
-                {
-                  reference.imageAssets
-                  && reference.imageAssets.length
-                  && <ImageGallery images={reference.imageAssets} />
-                }
+                <LinkResolver item={reference}>
+                  {
+                    reference.imageAssets
+                    && reference.imageAssets.length
+                    && <ImageGallery images={reference.imageAssets} />
+                  }
+                </LinkResolver>
                 <h3>
                   <LinkResolver item={reference} />
                   {year && year.split('-')[0]} (<ResolveType type={reference._type} />)

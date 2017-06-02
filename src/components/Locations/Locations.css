@@ -1,29 +1,33 @@
 .root {
-  border: 5px solid magenta;
+  display: block;
 }
 
 .mapContainer {
   position: relative;
-  border: 10px solid red;
   overflow: hidden;
   box-sizing: border-box;
   clear: both;
   width: 100%;
-  height: 100vh;
+  height: 20rem;
+  font-size: 10px;
+
+  @nest & a {
+    color: #000;
+  }
 }
 
 .popup {
-  border: 1px solid blue;
+  border: 3px solid #000;
 }
 
 .list {
-  border: 1px solid blue;
+  display: block;
 }
 
 .item {
-  border: 1px solid red;
+  display: block;
 }
 
 .mapLink {
-  border: 1px solid magenta;
+  display: inline-block;
 }

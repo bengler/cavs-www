@@ -13,6 +13,7 @@ class LinkResolver extends React.Component {
 
   static defaultProps = {
     item: {},
+    children: null,
   }
 
   render() {

@@ -13,7 +13,8 @@ class Extents extends React.Component {
   };
 
   static defaultProps = {
-    item: {},
+    extents: {},
+    type: '',
   }
 
   render() {

@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import LinkResolver from '../Link/Resolver';
 import ImageGallery from '../ImageGallery/ImageGallery';
-import ResolveType from '../ResolveType';
 
-class References extends React.Component {
+class ReferenceList extends React.Component {
   static propTypes = {
     references: PropTypes.arrayOf(PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -31,11 +30,13 @@ class References extends React.Component {
                   &nbsp;{year && year.split('-')[0]}
                   {/* (<ResolveType type={reference._type} />) */}
                 </h3>
-                {
-                  reference.imageAssets
-                  && reference.imageAssets.length
-                  && <ImageGallery images={reference.imageAssets} />
-                }
+                <LinkResolver item={reference}>
+                  {
+                    reference.imageAssets
+                    && reference.imageAssets.length
+                    && <ImageGallery images={reference.imageAssets} />
+                  }
+                </LinkResolver>
               </div>
             );
           })
@@ -45,4 +46,4 @@ class References extends React.Component {
   }
 }
 
-export default References;
+export default ReferenceList;

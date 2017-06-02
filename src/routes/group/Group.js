@@ -70,9 +70,8 @@ class Item extends React.Component {
           <h2>Documentation</h2>
           <ReferenceList references={references} />
           <Subjects subjects={subjects} />
-          <Locations locations={locations} />
-
         </div>
+        <Locations locations={locations} />
       </div>
     );
   }

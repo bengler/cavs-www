@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from '../Link/Link';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
+import Link from '../Link/Link';
 import s from './Creators.css';
 
 class Creators extends React.Component {
   static propTypes = {
-    creators: PropTypes.array,
+    creators: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.name,
+    })),
   };
 
   static defaultProps = {

@@ -6,7 +6,11 @@ import ResolveType from '../ResolveType';
 
 class PartOf extends React.Component {
   static propTypes = {
-    partOf: PropTypes.array,
+    partOf: PropTypes.arrayOf(PropTypes.shape({
+      references: PropTypes.array,
+      _id: PropTypes.string,
+      _type: PropTypes.string,
+    })),
   };
 
   static defaultProps = {
@@ -32,16 +36,20 @@ class PartOf extends React.Component {
         <ul>
           {
             partOf.map((part) => { // eslint-disable-line
-              const image = part.references && part.references.length && part.references.map((reference) => {
-                if (reference.imageAssets && reference.imageAssets.length) {
-                  return findLast(reference.imageAssets, (asset) => {
-                    if (asset && asset.asset && asset.asset.url) {
-                      return asset.asset.url;
-                    }
-                    return false;
-                  });
-                }
-              })[0];
+              const image = part.references
+                && part.references.length
+                && part.references.map((reference) => {
+                  if (reference.imageAssets && reference.imageAssets.length) {
+                    return findLast(reference.imageAssets, (asset) => {
+                      if (asset && asset.asset && asset.asset.url) {
+                        return asset.asset.url;
+                      }
+                      return false;
+                    });
+                  }
+                  return false;
+                },
+              )[0];
 
               if (part._id) {
                 return (
