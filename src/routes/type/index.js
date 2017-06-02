@@ -14,6 +14,7 @@ export default {
           asset -> {url}
         },
         identifier,
+        _id,
         name,
         title,
         _type,
