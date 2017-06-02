@@ -1,3 +1,8 @@
+.title {
+  composes: title from '../../components/common.css';
+  text-transform: capitalize;
+}
+
 .container {
   composes: container from '../../components/common.css';
 }

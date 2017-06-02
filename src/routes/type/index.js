@@ -8,7 +8,23 @@ export default {
 
   async action({ fetch, params }) {
     const query = `
-      *[_type == "${params.type}"]
+      *[_type == "${params.type}"] {
+        imageAssets[] {
+          _key,
+          asset -> {url}
+        },
+        identifier,
+        name,
+        title,
+        _type,
+        "references": *[references(^._id)]{
+          _id,
+          imageAssets[] {
+            _key,
+            asset -> {url}
+          }
+        }
+      }
     `;
     const items = await fetch(query, {});
 

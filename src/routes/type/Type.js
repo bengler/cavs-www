@@ -2,7 +2,8 @@ import React from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import PropTypes from 'prop-types';
 
-import Link from '../../components/Link/Resolver';
+// import Link from '../../components/Link/Resolver';
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
 import s from './Type.css';
 
 class Type extends React.Component {
@@ -26,16 +27,8 @@ class Type extends React.Component {
     const { items, type } = this.props;
     return (
       <div className={s.container}>
-        <h1>{type}s</h1>
-        <ul>
-          {
-          items.map(item => (
-            <li>
-              <Link item={item} />
-            </li>
-            ))
-        }
-        </ul>
+        <h1 className={s.title}>{type}s</h1>
+        <ReferenceGrid references={items} />
       </div>
     );
   }
