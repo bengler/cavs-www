@@ -1,23 +1,20 @@
-.list {
-  margin: 0;
-  padding: 0;
-}
-
-.item {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-  margin-right: 0.5em;
-  line-height: 3em;
-}
-
 .link {
+  display: inline-block;
+  font-size: 1rem;
   border: 3px solid #000;
   border-color: blue;
   color: blue;
   padding: 0.5em;
   text-decoration: none;
   letter-spacing: 0.05em;
+  margin: 0;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  @nest &:first-child {
+    margin-left: 1rem;
+  }
+
 
   @nest &:visited {
     border-color: purple;
