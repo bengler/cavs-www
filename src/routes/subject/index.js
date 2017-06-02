@@ -17,9 +17,17 @@ export default {
         imageAssets[] {
           _key,
           asset -> {url}
+        },
+        "references": *[references(^._id)]{
+          _id,
+          imageAssets[] {
+            _key,
+            asset -> {url}
+          }
         }
       }
     `, {});
+    console.log(resp);
     return {
       title: params.subject,
       component: <Layout><Subject items={resp} subject={params.subject} /></Layout>,

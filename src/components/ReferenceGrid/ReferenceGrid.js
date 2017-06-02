@@ -22,20 +22,36 @@ class ReferencesGrid extends React.Component {
 
   render() {
     const { references } = this.props;
+
+
     return (
       <div className={s.grid}>
         {
           references.map((reference) => {
             const year = get(reference, 'date.date.utc');
+            let imageAssets = [];
+
+            if (reference.imageAssets && reference.imageAssets.length > 0) {
+              imageAssets = reference.imageAssets;
+            } else {
+              reference.references.forEach((ref) => {
+                if (ref.imageAssets && ref.imageAssets.length > 0) {
+                  imageAssets = ref.imageAssets;
+                }
+              });
+            }
+
+            console.log('imageAssets', imageAssets);
+
             return (
               <div key={reference._id} className={s.item}>
                 <h3>
                   {
-                    reference.imageAssets
-                    && reference.imageAssets.length
+                    imageAssets
+                    && imageAssets.length
                     && (
                       <LinkResolver item={reference}>
-                        <ImageGallery images={reference.imageAssets} />
+                        <ImageGallery images={imageAssets} />
                       </LinkResolver>
                     )
                   }
