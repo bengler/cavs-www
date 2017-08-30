@@ -62,6 +62,7 @@
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-bengler": "^3.1.4",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-css-modules": "^2.7.1",
     "eslint-plugin-import": "^2.2.0",

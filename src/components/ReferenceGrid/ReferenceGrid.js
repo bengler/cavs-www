@@ -41,8 +41,6 @@ class ReferencesGrid extends React.Component {
               });
             }
 
-            console.log('imageAssets', imageAssets);
-
             return (
               <div key={reference._id} className={s.item}>
                 <h3>

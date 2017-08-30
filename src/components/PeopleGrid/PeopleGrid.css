@@ -1,0 +1,7 @@
+@import '../variables.css';
+
+.grid {
+  background-color: #fff;
+  position: relative;
+  padding-top: 10rem;
+}

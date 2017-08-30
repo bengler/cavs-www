@@ -13,8 +13,9 @@ module.exports = {
     parser: 'babel-eslint',
 
     extends: [
-      'airbnb',
-      'plugin:css-modules/recommended',
+      'bengler',
+      'bengler/react',
+      'plugin:css-modules/recommended'
     ],
 
     plugins: [

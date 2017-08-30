@@ -1,14 +1,17 @@
-import React from 'react';
-import Home from './Home';
-import Layout from '../../components/Layout';
+import React from 'react'
+import Home from './Home'
+import Layout from '../../components/Layout'
 
 export default {
 
   path: '/',
 
-  async action({ fetch }) {
+  async action({fetch}) {
     const query = `
-    *[
+      {"people":
+        *[_type=="person"][0..5000],
+        "recentObjects":
+        *[
         _type == "building" ||
         _type == "event" ||
         _type == "exhibition" ||
@@ -49,12 +52,13 @@ export default {
           }
         }
       } | order(_createdAt desc) [0..20]
-    `;
-    const items = await fetch(query, {});
+      }
+    `
+    const items = await fetch(query, {})
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
-      component: <Layout><Home items={items} /></Layout>,
-    };
+      component: <Layout><Home recentObjects={items.recentObjects} people={items.people} /></Layout>,
+    }
   },
 
-};
+}
