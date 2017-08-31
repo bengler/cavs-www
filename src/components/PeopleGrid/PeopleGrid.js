@@ -21,15 +21,16 @@ class Period extends React.Component {
       top: `${period._start * TOTAL_HEIGHT}px`,
       height: `${period._duration * TOTAL_HEIGHT}px`,
       width: '100%',
-      backgroundColor: 'rgba(0,0,0,1)',
-      border: '1px solid white'
+      backgroundColor: '#fff',
+      borderLeft: '1px solid black',
+      fontSize: '10px'
     }
 
     const paddingLeft = 4;
 
     const contentStyle = {
       position: 'sticky',
-      color: '#fff',
+      color: '#000',
       width: `${(period._duration * TOTAL_HEIGHT) - (paddingLeft*2)}px`,
       transformOrigin: 'top left',
       fontSize: '10px',
@@ -49,11 +50,15 @@ class Period extends React.Component {
       textOverflow: 'ellipsis'
     }
 
+    const yearStyle = {paddingLeft: '5px', marginTop: '5px'}
 
     // {period.start.getFullYear()} - {period.end.getFullYear()}
     
     return (
       <div style={periodStyle}>
+        <div style={yearStyle}>
+          {period.start.getFullYear()}
+        </div>
         <div style={contentStyle}>
           {period.name}
           <div style={positionStyle}>

@@ -39,9 +39,9 @@ class Lane {
 
     // find lack of intersections
     const intersections = this.periods.filter(lanePeriod => {
-      if ((end < (lanePeriod._start) && start < (lanePeriod._start)) 
+      if ((end <= (lanePeriod._start + 0.01)) 
         || 
-         (start > (lanePeriod._end) && end > (lanePeriod._end))) {
+         (start >= (lanePeriod._end - 0.01))) {
         return false
       }
       return true
