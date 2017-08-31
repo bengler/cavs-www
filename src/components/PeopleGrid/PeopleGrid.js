@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import LinkResolver from '../Link/Resolver'
 import ImageGallery from '../ImageGallery/ImageGallery'
 import ResolveType from '../ResolveType'
 import processPeople from './processPeople'
 import normalizePeriods from './normalizePeriods'
 import {SwimLaneKeeper} from './swimLanes'
+import Link from '../Link/Link';
 
 import s from './PeopleGrid.css'
 
@@ -55,17 +55,19 @@ class Period extends React.Component {
     // {period.start.getFullYear()} - {period.end.getFullYear()}
     
     return (
-      <div style={periodStyle}>
-        <div style={yearStyle}>
-          {period.start.getFullYear()}
-        </div>
-        <div style={contentStyle}>
-          {period.name}
-          <div style={positionStyle}>
-            {period.role}
+      <Link to={`/person/${period._id}`}>
+        <div style={periodStyle}>
+          <div style={yearStyle}>
+            {period.start.getFullYear()}
+          </div>
+          <div style={contentStyle}>
+            {period.name}
+            <div style={positionStyle}>
+              {period.role}
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     )
 
   }
