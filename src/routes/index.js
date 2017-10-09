@@ -8,6 +8,7 @@ export default {
   // Keep in mind, routes are evaluated in order
   children: [
     require('./home').default,
+    require('./explore').default,
     require('./person').default,
     require('./people').default,
     require('./item').default,

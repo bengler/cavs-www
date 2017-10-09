@@ -1,12 +1,12 @@
 import React from 'react'
 // import { shuffle, first, union, flattenDeep } from 'lodash';
 import Layout from '../../components/Layout'
-import Explore from '../explore/Explore'
+import Explore from './Explore'
 
 export default {
-  path: '/',
+  path: '/explore/:theme',
 
-  async action({ fetch }) {
+  async action({ fetch, params }) {
     // const query = `*[defined(subjects)].subjects`
     // const items = await fetch(query, {})
     // const subjects = union(flattenDeep(items))
@@ -16,7 +16,7 @@ export default {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
         <Layout>
-          <Explore />
+          <Explore theme={params.theme} />
         </Layout>
       ),
     }
