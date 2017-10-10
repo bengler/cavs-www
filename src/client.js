@@ -83,6 +83,7 @@ let onRenderComplete = function initialRenderComplete() {
 FastClick.attach(document.body)
 
 const container = document.getElementById('app')
+const seed = container.getAttribute('data-seed');
 let appInstance
 let currentLocation = history.location
 let router = require('./router').default
@@ -108,6 +109,7 @@ async function onLocationChange(location, action) {
       path: location.pathname,
       query: queryString.parse(location.search),
       fetch: context.fetch,
+      seed: seed
     })
 
     // Prevent multiple page renders during the routing process

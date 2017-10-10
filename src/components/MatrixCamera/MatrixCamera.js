@@ -33,7 +33,7 @@ const MatrixCamera = ({
 
             translate(view, view, [x, y, z])
             rotate(view, view, amount, [axisX, axisY, axisZ])
-            translate(view, view, [0, scroll, 400])
+            translate(view, view, [0, scroll, 600])
             invert(view, view)
 
             const matrix = create()
