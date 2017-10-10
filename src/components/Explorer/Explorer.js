@@ -21,11 +21,16 @@ class Explorer extends React.Component {
   constructor(props) {
     super(props)
 
-    const placements = this.getPlacements(props.theme)
-
     this.state = {
       scroll: 0,
-      placements
+      previous: [],
+      next: [],
+      active: null
+    }
+
+    this.state = {
+      ...this.state,
+      ...this.getPlacements(props.theme)
     }
   }
 
@@ -35,13 +40,7 @@ class Explorer extends React.Component {
     const themeChange = nextTheme && prevTheme.key !== nextTheme.key
 
     if (themeChange) {
-      const placements = this.getPlacements(nextProps.theme)
-
-      this.setState({
-        placements
-      }, () => {
-        this.getNext()
-      })
+      this.setState(this.getPlacements(nextProps.theme), () => this.getNext())
     }
   }
 
@@ -55,7 +54,7 @@ class Explorer extends React.Component {
   }
 
   getNext() {
-    const {active} = this.state.placements
+    const {active} = this.state
     const cacheKey = `${active.theme.type}:${active.theme.key}`
     const cached = nextCache[cacheKey]
 
@@ -73,46 +72,31 @@ class Explorer extends React.Component {
 
   onNext(themes) {
     this.setState({
-      placements: {
-        ...this.state.placements,
-        next: themes.map(theme => ({
-          position: [0, 0, 0],
-          rotation: [0, [0, 0, 0]],
-          theme: theme
-        }))
-      }
+      next: themes.map(theme => ({
+        position: [0, 0, 0],
+        rotation: [0, [0, 0, 0]],
+        theme: theme
+      }))
     })
   }
 
-  getPlacements(active) {
-    if (!this.state) {
-      // Initial placements
-      return {
-        previous: [],
-        next: [],
-        active: {
-          position: [0, 0, 0],
-          rotation: [0, [0, 0, 0]],
-          theme: active
-        }
-      }
-    }
-
+  getPlacements(nextActive) {
     // Has previous state
-    const {previous, next} = this.state.placements
-    const prevActive = this.state.placements.active
-    const nextIndex = findIndex(next, item => item.theme.key === active.key)
-    const previousIndex = findIndex(previous, item => item.theme.key === active.key)
+    const {previous, next, active} = this.state
+    const nextIndex = findIndex(next, item => item.theme.key === nextActive.key)
+    const previousIndex = findIndex(previous, item => item.theme.key === nextActive.key)
+    const existsInNext = nextIndex > -1
+    const existsInPrevious = previousIndex > -1
 
-    if (nextIndex > -1) {
-      // Changed to one of the next
+    if (existsInNext) {
       return {
-        previous: [...previous, prevActive],
+        previous: [...previous, active],
         next: [],
         active: next[nextIndex]
       }
-    } else if (previousIndex > -1) {
-      // Changed to one of the previous
+    }
+
+    if (existsInPrevious) {
       return {
         previous: previous.slice(0, previousIndex),
         next: [],
@@ -120,30 +104,29 @@ class Explorer extends React.Component {
       }
     }
 
-    // Changed to something different
     return {
       previous: [],
       next: [],
       active: {
         position: [0, 0, 0],
         rotation: [0, [0, 0, 0]],
-        theme: active
+        theme: nextActive
       }
     }
   }
 
   render() {
-    const {placements} = this.state
+    const {previous, next, active} = this.state
 
     const items = [
-      ...placements.previous,
-      placements.active,
-      ...placements.next
+      ...previous,
+      active,
+      ...next
     ].map(item => (
       <Theme
         key={item.theme.key}
         theme={item.theme}
-        active={item === placements.active}
+        active={item === active}
       />
     ))
 
