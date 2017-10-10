@@ -47,10 +47,18 @@ class Explorer extends React.Component {
   componentDidMount() {
     this.mounted = true
     this.getNext()
+    window.addEventListener('scroll', this.onScroll)
   }
 
   componentWillUnmount() {
     this.mounted = false
+    window.removeEventListener('scroll', this.onScroll)
+  }
+
+  onScroll = () => {
+    this.setState({
+      scroll: window.scrollY
+    })
   }
 
   getNext() {
@@ -138,24 +146,24 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const {previous, next, active} = this.state
+    const {previous, next, active, scroll} = this.state
 
     const items = [
       ...previous,
       active,
       ...next
-    ].map(item => (
-      <MatrixElement key={item.theme.key} position={item.position} rotation={item.rotation}>
-        <Theme
-          theme={item.theme}
-          active={item === active}
-        />
-      </MatrixElement>
-    ))
+    ]
 
     return (
-      <MatrixCamera target={active}>
-        {items}
+      <MatrixCamera target={active} scroll={scroll}>
+        {items.map(item => (
+          <MatrixElement key={item.theme.key} position={item.position} rotation={item.rotation}>
+            <Theme
+              theme={item.theme}
+              active={item === active}
+            />
+          </MatrixElement>
+        ))}
       </MatrixCamera>
     )
 

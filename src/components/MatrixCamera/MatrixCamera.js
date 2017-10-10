@@ -1,20 +1,29 @@
 import React from 'react'
-import { Motion, spring } from 'react-motion'
-import { create, perspective, multiply, rotate, translate, invert } from 'gl-mat4'
+import {Motion, spring} from 'react-motion'
+import {create, perspective, multiply, rotate, translate, invert} from 'gl-mat4'
 
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import css from './MatrixCamera.css';
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import css from './MatrixCamera.css'
 
 const MatrixCamera = ({
   children,
   target,
   scroll = 0
 }) => {
-  const motion = Object.assign({}, [
-    ...target.position,
-    ...target.rotation[1],
-    target.rotation[0]
-  ].map(value => (
+  const view = create()
+
+  translate(view, view, target.position)
+  rotate(view, view, ...target.rotation)
+  translate(view, view, [0, 0, 250])
+  invert(view, view)
+
+  const matrix = create()
+  const projection = perspective([], 0.005, 1, 2, 1)
+
+  multiply(matrix, matrix, projection)
+  multiply(matrix, matrix, view)
+
+  const motion = Object.assign({}, [...matrix].map(value => (
     spring(value, {
       stiffness: 50,
       damping: 20
@@ -27,21 +36,6 @@ const MatrixCamera = ({
       <div className={css.view}>
         <Motion style={motion}>
           {interpolated => {
-            const [ x, y, z, ...rotation ] = Object.values(interpolated)
-            const [ axisX, axisY, axisZ, amount ] = rotation
-            const view = create()
-
-            translate(view, view, [x, y, z])
-            rotate(view, view, amount, [axisX, axisY, axisZ])
-            translate(view, view, [0, scroll, 600])
-            invert(view, view)
-
-            const matrix = create()
-            const projection = perspective([], 0.005, 1, 2, 1)
-
-            multiply(matrix, matrix, projection)
-            multiply(matrix, matrix, view)
-
             return (
               <div
                 children={children}
@@ -49,7 +43,7 @@ const MatrixCamera = ({
                 style={{
                   transform: `
                     translate3d(-50%, -50%, 0)
-                    matrix3d(${matrix.join()})
+                    matrix3d(${Object.values(interpolated).join()})
                   `
                 }}
               />
