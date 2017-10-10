@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { get } from 'lodash';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import {get} from 'lodash'
 
-import s from './Group.css';
-import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
-import Subjects from '../../components/Subjects/Subjects';
-import Creators from '../../components/Creators/Creators';
-import Locations from '../../components/Locations/Locations';
-import Extents from '../../components/Extents/Extents';
-import ResolveType from '../../components/ResolveType';
+import s from './Group.css'
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
+import Subjects from '../../components/Subjects/Subjects'
+import Creators from '../../components/Creators/Creators'
+import Locations from '../../components/Locations/Locations'
+import Extents from '../../components/Extents/Extents'
+import ResolveType from '../../components/ResolveType'
 
 
 class Item extends React.Component {
@@ -44,7 +44,7 @@ class Item extends React.Component {
   }
 
   render() {
-    const { group } = this.props;
+    const {group} = this.props
     const {
       _type,
       name,
@@ -53,10 +53,10 @@ class Item extends React.Component {
       creators = [],
       references = [],
       locations = [],
-    } = group;
+    } = group
 
 
-    const year = get(group, 'date.date.utc');
+    const year = get(group, 'date.date.utc')
 
     return (
       <div className={s.root}>
@@ -84,8 +84,8 @@ class Item extends React.Component {
         </div>
         <Locations locations={locations} />
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Item);
+export default withStyles(s)(Item)

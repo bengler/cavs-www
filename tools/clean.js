@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import { cleanDir } from './lib/fs';
+import {cleanDir} from './lib/fs'
 
 /**
  * Cleans up the output (build) directory.
@@ -19,7 +19,7 @@ function clean() {
       dot: true,
       ignore: ['build/.git'],
     }),
-  ]);
+  ])
 }
 
-export default clean;
+export default clean

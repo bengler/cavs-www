@@ -1,12 +1,12 @@
-import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import PropTypes from 'prop-types';
+import React from 'react'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import PropTypes from 'prop-types'
 
 // import Link from '../../components/Link/Resolver';
-import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
-import s from './Type.css';
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
+import s from './Type.css'
 
-class Type extends React.Component {
+class Type extends React.PureComponent {
 
   static propTypes = {
     items: PropTypes.arrayOf(
@@ -24,14 +24,14 @@ class Type extends React.Component {
   }
 
   render() {
-    const { items, type } = this.props;
+    const {items, type} = this.props
     return (
       <div className={s.container}>
         <h1 className={s.title}>{type}s</h1>
         <ReferenceGrid references={items} />
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Type);
+export default withStyles(s)(Type)

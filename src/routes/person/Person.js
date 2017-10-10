@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Person.css';
-import ImageGallery from '../../components/ImageGallery/ImageGallery';
-import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Person.css'
+import ImageGallery from '../../components/ImageGallery/ImageGallery'
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
 
 class Persons extends React.Component {
 
@@ -22,8 +22,8 @@ class Persons extends React.Component {
   }
 
   render() {
-    const { person } = this.props;
-    const { name, portraits, shortBio, references = [] } = person;
+    const {person} = this.props
+    const {name, portraits, shortBio, references = []} = person
     return (
       <div>
         <div className={s.container}>
@@ -39,8 +39,8 @@ class Persons extends React.Component {
         </div>
         <ReferenceGrid references={references} />
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Persons);
+export default withStyles(s)(Persons)

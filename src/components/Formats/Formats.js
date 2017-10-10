@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Link from '../Link/Link';
-import s from './Formats.css';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Link from '../Link/Link'
+import s from './Formats.css'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
 class Formats extends React.Component {
   static propTypes = {
@@ -14,19 +14,19 @@ class Formats extends React.Component {
   }
 
   render() {
-    const { formats } = this.props;
+    const {formats} = this.props
     return (
       <div>
         <h2>
           Format: {
             formats.map(formatTitle => (
-              <Link className={s.link} to={`/format/${formatTitle}`}>{formatTitle}</Link>
+              <Link key={formatTitle} className={s.link} to={`/format/${formatTitle}`}>{formatTitle}</Link>
             ))
           }
         </h2>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Formats);
+export default withStyles(s)(Formats)

@@ -8,6 +8,7 @@
 .container {
   margin: 0 1rem;
   overflow: hidden;
+
   @media (--screen-lg-min) {
     max-width: var(--max-content-width);
     margin: 0 auto;

@@ -7,15 +7,15 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import Group from './Group';
-import Layout from '../../components/Layout';
+import React from 'react'
+import Group from './Group'
+import Layout from '../../components/Layout'
 
 export default {
 
   path: '/group/:id',
 
-  async action({ fetch, params }) {
+  async action({fetch, params}) {
     const query = `
       *[_id =="${params.id}"] {
         name,
@@ -34,11 +34,11 @@ export default {
           imageAssets[] {_key, asset -> {url}}
         }
       }
-    `;
-    const result = await fetch(query, {});
+    `
+    const result = await fetch(query, {})
     return {
       title: `${result[0].name}`,
       component: <Layout><Group group={result[0]} /></Layout>,
-    };
+    }
   },
-};
+}

@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Link from './Link';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Link from './Link'
 
 class LinkResolver extends React.Component {
   static propTypes = {
@@ -17,28 +17,28 @@ class LinkResolver extends React.Component {
   }
 
   render() {
-    const { item, children } = this.props;
+    const {item, children} = this.props
     if (item.identifier) {
       return (
         <Link to={`/item/${item.identifier}`}>
           {children || item.title || item.name || 'Untitled'}
         </Link>
-      );
+      )
     }
     if (!item.identifier && item._id) {
       return (
         <Link to={`/group/${item._id}`}>
           {children || item.title || item.name || 'Untitled'}
         </Link>
-      );
+      )
     }
     return (
       <span>
         Could not resolve link
         {children || item.title || item.name || 'Untitled'}
       </span>
-    );
+    )
   }
 }
 
-export default LinkResolver;
+export default LinkResolver

@@ -19,7 +19,6 @@
     margin-left: 1rem;
   }
 
-
   @nest &:visited {
     border-color: purple;
     color: purple;

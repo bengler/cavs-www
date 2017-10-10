@@ -3,9 +3,9 @@
 export default function processPeople(people) {
   const affiliationPeriods = []
 
-  people.forEach((person) => {
+  people.forEach(person => {
     if (person.affiliationsPeriods) {
-      person.affiliationsPeriods.forEach((period) => {
+      person.affiliationsPeriods.forEach(period => {
         if (period.start && period.start.date && period.end && period.end.date) {
           const obj = {
             name: person.name,
@@ -16,13 +16,13 @@ export default function processPeople(people) {
           }
 
           if (obj.start.getTime() == obj.end.getTime()) {
-            obj.end.setFullYear(obj.end.getFullYear() + 1);
+            obj.end.setFullYear(obj.end.getFullYear() + 1)
           }
-          
+
           if (!isNaN(obj.start) && !isNaN(obj.end)) {
             affiliationPeriods.push(obj)
           } else {
-            console.info(person.name, person.role)
+            // console.info(person.name, person.role)
           }
         }
       })

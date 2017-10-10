@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Subject.css';
-import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Subject.css'
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
 
-class Subject extends React.Component {
+class Subject extends React.PureComponent {
 
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
@@ -19,7 +19,7 @@ class Subject extends React.Component {
   }
 
   render() {
-    const { items, subject } = this.props;
+    const {items, subject} = this.props
     return (
       <div>
         <div className={s.container}>
@@ -27,8 +27,8 @@ class Subject extends React.Component {
           <ReferenceGrid references={items} />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Subject);
+export default withStyles(s)(Subject)

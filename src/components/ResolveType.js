@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import Link from './Link/Link';
+import Link from './Link/Link'
 
 export default class ResolveType extends React.Component {
   static propTypes = {
@@ -12,58 +12,58 @@ export default class ResolveType extends React.Component {
     type: '',
   }
 
-  HumanReadableType = (type) => {
+  HumanReadableType = type => {
     switch (type) {
       case 'building':
-        return 'Building';
+        return 'Building'
       case 'event':
-        return 'Event';
+        return 'Event'
       case 'exhibition':
-        return 'Exhibition';
+        return 'Exhibition'
       case 'institution':
-        return 'Institution';
+        return 'Institution'
       case 'multipleInstallation':
-        return 'Multiple Installation';
+        return 'Multiple Installation'
       case 'multipleTimebased':
-        return 'Multiple Timebased';
+        return 'Multiple Timebased'
       case 'work2d':
-        return '2D Work';
+        return '2D Work'
       case 'work3d':
-        return '3D Work';
+        return '3D Work'
       case 'workTimebased':
-        return 'Timebased';
+        return 'Timebased'
       case 'audioRecording':
-        return 'Audio Recording';
+        return 'Audio Recording'
       case 'correspondence':
-        return 'Correspondence';
+        return 'Correspondence'
       case 'document':
-        return 'Document';
+        return 'Document'
       case 'ephemera':
-        return 'Ephemera';
+        return 'Ephemera'
       case 'eResource':
-        return 'Electronic Resource';
+        return 'Electronic Resource'
       case 'floorplan':
-        return 'Floorplan';
+        return 'Floorplan'
       case 'movingImage':
-        return 'Moving Image';
+        return 'Moving Image'
       case 'newsClipping':
-        return 'News Clipping';
+        return 'News Clipping'
       case 'poster':
-        return 'Poster';
+        return 'Poster'
       case 'publication':
-        return 'Publication';
+        return 'Publication'
       case 'stillImage':
-        return 'Still Image';
+        return 'Still Image'
 
       default:
-        return 'default';
+        return 'default'
     }
   }
 
   render() {
-    const { type } = this.props;
+    const {type} = this.props
     return (
       <Link to={`/type/${type}`}>{this.HumanReadableType(type)}</Link>
-    );
+    )
   }
 }

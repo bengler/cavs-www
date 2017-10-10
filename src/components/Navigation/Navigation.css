@@ -1,7 +1,6 @@
-@import "../variables.css";
+@import '../variables.css';
 
 .root {
-  /*margin: 6px 0 0;*/
   font-size: 0.8rem;
   position: absolute;
   top: 1rem;

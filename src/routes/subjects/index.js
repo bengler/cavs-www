@@ -1,22 +1,22 @@
-import React from 'react';
-import { union, flattenDeep } from 'lodash';
-import Subjects from './Subjects';
-import Layout from '../../components/Layout';
+import React from 'react'
+import {union, flattenDeep} from 'lodash'
+import Subjects from './Subjects'
+import Layout from '../../components/Layout'
 
 export default {
 
   path: '/subjects',
 
-  async action({ fetch }) {
+  async action({fetch}) {
     const query = `
       *[defined(subjects)].subjects
-    `;
-    const subjects = await fetch(query, {});
+    `
+    const subjects = await fetch(query, {})
 
     return {
       title: 'Subjects',
       component: <Layout><Subjects subjects={union(flattenDeep(subjects))} /></Layout>,
-    };
+    }
   },
 
-};
+}

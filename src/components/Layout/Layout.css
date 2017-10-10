@@ -42,7 +42,7 @@ a {
 .content {
   margin-top: 7rem;
   min-height: 100vh;
-  
+
   @media (--screen-xs-min) {
     margin-top: 5rem;
   }

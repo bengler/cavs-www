@@ -7,10 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './ErrorPage.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './ErrorPage.css'
 
 class ErrorPage extends React.Component {
   static propTypes = {
@@ -23,14 +23,14 @@ class ErrorPage extends React.Component {
 
   render() {
     if (__DEV__) {
-      const { error } = this.props;
+      const {error} = this.props
       return (
         <div>
           <h1>{error.name}</h1>
           <p>{error.message}</p>
           <pre>{error.stack}</pre>
         </div>
-      );
+      )
     }
 
     return (
@@ -38,9 +38,9 @@ class ErrorPage extends React.Component {
         <h1>Error</h1>
         <p>Sorry, a critical error occurred on this page.</p>
       </div>
-    );
+    )
   }
 }
 
-export { ErrorPage as ErrorPageWithoutStyle };
-export default withStyles(s)(ErrorPage);
+export {ErrorPage as ErrorPageWithoutStyle}
+export default withStyles(s)(ErrorPage)

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-class Extents extends React.Component {
+class Extents extends React.PureComponent {
   static propTypes = {
     extents: PropTypes.shape({
       description: PropTypes.string,
@@ -18,7 +18,7 @@ class Extents extends React.Component {
   }
 
   render() {
-    const { extents, type } = this.props;
+    const {extents, type} = this.props
 
     if (type === 'work3d' && extents) {
       return (
@@ -26,7 +26,7 @@ class Extents extends React.Component {
           <p>{extents.description}</p>
           {extents.width} × {extents.height} × {extents.depth} meters
         </div>
-      );
+      )
     }
 
     if (type === 'work2d' && extents) {
@@ -35,12 +35,12 @@ class Extents extends React.Component {
           <p>{extents.description}</p>
           {extents.width} × {extents.height} meters
         </div>
-      );
+      )
     }
 
 
-    return <div />;
+    return <div />
   }
 }
 
-export default Extents;
+export default Extents

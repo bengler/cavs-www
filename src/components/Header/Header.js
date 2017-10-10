@@ -1,8 +1,8 @@
-import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Header.css';
-import Link from '../Link';
-import Navigation from '../Navigation';
+import React from 'react'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Header.css'
+import Link from '../Link'
+import Navigation from '../Navigation'
 
 class Header extends React.Component {
   render() {
@@ -15,8 +15,8 @@ class Header extends React.Component {
           </span>
         </Link>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Header);
+export default withStyles(s)(Header)

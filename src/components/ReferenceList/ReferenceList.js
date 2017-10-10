@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { get } from 'lodash';
-import LinkResolver from '../Link/Resolver';
-import ImageGallery from '../ImageGallery/ImageGallery';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {get} from 'lodash'
+import LinkResolver from '../Link/Resolver'
+import ImageGallery from '../ImageGallery/ImageGallery'
 
 class ReferenceList extends React.Component {
   static propTypes = {
@@ -17,12 +17,12 @@ class ReferenceList extends React.Component {
   }
 
   render() {
-    const { references } = this.props;
+    const {references} = this.props
     return (
       <div>
         {
-          references.map((reference) => {
-            const year = get(reference, 'date.date.utc');
+          references.map(reference => {
+            const year = get(reference, 'date.date.utc')
             return (
               <div key={reference._id}>
                 <h3>
@@ -38,12 +38,12 @@ class ReferenceList extends React.Component {
                   }
                 </LinkResolver>
               </div>
-            );
+            )
           })
         }
       </div>
-    );
+    )
   }
 }
 
-export default ReferenceList;
+export default ReferenceList

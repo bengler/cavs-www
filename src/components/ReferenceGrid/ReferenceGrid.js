@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { get } from 'lodash';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import LinkResolver from '../Link/Resolver';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import ResolveType from '../ResolveType';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {get} from 'lodash'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import LinkResolver from '../Link/Resolver'
+import ImageGallery from '../ImageGallery/ImageGallery'
+import ResolveType from '../ResolveType'
 
-import s from './ReferenceGrid.css';
+import s from './ReferenceGrid.css'
 
 class ReferencesGrid extends React.Component {
   static propTypes = {
@@ -21,24 +21,24 @@ class ReferencesGrid extends React.Component {
   }
 
   render() {
-    const { references } = this.props;
+    const {references} = this.props
 
 
     return (
       <div className={s.grid}>
         {
-          references.map((reference) => {
-            const year = get(reference, 'date.date.utc');
-            let imageAssets = [];
+          references.map(reference => {
+            const year = get(reference, 'date.date.utc')
+            let imageAssets = []
 
             if (reference.imageAssets && reference.imageAssets.length > 0) {
-              imageAssets = reference.imageAssets;
+              imageAssets = reference.imageAssets
             } else if (reference.references && reference.references.length > 0) {
-              reference.references.forEach((ref) => {
+              reference.references.forEach(ref => {
                 if (ref.imageAssets && ref.imageAssets.length > 0) {
-                  imageAssets = ref.imageAssets;
+                  imageAssets = ref.imageAssets
                 }
-              });
+              })
             }
 
             return (
@@ -64,12 +64,12 @@ class ReferencesGrid extends React.Component {
                 </h3>
 
               </div>
-            );
+            )
           })
         }
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(ReferencesGrid);
+export default withStyles(s)(ReferencesGrid)

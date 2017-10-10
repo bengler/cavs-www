@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { get } from 'lodash';
-import s from './ImageGallery.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import {get} from 'lodash'
+import s from './ImageGallery.css'
 
 class ImageGallery extends React.Component {
   static propTypes = {
@@ -21,27 +21,27 @@ class ImageGallery extends React.Component {
   }
 
   render() {
-    const { images, excludeFirst } = this.props;
+    const {images, excludeFirst} = this.props
 
     if (!images.length || (images.length === 1 && excludeFirst)) {
-      return false;
+      return false
     }
     return (
       <div className={s.root}>
         {
           images.map((image, i) => {
-            const url = get(image, 'asset.url');
+            const url = get(image, 'asset.url')
             if (excludeFirst && i === 0) {
-              return false;
+              return false
             }
             return (
               <img key={image._key} className={s.image} src={`${url}?w=300`} alt="" />
-            );
+            )
           })
         }
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(ImageGallery);
+export default withStyles(s)(ImageGallery)

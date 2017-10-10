@@ -1,20 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import dateFns from 'date-fns';
-import { get } from 'lodash';
-import embed from 'embed-video';
-import s from './Item.css';
-import ImageGallery from '../../components/ImageGallery/ImageGallery';
-import PartOf from '../../components/PartOf/PartOf';
-import Subjects from '../../components/Subjects/Subjects';
-import Creators from '../../components/Creators/Creators';
-import Formats from '../../components/Formats/Formats';
-import Rights from '../../components/Rights/Rights';
-import ResolveType from '../../components/ResolveType';
+/* eslint-disable react/no-danger */
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import dateFns from 'date-fns'
+import {get} from 'lodash'
+import embed from 'embed-video'
+import s from './Item.css'
+import ImageGallery from '../../components/ImageGallery/ImageGallery'
+import PartOf from '../../components/PartOf/PartOf'
+import Subjects from '../../components/Subjects/Subjects'
+import Creators from '../../components/Creators/Creators'
+import Formats from '../../components/Formats/Formats'
+import Rights from '../../components/Rights/Rights'
+import ResolveType from '../../components/ResolveType'
 
 
-class Item extends React.Component {
+class Item extends React.PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({
@@ -50,17 +51,17 @@ class Item extends React.Component {
     },
   }
 
-  getYear = (date) => {
-    const utc = get(date, 'date.utc');
+  getYear = date => {
+    const utc = get(date, 'date.utc')
     if (utc) {
-      return dateFns.format(new Date(utc), 'YYYY');
+      return dateFns.format(new Date(utc), 'YYYY')
     }
 
-    return '';
+    return ''
   }
 
   render() {
-    const { item } = this.props;
+    const {item} = this.props
     const {
       _type,
       title,
@@ -73,10 +74,10 @@ class Item extends React.Component {
       subjects = [],
       partOf = [],
       videoUrl,
-    } = item;
+    } = item
 
     if (!item) {
-      return <div>Nothing here</div>;
+      return <div>Nothing here</div>
     }
 
     return (
@@ -99,7 +100,7 @@ class Item extends React.Component {
               <div
                 className={s.video}
                 dangerouslySetInnerHTML={{
-                  __html: embed(videoUrl, { image: 'thumbnail_large' }),
+                  __html: embed(videoUrl, {image: 'thumbnail_large'}),
                 }}
               />
             )
@@ -111,8 +112,8 @@ class Item extends React.Component {
           <Rights rights={rights} />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Item);
+export default withStyles(s)(Item)

@@ -10,7 +10,7 @@
 /* eslint-disable max-len */
 
 if (process.env.BROWSER) {
-  throw new Error('Do not import `config.js` from inside the client-side code.');
+  throw new Error('Do not import `config.js` from inside the client-side code.')
 }
 
 module.exports = {
@@ -22,4 +22,4 @@ module.exports = {
     googleTrackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
   },
 
-};
+}

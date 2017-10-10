@@ -59,4 +59,4 @@ module.exports = () => ({
     // https://github.com/postcss/autoprefixer
     require('autoprefixer')(/* package.json/browserslist */),
   ],
-});
+})

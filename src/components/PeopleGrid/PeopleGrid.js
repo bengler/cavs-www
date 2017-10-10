@@ -1,18 +1,23 @@
+/* eslint-disable react/no-multi-comp */
 import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import ImageGallery from '../ImageGallery/ImageGallery'
-import ResolveType from '../ResolveType'
+// import ImageGallery from '../ImageGallery/ImageGallery'
+// import ResolveType from '../ResolveType'
 import processPeople from './processPeople'
 import normalizePeriods from './normalizePeriods'
 import {SwimLaneKeeper} from './swimLanes'
-import Link from '../Link/Link';
+import Link from '../Link/Link'
 
 import s from './PeopleGrid.css'
 
 const TOTAL_HEIGHT = 6000
 
-class Period extends React.Component {
+class Period extends React.PureComponent {
+  static propTypes = {
+    period: PropTypes.object,
+    laneWidth: PropTypes.number
+  }
   render() {
     const {period, laneWidth} = this.props
 
@@ -26,12 +31,12 @@ class Period extends React.Component {
       fontSize: '10px'
     }
 
-    const paddingLeft = 4;
+    const paddingLeft = 4
 
     const contentStyle = {
       position: 'sticky',
       color: '#000',
-      width: `${(period._duration * TOTAL_HEIGHT) - (paddingLeft*2)}px`,
+      width: `${(period._duration * TOTAL_HEIGHT) - (paddingLeft * 2)}px`,
       transformOrigin: 'top left',
       fontSize: '10px',
       fontWeight: '300',
@@ -44,7 +49,7 @@ class Period extends React.Component {
     }
 
     const positionStyle = {
-      fontStyle:'italic',
+      fontStyle: 'italic',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis'
@@ -53,7 +58,7 @@ class Period extends React.Component {
     const yearStyle = {paddingLeft: '5px', marginTop: '5px'}
 
     // {period.start.getFullYear()} - {period.end.getFullYear()}
-    
+
     return (
       <Link to={`/person/${period._id}`}>
         <div style={periodStyle}>
@@ -74,6 +79,10 @@ class Period extends React.Component {
 }
 
 class Lane extends React.Component {
+  static propTypes = {
+    lane: PropTypes.object,
+    laneWidth: PropTypes.number
+  }
   render() {
     const {lane, laneWidth} = this.props
     const periods = lane.getPeriods()
@@ -95,10 +104,10 @@ class Lane extends React.Component {
 class PeopleGrid extends React.Component {
 
   static propTypes = {
-    // people: PropTypes.arrayOf(PropTypes.shape({
-    //   _id: PropTypes.string.isRequired,
-    //   identifier: PropTypes.string, // This tells that it is an item
-    // })),
+    people: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      identifier: PropTypes.string, // This tells that it is an item
+    }))
   }
 
   state = {
@@ -106,7 +115,7 @@ class PeopleGrid extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({inBrowser: true})
+    this.setState({inBrowser: true}) //eslint-disable-line
   }
 
   render() {
@@ -127,9 +136,8 @@ class PeopleGrid extends React.Component {
     const margin = 1
     const laneWidth = (screenWidth - (laneTotal * margin)) / (laneTotal)
 
-    console.info(screenWidth, laneTotal, margin, laneWidth)
-
-    console.info(laneWidth)
+    // console.info(screenWidth, laneTotal, margin, laneWidth)
+    // console.info(laneWidth)
 
     return (
       <div className={s.grid}>
@@ -144,7 +152,7 @@ class PeopleGrid extends React.Component {
             }
 
             return (
-              <div key={idx} style={laneStyle}>
+              <div key={idx} style={laneStyle}>
                 <Lane laneWidth={laneWidth} lane={lane} />
               </div>
             )

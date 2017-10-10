@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
-import Link from '../Link/Link';
-import s from './Creators.css';
+import Link from '../Link/Link'
+import s from './Creators.css'
 
 class Creators extends React.Component {
   static propTypes = {
@@ -22,7 +22,7 @@ class Creators extends React.Component {
   };
 
   render() {
-    const { creators } = this.props;
+    const {creators} = this.props
     return (
       <div className={s.root}>
         {/* <h2>Creators</h2> */}
@@ -36,8 +36,8 @@ class Creators extends React.Component {
           }
         </ul>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Creators);
+export default withStyles(s)(Creators)

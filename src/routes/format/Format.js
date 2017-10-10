@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Format.css';
-import ReferenceList from '../../components/ReferenceList/ReferenceList';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import s from './Format.css'
+import ReferenceList from '../../components/ReferenceList/ReferenceList'
 
-class Format extends React.Component {
+class Format extends React.PureComponent {
 
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
@@ -19,14 +19,14 @@ class Format extends React.Component {
   }
 
   render() {
-    const { items, format } = this.props;
+    const {items, format} = this.props
     return (
       <div className={s.container}>
         <h1 className={s.title}>{format}</h1>
         <ReferenceList references={items} />
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Format);
+export default withStyles(s)(Format)

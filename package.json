@@ -28,6 +28,7 @@
     "lodash": "^4.17.4",
     "mapbox.js": "^2.1.9",
     "normalize.css": "^7.0.0",
+    "path": "^0.12.7",
     "pretty-error": "^2.1.0",
     "prop-types": "^15.5.8",
     "query-string": "^4.3.4",

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
-import s from './Rights.css';
+import s from './Rights.css'
 
 class Rights extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ class Rights extends React.Component {
   }
 
   render() {
-    const { rights } = this.props;
+    const {rights} = this.props
     return (
       <div>
         {
@@ -41,8 +41,8 @@ class Rights extends React.Component {
         }
 
       </div>
-    );
+    )
   }
 }
 
-export default Rights;
+export default withStyles(s)(Rights)

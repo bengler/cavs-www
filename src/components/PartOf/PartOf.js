@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { findLast } from 'lodash';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import LinkResolver from '../Link/Resolver';
-import ResolveType from '../ResolveType';
+import React from 'react'
+import PropTypes from 'prop-types'
+import {findLast} from 'lodash'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import LinkResolver from '../Link/Resolver'
+import ResolveType from '../ResolveType'
 
 
-import s from './PartOf.css';
+import s from './PartOf.css'
 
 class PartOf extends React.Component {
   static propTypes = {
@@ -26,22 +26,22 @@ class PartOf extends React.Component {
   };
 
   renderParts() {
-    const { partOf } = this.props;
+    const {partOf} = this.props
     const parts = partOf.map((part) => { // eslint-disable-line
       const image = part.references
         && part.references.length
-        && part.references.map((reference) => {
+        && part.references.map(reference => {
           if (reference.imageAssets && reference.imageAssets.length) {
-            return findLast(reference.imageAssets, (asset) => {
+            return findLast(reference.imageAssets, asset => {
               if (asset && asset.asset && asset.asset.url) {
-                return asset.asset.url;
+                return asset.asset.url
               }
-              return false;
-            });
+              return false
+            })
           }
-          return false;
+          return false
         },
-      )[0];
+      )[0]
       if (part._id) {
         return (
           <span key={part._id} className={s.part}>
@@ -52,20 +52,20 @@ class PartOf extends React.Component {
             }
             <LinkResolver item={part} /> (<ResolveType type={part._type} />)
           </span>
-        );
+        )
       }
-    });
+    })
 
-    return parts;
+    return parts
   }
 
   render() {
-    const { partOf } = this.props;
+    const {partOf} = this.props
 
     if (!partOf.length) {
       return (
         <div />
-      );
+      )
     }
 
     return (
@@ -77,8 +77,8 @@ class PartOf extends React.Component {
         }
 
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(PartOf);
+export default withStyles(s)(PartOf)

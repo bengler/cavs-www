@@ -36,9 +36,9 @@ function findStops(periods) {
 export default function swimLanes(periods) {
 
   const stops = findStops(periods)
-  console.info('start', new Date(stops.start))
-  console.info('end', new Date(stops.end))
-  console.info('total dur', stops.duration / 1000 / 60 / 60 / 24 / 365, ' yrs')
+  //console.info('start', new Date(stops.start))
+  //console.info('end', new Date(stops.end))
+  //console.info('total dur', stops.duration / 1000 / 60 / 60 / 24 / 365, ' yrs')
   normalize(periods, stops)
 
   const normalizedPeriods = periods.sort((pa, pb) => {

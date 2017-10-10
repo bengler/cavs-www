@@ -7,15 +7,15 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import path from 'path';
-import webpack from 'webpack';
-import AssetsPlugin from 'assets-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import pkg from '../package.json';
+import path from 'path'
+import webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import pkg from '../package.json'
 
-const isDebug = !process.argv.includes('--release');
-const isVerbose = process.argv.includes('--verbose');
-const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse');
+const isDebug = !process.argv.includes('--release')
+const isVerbose = process.argv.includes('--verbose')
+const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse')
 
 //
 // Common configuration chunk to be used for both
@@ -97,7 +97,7 @@ const config = {
               localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
               // CSS Nano http://cssnano.co/options/
               minimize: !isDebug,
-              discardComments: { removeAll: true },
+              discardComments: {removeAll: true},
             },
           },
           {
@@ -127,7 +127,7 @@ const config = {
               // CSS Modules Disabled
               modules: false,
               minimize: !isDebug,
-              discardComments: { removeAll: true },
+              discardComments: {removeAll: true},
             },
           },
         ],
@@ -186,7 +186,7 @@ const config = {
     cached: isVerbose,
     cachedAssets: isVerbose,
   },
-};
+}
 
 //
 // Configuration for the client-side bundle (client.js)
@@ -271,7 +271,7 @@ const clientConfig = {
     net: 'empty',
     tls: 'empty',
   },
-};
+}
 
 //
 // Configuration for the server-side bundle (server.js)
@@ -316,10 +316,10 @@ const serverConfig = {
   externals: [
     /^\.\/assets\.json$/,
     (context, request, callback) => {
-      const isExternal =
-        request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
-        !request.match(/\.(css|less|scss|sss)$/i);
-      callback(null, Boolean(isExternal));
+      const isExternal
+        = request.match(/^[@a-z][a-z/.\-0-9]*$/i)
+        && !request.match(/\.(css|less|scss|sss)$/i)
+      callback(null, Boolean(isExternal))
     },
   ],
 
@@ -334,7 +334,7 @@ const serverConfig = {
 
     // Do not create separate chunks of the server bundle
     // https://webpack.github.io/docs/list-of-plugins.html#limitchunkcountplugin
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
 
     // Adds a banner to the top of each generated chunk
     // https://webpack.github.io/docs/list-of-plugins.html#bannerplugin
@@ -355,6 +355,6 @@ const serverConfig = {
   },
 
   devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
-};
+}
 
-export default [clientConfig, serverConfig];
+export default [clientConfig, serverConfig]

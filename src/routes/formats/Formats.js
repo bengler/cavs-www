@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
-import Link from '../../components/Link/Link';
-import s from './Formats.css';
+import Link from '../../components/Link/Link'
+import s from './Formats.css'
 
 class Home extends React.Component {
   static propTypes = {
@@ -14,7 +14,7 @@ class Home extends React.Component {
     formats: [],
   }
   render() {
-    const { formats } = this.props;
+    const {formats} = this.props
     return (
       <div className={s.container}>
         <ul className={s.list}>
@@ -27,8 +27,8 @@ class Home extends React.Component {
         }
         </ul>
       </div>
-    );
+    )
   }
 }
 
-export default withStyles(s)(Home);
+export default withStyles(s)(Home)

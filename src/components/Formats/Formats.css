@@ -1,3 +1,4 @@
+/*
 .list {
   composes: list from '../Subjects/Subjects.css';
 }
@@ -5,6 +6,7 @@
 .item {
   display: inline-block;
 }
+*/
 
 .link {
   display: inline-block;
