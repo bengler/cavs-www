@@ -6,8 +6,8 @@ import {themeShape} from '../../themes'
 
 import Theme from './Theme'
 // import Link from '../Link/Link'
-// import MatrixCamera from '../MatrixCamera/MatrixCamera'
-// import MatrixElement from '../MatrixElement/MatrixElement'
+import MatrixCamera from '../MatrixCamera/MatrixCamera'
+import MatrixElement from '../MatrixElement/MatrixElement'
 
 import s from './Explorer.css'
 
@@ -59,12 +59,34 @@ class Explorer extends React.Component {
     const cached = nextCache[cacheKey]
 
     if (cached) {
-      this.onNext(cached)
+      this.setState({
+        next: cached
+      })
     } else {
       active.theme.getRelated().then(themes => {
         if (this.mounted) {
-          nextCache[cacheKey] = themes
-          this.onNext(themes)
+          const next = themes.map(theme => ({
+            theme: theme,
+            position: [
+              active.position[0] + (Math.random() - 0.5) * 400,
+              active.position[1] + (Math.random() - 0.5) * 400,
+              active.position[2] + (Math.random() - 0.5) * 50
+            ],
+            rotation: [
+              (Math.random() - 0.5) * 2,
+              [
+                (Math.random() - 0.5),
+                (Math.random() - 0.5),
+                (Math.random() - 0.5)
+              ]
+            ]
+          }))
+
+          nextCache[cacheKey] = next
+
+          this.setState({
+            next
+          })
         }
       })
     }
@@ -73,8 +95,8 @@ class Explorer extends React.Component {
   onNext(themes) {
     this.setState({
       next: themes.map(theme => ({
-        position: [0, 0, 0],
-        rotation: [0, [0, 0, 0]],
+        position: [Math.random() * 200, Math.random() * 200, Math.random() * 200],
+        rotation: [Math.random(), [Math.random(), Math.random(), Math.random()]],
         theme: theme
       }))
     })
@@ -123,17 +145,18 @@ class Explorer extends React.Component {
       active,
       ...next
     ].map(item => (
-      <Theme
-        key={item.theme.key}
-        theme={item.theme}
-        active={item === active}
-      />
+      <MatrixElement key={item.theme.key} position={item.position} rotation={item.rotation}>
+        <Theme
+          theme={item.theme}
+          active={item === active}
+        />
+      </MatrixElement>
     ))
 
     return (
-      <div>
+      <MatrixCamera target={active}>
         {items}
-      </div>
+      </MatrixCamera>
     )
 
     // const items = theme.items.map((item, i) => ({

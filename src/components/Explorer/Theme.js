@@ -25,9 +25,11 @@ class Theme extends React.Component {
       <section>
         <h2>
           {active && (
-            title
+            <span className={s.title}>
+              {title}
+            </span>
           ) || (
-            <Link to={`/explore/${type}/${key}`}>
+            <Link className={s.link} to={`/explore/${type}/${key}`}>
               {title}
             </Link>
           )}

@@ -1,0 +1,7 @@
+.title {
+  composes: link from '../Navigation/Navigation.css';
+}
+
+.link {
+  composes: link from '../Navigation/Navigation.css';
+}
