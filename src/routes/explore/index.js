@@ -1,20 +1,18 @@
 import React from 'react'
-import { keys, union, flattenDeep } from 'lodash';
-import seedrandom from 'seedrandom'
 import Layout from '../../components/Layout'
 import Explorer from '../../components/Explorer/Explorer'
-import { getTheme, getRandomTheme } from '../themes'
+import {getTheme, getRandomTheme} from '../../themes'
 
 export default {
   path: '/explore/:type/:key',
 
-  async action({ fetch, seed, params }) {
-    const { type, key } = params
+  async action({fetch, seed, params}) {
+    const {type, key} = params
     const theme = await getTheme(fetch, type, key)
 
-    theme.tangents = [
+    theme.related = [
       await getRandomTheme(fetch, theme.key),
-      await getRandomTheme(fetch, theme.key + '2')
+      await getRandomTheme(fetch, `${theme.key}-2`)
     ]
 
     return {

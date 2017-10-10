@@ -1,50 +1,155 @@
-import React from 'react';
-import { filter } from 'lodash';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import React from 'react'
+import {findIndex} from 'lodash'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
-import themeShape from './themeShape';
-import Theme from './Theme';
-import Link from '../Link/Link';
-import MatrixCamera from '../MatrixCamera/MatrixCamera';
-import MatrixElement from '../MatrixElement/MatrixElement';
+import {themeShape} from '../../themes'
 
-import s from './Explorer.css';
+import Theme from './Theme'
+// import Link from '../Link/Link'
+// import MatrixCamera from '../MatrixCamera/MatrixCamera'
+// import MatrixElement from '../MatrixElement/MatrixElement'
+
+import s from './Explorer.css'
+
+const nextCache = {}
 
 class Explorer extends React.Component {
   static propTypes = {
     theme: themeShape.isRequired
   }
 
-  state = {
-    scroll: 0
+  constructor(props) {
+    super(props)
+
+    const placements = this.getPlacements(props.theme)
+
+    this.state = {
+      scroll: 0,
+      placements
+    }
   }
 
-  onScroll = () => {
+  componentWillReceiveProps(nextProps) {
+    const prevTheme = this.props.theme
+    const nextTheme = nextProps.theme
+    const themeChange = nextTheme && prevTheme.key !== nextTheme.key
+
+    if (themeChange) {
+      const placements = this.getPlacements(nextProps.theme)
+
+      this.setState({
+        placements
+      }, () => {
+        this.getNext()
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.mounted = true
+    this.getNext()
+  }
+
+  componentWillUnmount() {
+    this.mounted = false
+  }
+
+  getNext() {
+    const {active} = this.state.placements
+    const cacheKey = `${active.theme.type}:${active.theme.key}`
+    const cached = nextCache[cacheKey]
+
+    if (cached) {
+      this.onNext(cached)
+    } else {
+      active.theme.getRelated().then(themes => {
+        if (this.mounted) {
+          nextCache[cacheKey] = themes
+          this.onNext(themes)
+        }
+      })
+    }
+  }
+
+  onNext(themes) {
     this.setState({
-      scroll: window.scrollY
+      placements: {
+        ...this.state.placements,
+        next: themes.map(theme => ({
+          position: [0, 0, 0],
+          rotation: [0, [0, 0, 0]],
+          theme: theme
+        }))
+      }
     })
   }
 
-  componentDidMount () {
-    window.addEventListener('scroll', this.onScroll)
-  }
+  getPlacements(active) {
+    if (!this.state) {
+      // Initial placements
+      return {
+        previous: [],
+        next: [],
+        active: {
+          position: [0, 0, 0],
+          rotation: [0, [0, 0, 0]],
+          theme: active
+        }
+      }
+    }
 
-  componentWillUnmount () {
-    window.removeEventListener('scroll', this.onScroll)
+    // Has previous state
+    const {previous, next} = this.state.placements
+    const prevActive = this.state.placements.active
+    const nextIndex = findIndex(next, item => item.theme.key === active.key)
+    const previousIndex = findIndex(previous, item => item.theme.key === active.key)
+
+    if (nextIndex > -1) {
+      // Changed to one of the next
+      return {
+        previous: [...previous, prevActive],
+        next: [],
+        active: next[nextIndex]
+      }
+    } else if (previousIndex > -1) {
+      // Changed to one of the previous
+      return {
+        previous: previous.slice(0, previousIndex),
+        next: [],
+        active: previous[previousIndex]
+      }
+    }
+
+    // Changed to something different
+    return {
+      previous: [],
+      next: [],
+      active: {
+        position: [0, 0, 0],
+        rotation: [0, [0, 0, 0]],
+        theme: active
+      }
+    }
   }
 
   render() {
-    const { theme } = this.props
-    const { scroll } = this.state
-    const tangents = theme.tangents || []
+    const {placements} = this.state
+
+    const items = [
+      ...placements.previous,
+      placements.active,
+      ...placements.next
+    ].map(item => (
+      <Theme
+        key={item.theme.key}
+        theme={item.theme}
+        active={item === placements.active}
+      />
+    ))
 
     return (
       <div>
-        <Theme theme={theme} active />
-
-        {tangents.map(tangent => (
-          <Theme key={tangent.key} theme={tangent} />
-        ))}
+        {items}
       </div>
     )
 
@@ -116,4 +221,4 @@ class Explorer extends React.Component {
   }
 }
 
-export default withStyles(s)(Explorer);
+export default withStyles(s)(Explorer)

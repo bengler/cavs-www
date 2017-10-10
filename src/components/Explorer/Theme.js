@@ -1,23 +1,25 @@
-import React from 'react';
-import { filter } from 'lodash';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import themeShape from './themeShape';
+import React from 'react'
+import PropTypes from 'prop-types'
+import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import {themeShape} from '../../themes'
 
 import Link from '../Link/Link'
-import MatrixCamera from '../MatrixCamera/MatrixCamera'
-import MatrixElement from '../MatrixElement/MatrixElement'
 
-import s from './Theme.css';
+import s from './Theme.css'
 
 class Theme extends React.Component {
   static propTypes = {
+    active: PropTypes.bool,
     theme: themeShape.isRequired
   }
 
-  render () {
-    const { theme, active } = this.props
-    const { type, key, title, items } = theme
+  static defaultProps = {
+    active: false
+  }
 
+  render() {
+    const {theme, active} = this.props
+    const {type, key, title} = theme
 
     return (
       <section>
@@ -35,4 +37,4 @@ class Theme extends React.Component {
   }
 }
 
-export default withStyles(s)(Theme);
+export default withStyles(s)(Theme)
