@@ -1,17 +1,29 @@
 import React from 'react'
-import {findIndex} from 'lodash'
+import {filter, last, findIndex, values} from 'lodash'
+import {Motion, spring} from 'react-motion'
+import mat4 from 'gl-mat4'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
 import {themeShape} from '../../themes'
-
 import Theme from './Theme'
-// import Link from '../Link/Link'
+import Scroller from './Scroller'
 import MatrixCamera from '../MatrixCamera/MatrixCamera'
 import MatrixElement from '../MatrixElement/MatrixElement'
 
 import s from './Explorer.css'
 
 const nextCache = {}
+
+function getViewMatrix(target, scroll = 0) {
+  const view = mat4.create()
+
+  mat4.translate(view, view, target.position)
+  mat4.rotate(view, view, ...target.rotation)
+  mat4.translate(view, view, [0, scroll, 250])
+  mat4.invert(view, view)
+
+  return view
+}
 
 class Explorer extends React.Component {
   static propTypes = {
@@ -22,7 +34,8 @@ class Explorer extends React.Component {
     super(props)
 
     this.state = {
-      scroll: 0,
+      view: null,
+      animate: false,
       previous: [],
       next: [],
       active: null
@@ -47,17 +60,22 @@ class Explorer extends React.Component {
   componentDidMount() {
     this.mounted = true
     this.getNext()
-    window.addEventListener('scroll', this.onScroll)
   }
 
   componentWillUnmount() {
     this.mounted = false
-    window.removeEventListener('scroll', this.onScroll)
   }
 
-  onScroll = () => {
+  handleScroll = e => {
     this.setState({
-      scroll: window.scrollY
+      animate: false,
+      view: getViewMatrix(this.state.active, e.currentTarget.scrollTop)
+    })
+  }
+
+  handleAnimationRest = () => {
+    this.setState({
+      animate: false
     })
   }
 
@@ -77,7 +95,7 @@ class Explorer extends React.Component {
             theme: theme,
             position: [
               active.position[0] + (Math.random() - 0.5) * 200,
-              active.position[1] + (Math.random() - 0.5) * 200,
+              active.position[1] + Math.random() * 100 + 100,
               active.position[2] + (Math.random() - 0.5) * 200
             ],
             rotation: [
@@ -100,138 +118,89 @@ class Explorer extends React.Component {
     }
   }
 
-  onNext(themes) {
-    this.setState({
-      next: themes.map(theme => ({
-        position: [Math.random() * 200, Math.random() * 200, Math.random() * 200],
-        rotation: [Math.random(), [Math.random(), Math.random(), Math.random()]],
-        theme: theme
-      }))
-    })
-  }
-
-  getPlacements(nextActive) {
+  getPlacements(nextTheme) {
     // Has previous state
     const {previous, next, active} = this.state
-    const nextIndex = findIndex(next, item => item.theme.key === nextActive.key)
-    const previousIndex = findIndex(previous, item => item.theme.key === nextActive.key)
+    const nextIndex = findIndex(next, item => item.theme.key === nextTheme.key)
+    const previousIndex = findIndex(previous, item => item.theme.key === nextTheme.key)
     const existsInNext = nextIndex > -1
     const existsInPrevious = previousIndex > -1
 
     if (existsInNext) {
+      const nextActive = next[nextIndex]
+
       return {
+        animate: true,
         previous: [...previous, active],
         next: [],
-        active: next[nextIndex]
+        active: nextActive,
+        view: getViewMatrix(nextActive)
       }
     }
 
     if (existsInPrevious) {
+      const nextActive = previous[previousIndex]
       return {
+        animate: true,
         previous: previous.slice(0, previousIndex),
         next: [],
-        active: previous[previousIndex]
+        active: nextActive,
+        view: getViewMatrix(nextActive)
       }
+    }
+
+    const nextActive = {
+      position: [0, 0, 0],
+      rotation: [0, [0, 0, 0]],
+      theme: nextTheme
     }
 
     return {
       previous: [],
       next: [],
-      active: {
-        position: [0, 0, 0],
-        rotation: [0, [0, 0, 0]],
-        theme: nextActive
-      }
+      active: nextActive,
+      view: getViewMatrix(nextActive)
     }
   }
 
   render() {
-    const {previous, next, active, scroll} = this.state
+    const {previous, next, active, view, animate} = this.state
 
-    const items = [
-      ...previous,
+    const items = filter([
+      last(previous),
       active,
       ...next
-    ]
+    ])
+
+    const viewPlainArray = [...view]
+    const motion = Object.assign({}, animate ? viewPlainArray.map(value => (
+      spring(value)
+    )) : viewPlainArray)
 
     return (
-      <MatrixCamera target={active} scroll={scroll}>
-        {items.map(item => (
-          <MatrixElement key={item.theme.key} position={item.position} rotation={item.rotation}>
-            <Theme
-              theme={item.theme}
-              active={item === active}
-            />
-          </MatrixElement>
-        ))}
-      </MatrixCamera>
+      <Motion style={motion} onRest={this.handleAnimationRest}>
+        {interpolated => {
+          const interpolatedView = values(interpolated)
+
+          return (
+            <Scroller onScroll={this.handleScroll} theme={active.theme}>
+              <div className={s.spacer} />
+
+              <MatrixCamera view={interpolatedView}>
+                {items.map(item => (
+                  <MatrixElement key={item.theme.key} position={item.position} rotation={item.rotation}>
+                    <Theme
+                      theme={item.theme}
+                      active={item === active}
+                    />
+                  </MatrixElement>
+                ))}
+              </MatrixCamera>
+            </Scroller>
+          )
+        }}
+      </Motion>
     )
-
-    // const items = theme.items.map((item, i) => ({
-    //   heading: item.title || item.name,
-    //
-    //   text: 'Text',
-    //
-    //   styles: {
-    //     container: {
-    //       width: '80vw',
-    //       color: `hsl(${(i * 400) % 360}, 100%, 50%)`,
-    //       background: `rgba(255, 0, 0, 0.1)`,
-    //       pointerEvents: 'none'
-    //     },
-    //
-    //     heading: {
-    //       cursor: 'pointer',
-    //       textDecoration: 'underline',
-    //       pointerEvents: 'all',
-    //       textTransform: 'uppercase',
-    //       fontWeight: 'normal',
-    //       fontSize: '1em'
-    //     }
-    //   },
-    //
-    //   position: [
-    //     0,
-    //     i * 200,
-    //     (Math.sin(i) * 0.5 + 0.5) * -200
-    //   ],
-    //
-    //   rotation: [
-    //     Math.sin(i) / 2,
-    //     [
-    //       1,
-    //       i / 2,
-    //       0
-    //     ]
-    //   ]
-    // }))
-
-    // return (
-    //   <div>
-    //     <MatrixCamera target={items[0]} scroll={scroll}>
-    //       {items.map((item, i) => (
-    //         <MatrixElement
-    //           key={i}
-    //           position={item.position}
-    //           rotation={item.rotation}
-    //           style={item.styles.container}
-    //           children={(
-    //             <div>
-    //               <h1 style={item.styles.heading}>
-    //                 <Link to={`/explore/${i}`}>
-    //                   {item.heading}
-    //                 </Link>
-    //               </h1>
-    //               <p>
-    //                 {item.text}
-    //               </p>
-    //             </div>
-    //           )}
-    //         />
-    //       ))}
-    //     </MatrixCamera>
-    //   </div>
-    // );
   }
 }
 

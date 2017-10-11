@@ -33,6 +33,12 @@ class Theme extends React.Component {
               {title}
             </Link>
           )}
+
+          {theme.items.map(item => (
+            <div key={item._id}>
+              {item.title || item.name}
+            </div>
+          ))}
         </h2>
       </section>
     )
