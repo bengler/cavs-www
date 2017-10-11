@@ -1,6 +1,12 @@
+.root {
+  pointer-events: none;
+}
+
 .title {
   composes: link from '../Navigation/Navigation.css';
   white-space: nowrap;
+  pointer-events: all;
+  background: white;
 }
 
 .link {

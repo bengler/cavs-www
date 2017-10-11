@@ -76,9 +76,9 @@ class Explorer extends React.Component {
           const next = themes.map(theme => ({
             theme: theme,
             position: [
-              active.position[0] + (Math.random() - 0.5) * 400,
-              active.position[1] + (Math.random() - 0.5) * 400,
-              active.position[2] + (Math.random() - 0.5) * 50
+              active.position[0] + (Math.random() - 0.5) * 200,
+              active.position[1] + (Math.random() - 0.5) * 200,
+              active.position[2] + (Math.random() - 0.5) * 200
             ],
             rotation: [
               (Math.random() - 0.5) * 2,
