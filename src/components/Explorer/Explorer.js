@@ -92,19 +92,19 @@ class Explorer extends React.Component {
       setTimeout(() => {
         active.theme.getRelated().then(themes => {
           if (this.mounted) {
-            const next = themes.map(theme => ({
+            const next = themes.map((theme, i) => ({
               theme: theme,
               position: [
                 active.position[0],
-                active.position[1] + 150,
-                active.position[2]
+                active.position[1] + (i + 1) * 100,
+                active.position[2] + (i + 1) * 50 + 50
               ],
               rotation: [
-                (Math.random() - 0.5) * 2,
+                active.rotation[0] + (Math.random() - 0.5) * 0.5,
                 [
-                  Math.random() - 0.5,
-                  Math.random() - 0.5,
-                  (Math.random() - 0.5) * 2
+                  active.rotation[1][0] + 0,
+                  active.rotation[1][1] + 0,
+                  active.rotation[1][2] + 1
                 ]
               ]
             }))

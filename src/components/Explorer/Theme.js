@@ -24,7 +24,7 @@ class Theme extends React.Component {
 
     return (
       <section className={s.root}>
-        <h2>
+        <h2 className={s.heading}>
           {active && (
             <span className={s.title}>
               {title}
