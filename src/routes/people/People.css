@@ -1,0 +1,74 @@
+.title {
+  composes: title from '../../components/common.css';
+  display: none;
+}
+
+.container {
+  composes: container from '../../components/common.css';
+}
+
+.grid {
+  columns: 3;
+  column-gap: 4rem;
+}
+
+.list {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.chunk {
+  break-inside: avoid;
+}
+
+.chunkTitle {
+  composes: fontMedium from '../../components/typography.css';
+  text-transform: uppercase;
+}
+
+.chunkInnerList {
+  composes: list;
+  composes: fontMedium from '../../components/typography.css';
+}
+
+.link {
+  display: inline;
+}
+
+.emptyLink {
+  color: #000;
+}
+
+.item {
+  display: block;
+  margin: 0;
+  padding: 0;
+  composes: fontMedium from '../../components/typography.css';
+}
+
+.portraitItem {
+  composes: item;
+  margin-bottom: 2rem;
+
+  @nest & > a {
+    display: block;
+    color: black;
+  }
+
+  @nest & img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.imagePlaceholder {
+  border: 2px solid black;
+  width: 100%;
+  box-sizing: border-box;
+
+  @nest & div {
+    padding-top: 100%;
+  }
+}

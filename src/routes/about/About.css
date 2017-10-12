@@ -1,0 +1,27 @@
+.root {
+  display: block;
+}
+
+.menu {
+  margin: 0 1rem;
+  padding: 0;
+  composes: fontMedium from '../../components/typography.css';
+}
+
+.menuItem {
+  display: inline;
+  margin: 0;
+  padding: 0;
+
+  @nest &:not(:first-child) {
+    margin-left: 0.25em;
+  }
+
+  @nest &:not(:last-child)::after {
+    content: ', ';
+  }
+}
+
+.content {
+  composes: container from '../../components/common.css';
+}

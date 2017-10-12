@@ -19,28 +19,25 @@ class Rights extends React.Component {
   render() {
     const {rights} = this.props
     return (
-      <div>
+      <ul className={s.root}>
         {
           rights.holdingInstitution && (
-            <h2>Holding Institution: {rights.holdingInstitution}</h2>
+            <li className={s.item}>Holding Institution: {rights.holdingInstitution}</li>
           )
         }
 
         {
           rights.copyrightHolders && rights.copyrightHolders.length && (
-            <div>
-              <h2>
+            <li className={s.item}>
                 Copyright Holders:&nbsp;
                 {
                   rights.copyrightHolders.map(holder => <span key={holder} className={s.item}>{holder}</span>)
                 }
-              </h2>
-
-            </div>
+            </li>
           )
         }
 
-      </div>
+      </ul>
     )
   }
 }

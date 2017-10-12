@@ -2,8 +2,22 @@
   display: block;
 }
 
+.type {
+  composes: type from '../item/Item.css';
+  display: none;
+}
+
 .title {
-  composes: title from '../item/Item.css';
+  composes: title from '../../components/typography.css';
+  margin-bottom: 1rem;
+}
+
+.creators {
+  composes: fontMedium from '../../components/typography.css';
+}
+
+.subjects {
+  display: block;
 }
 
 .container {
@@ -11,9 +25,5 @@
 }
 
 .description {
-  composes: description from '../../components/common.css';
-}
-
-.type {
-  composes: type from '../item/Item.css';
+  composes: fontMedium from '../../components/typography.css';
 }

@@ -8,12 +8,11 @@ class Header extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <Navigation />
-        <Link to="/" className={s.brand}>
-          <span className={s.brandTxt}>
-            <strong>MIT</strong> Center for Advanced Visual Studies Special Collection
-          </span>
+        <Link to="/" className={s.title}>
+          Center for Advanced Visual Studies Special Collection
         </Link>
+        <Navigation />
+        <img src="/MIT-logo-black-gray.svg" className={s.logo} />
       </div>
     )
   }

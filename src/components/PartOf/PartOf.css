@@ -1,9 +1,30 @@
+.root {
+  display: inline;
+}
+
+.list {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.inner {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 .part {
   display: inline;
 }
 
 .image {
   display: none;
-  height: 1em;
   width: auto;
 }

@@ -16,14 +16,14 @@ class Formats extends React.Component {
   render() {
     const {formats} = this.props
     return (
-      <div>
-        <h2>
-          Format: {
-            formats.map(formatTitle => (
-              <Link key={formatTitle} className={s.link} to={`/format/${formatTitle}`}>{formatTitle}</Link>
-            ))
-          }
-        </h2>
+      <div className={s.root}>
+        Format: {
+          formats.map(formatTitle => (
+            <span className={s.item} key={formatTitle}>
+              <Link className={s.link} to={`/format/${formatTitle}`}>{formatTitle}</Link>
+            </span>
+          ))
+        }
       </div>
     )
   }

@@ -1,0 +1,21 @@
+@import './variables.css';
+
+.fontSmall {
+  font-size: var(--font-size--small);
+}
+
+.fontMedium {
+  font-size: var(--font-size--medium);
+  line-height: 1.2em;
+}
+
+.fontLarge {
+  font-size: var(--font-size--large);
+}
+
+.title {
+  font-size: var(--font-size--title);
+  line-height: 1em;
+  margin: 0;
+  padding: 0;
+}

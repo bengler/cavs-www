@@ -10,14 +10,24 @@
 }
 
 .type {
-  text-transform: uppercase;
-  margin-bottom: 0.5em;
+  display: none;
 }
 
 .title {
-  composes: title from '../../components/common.css';
-  padding-top: 0;
-  margin-top: 0;
+  composes: fontMedium from '../../components/typography.css';
+  padding: 0;
+  margin: 0;
+}
+
+.partOf {
+  padding: 1rem 0;
+  composes: fontMedium from '../../components/typography.css';
+  margin-bottom: 1rem;
+}
+
+.meta {
+  display: block;
+  clear: both;
 }
 
 .container {
@@ -25,7 +35,8 @@
 }
 
 .description {
-  composes: description from '../../components/common.css';
+  composes: fontMedium from '../../components/typography.css';
+  margin-bottom: 1rem;
 }
 
 .video {

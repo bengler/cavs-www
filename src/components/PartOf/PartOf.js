@@ -44,14 +44,15 @@ class PartOf extends React.Component {
       )[0]
       if (part._id) {
         return (
-          <span key={part._id} className={s.part}>
+          <li key={part._id} className={s.part}>
             {
               image && image.asset && image.asset.url && (
                 <img className={s.image} src={`${image.asset.url}?w=100`} alt={part.name || part.title} />
               )
             }
-            <LinkResolver item={part} /> (<ResolveType type={part._type} />)
-          </span>
+            <LinkResolver item={part} />
+            {/* (<ResolveType type={part._type} />) */}
+          </li>
         )
       }
     })
@@ -69,10 +70,15 @@ class PartOf extends React.Component {
     }
 
     return (
-      <div>
+      <div className={s.root}>
         {
           partOf && partOf.length > 0 && (
-            <h2>Part of: {this.renderParts()}</h2>
+            <div className={s.inner}>
+              Part of: &nbsp;
+              <ul className={s.list}>
+                {this.renderParts()}
+              </ul>
+            </div>
           )
         }
 

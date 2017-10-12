@@ -13,6 +13,7 @@
     "not ie < 9"
   ],
   "dependencies": {
+    "@sanity/block-content-to-react": "^1.0.2",
     "@sanity/client": "^0.105.8",
     "babel-polyfill": "^6.23.0",
     "body-parser": "^1.17.1",

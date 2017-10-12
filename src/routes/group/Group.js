@@ -68,16 +68,19 @@ class Item extends React.Component {
               <span>, {year.split('-')[0]}</span>
             )}
           </h1>
+          <div className={s.creators}>
+            <Creators creators={creators} />
+          </div>
           <p className={s.description}>{description}</p>
-
-          <Creators creators={creators} />
-
           {
              (_type === 'work3d' || _type === 'work2d') && (
                <Extents extents={group.extents} type={group._type} />
              )
           }
-          <Subjects subjects={subjects} />
+          <div className={s.subjects}>
+            <Subjects subjects={subjects} />
+          </div>
+
           <h2>Documentation</h2>
           <ReferenceGrid references={references} />
 

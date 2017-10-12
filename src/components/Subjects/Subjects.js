@@ -21,11 +21,11 @@ class Subjects extends React.Component {
   render() {
     const {subjects} = this.props
     return (
-      <div className={s.root}>
+      <ul className={s.root}>
         {
           subjects && subjects.length > 0 && (
-            <h2>
-              Subjects
+            <li className={s.subject}>
+              Subjects:
               {
                 subjects.map(subject => {
                   if (subject) {
@@ -36,10 +36,10 @@ class Subjects extends React.Component {
                   return <span /> //eslint-disable-line
                 })
               }
-            </h2>
+            </li>
           )
         }
-      </div>
+      </ul>
     )
   }
 }

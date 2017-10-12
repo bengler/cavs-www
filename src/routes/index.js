@@ -7,6 +7,7 @@ export default {
 
   // Keep in mind, routes are evaluated in order
   children: [
+    require('./about').default,
     require('./home').default,
     require('./person').default,
     require('./people').default,
@@ -14,6 +15,7 @@ export default {
     require('./group').default,
     require('./subject').default,
     require('./subjects').default,
+    require('./search').default,
     require('./format').default,
     require('./formats').default,
     require('./type').default,
@@ -26,7 +28,7 @@ export default {
     const route = await next()
 
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`
+    route.title = `${route.title || 'Untitled Page'}`
     route.description = route.description || ''
 
     return route

@@ -89,12 +89,21 @@ class Item extends React.PureComponent {
         <div className={s.container}>
           <div className={s.type}><ResolveType type={_type} /></div>
           <h1 className={s.title}>
-            {title}, {this.getYear(date)}
+            {title}, {this.getYear(date)}, <Creators creators={creators} />
           </h1>
-          <Creators creators={creators} />
           <p className={s.description}>
             {description || 'No description'}
           </p>
+
+          <div className={s.partOf}>
+            <PartOf partOf={partOf} />
+          </div>
+
+          <div className={s.meta}>
+            <Subjects subjects={subjects} />&nbsp;
+            <Formats formats={format} />
+          </div>
+          <Rights rights={rights} />
           {
             _type === 'movingImage' && videoUrl && (
               <div
@@ -106,10 +115,6 @@ class Item extends React.PureComponent {
             )
           }
           <ImageGallery images={imageAssets} excludeFirst />
-          <PartOf partOf={partOf} />
-          <Subjects subjects={subjects} />
-          <Formats formats={format} />
-          <Rights rights={rights} />
         </div>
       </div>
     )

@@ -1,47 +1,18 @@
 @import '../variables.css';
 
 .root {
-  font-size: 0.8rem;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  width: calc(100% - 2rem);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  overflow: hidden;
-
-  @media (--screen-xs-min) {
-    display: block;
-    width: auto;
-    position: static;
-    font-size: 1em;
-    float: right;
-  }
+  font-size: var(--font-size--large);
 }
 
 .link {
-  padding: 3px 8px;
-  text-decoration: none;
-  font-size: 1.125em; /* ~18px */
-  border: 3px solid red;
-  margin-right: 0.5em;
-  width: 100%;
-  text-align: center;
+  display: inline-block;
+  color: var(--brand-color);
 
-  @media (--screen-xs-min) {
-    display: inline-block;
-    width: auto;
+  @nest &:not(:first-child) {
+    padding-left: 0.25em;
   }
-}
 
-.link,
-.link:active,
-.link:visited {
-  color: red;
-}
-
-.link:hover {
-  color: red;
-  background-color: white;
+  @nest &:not(:last-child)::after {
+    content: ', ';
+  }
 }

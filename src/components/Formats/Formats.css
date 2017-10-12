@@ -1,3 +1,7 @@
+.root {
+  display: inline;
+}
+
 /*
 .list {
   composes: list from '../Subjects/Subjects.css';
@@ -7,6 +11,14 @@
   display: inline-block;
 }
 */
+
+.item {
+  display: inline;
+
+  @nest &:not(:last-child)::after {
+    content: ', ';
+  }
+}
 
 .link {
   display: inline-block;

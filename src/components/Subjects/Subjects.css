@@ -1,31 +1,21 @@
 .root {
-  clear: both;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+.subject {
+  display: inline;
+  margin: 0;
+  padding: 0;
 }
 
 .link {
-  display: inline-block;
-  font-size: 1rem;
-  border: 3px solid #000;
-  border-color: blue;
-  color: blue;
-  padding: 0.5em;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  margin: 0;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-
   @nest &:first-child {
     margin-left: 1rem;
   }
 
-  @nest &:visited {
-    border-color: purple;
-    color: purple;
-  }
-
-  @nest &:hover {
-    border-color: black;
-    color: black;
+  @nest &:not(:last-child)::after {
+    content: ', ';
   }
 }

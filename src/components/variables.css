@@ -1,10 +1,15 @@
 :root {
-  --brand-color: #f43;
+  --brand-color: #f00;
 
   /*
    * Typography
    * ======================================================================== */
 
+  --font-size--base: 1rem;
+  --font-size--small: 0.75rem;
+  --font-size--medium: 1.5rem;
+  --font-size--large: 2.5rem;
+  --font-size--title: 5rem;
   --font-family-base: 'Neue Haas Unica Pro Bold', 'Helvetica Neue', helvetica, arial, sans-serif;
 
   /*
@@ -18,7 +23,7 @@
    * Layout
    * ======================================================================== */
 
-  --max-content-width: 1000px;
+  --max-content-width: 90rem;
 
   /*
    * Media queries breakpoints

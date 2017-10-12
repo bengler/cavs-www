@@ -1,21 +1,17 @@
 @import './variables.css';
 
-.title {
-  font-size: 4em;
-  line-height: 1em;
-}
-
 .container {
   margin: 0 1rem;
   overflow: hidden;
 
   @media (--screen-lg-min) {
     max-width: var(--max-content-width);
+    padding: 0 1rem;
     margin: 0 auto;
   }
 }
 
 .description {
-  font-size: 2em;
+  font-size: var(--font-size--base);
   line-height: 1.2em;
 }
