@@ -2,7 +2,7 @@ import React from 'react'
 import {create, perspective, multiply} from 'gl-mat4'
 
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import css from './MatrixCamera.css'
+import s from './MatrixCamera.css'
 
 const MatrixCamera = ({
   children,
@@ -22,10 +22,10 @@ const MatrixCamera = ({
   }
 
   return (
-    <div className={css.camera} style={style}>
+    <div className={s.camera} style={style}>
       {children}
     </div>
   )
 }
 
-export default withStyles(css)(MatrixCamera)
+export default withStyles(s)(MatrixCamera)

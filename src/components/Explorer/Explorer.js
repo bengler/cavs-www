@@ -7,8 +7,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {themeShape} from '../../themes'
 import Theme from './Theme'
 import Scroller from './Scroller'
-import MatrixCamera from '../MatrixCamera/MatrixCamera'
-import MatrixElement from '../MatrixElement/MatrixElement'
+import MatrixCamera from './MatrixCamera'
+import MatrixElement from './MatrixElement'
 
 import s from './Explorer.css'
 
@@ -19,7 +19,7 @@ function getViewMatrix(target, scroll = 0) {
 
   mat4.translate(view, view, target.position)
   mat4.rotate(view, view, ...target.rotation)
-  mat4.translate(view, view, [0, scroll, 250])
+  mat4.translate(view, view, [0, scroll, 400])
   mat4.invert(view, view)
 
   return view
@@ -79,7 +79,7 @@ class Explorer extends React.Component {
     })
   }
 
-  getNext() {
+  getNext = () => {
     const {active} = this.state
     const cacheKey = `${active.theme.type}:${active.theme.key}`
     const cached = nextCache[cacheKey]
@@ -89,32 +89,34 @@ class Explorer extends React.Component {
         next: cached
       })
     } else {
-      active.theme.getRelated().then(themes => {
-        if (this.mounted) {
-          const next = themes.map(theme => ({
-            theme: theme,
-            position: [
-              active.position[0] + (Math.random() - 0.5) * 200,
-              active.position[1] + Math.random() * 100 + 100,
-              active.position[2] + (Math.random() - 0.5) * 200
-            ],
-            rotation: [
-              (Math.random() - 0.5) * 2,
-              [
-                (Math.random() - 0.5),
-                (Math.random() - 0.5),
-                (Math.random() - 0.5)
+      setTimeout(() => {
+        active.theme.getRelated().then(themes => {
+          if (this.mounted) {
+            const next = themes.map(theme => ({
+              theme: theme,
+              position: [
+                active.position[0],
+                active.position[1] + 150,
+                active.position[2]
+              ],
+              rotation: [
+                (Math.random() - 0.5) * 2,
+                [
+                  Math.random() - 0.5,
+                  Math.random() - 0.5,
+                  (Math.random() - 0.5) * 2
+                ]
               ]
-            ]
-          }))
+            }))
 
-          nextCache[cacheKey] = next
+            nextCache[cacheKey] = next
 
-          this.setState({
-            next
-          })
-        }
-      })
+            this.setState({
+              next
+            })
+          }
+        })
+      }, 1000)
     }
   }
 

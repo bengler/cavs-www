@@ -1,3 +1,7 @@
+.root {
+  width: 80vw;
+}
+
 .title {
   composes: link from '../Navigation/Navigation.css';
   white-space: nowrap;
@@ -7,4 +11,9 @@
 
 .link {
   composes: title;
+}
+
+.grid {
+  column-width: 300px;
+  column-gap: 0;
 }

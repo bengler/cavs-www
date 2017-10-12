@@ -29,11 +29,19 @@ export async function getTheme(fetch, type, key) {
 }
 
 export function getItems(fetch, type, key) {
-  const projection = '{ _id, name, title }'
+  const projection = `{
+    _id,
+    name,
+    title,
+    imageAssets[] {
+      _key,
+      asset -> {url}
+    }
+  }`
 
   switch (type) {
     case 'subject':
-      return fetch(`*["${key}" in subjects] ${projection}`)
+      return fetch(`*["${key}" in subjects && defined(imageAssets)][0..20] ${projection}`)
 
     default:
       return []
