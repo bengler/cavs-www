@@ -10,7 +10,7 @@ export default {
     const query = `
       *[_id=="${params.id}"] {
         name,
-        description,
+        shortBio,
         portraits[] {
           ...,
           asset -> {url}

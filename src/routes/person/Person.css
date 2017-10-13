@@ -1,13 +1,14 @@
 .title {
-  composes: title from '../../components/common.css';
+  composes: title from '../../components/typography.css';
+  margin-top: 1em;
 }
 
 .container {
   composes: container from '../../components/common.css';
 }
 
-.description {
-  composes: description from '../../components/common.css';
+.shortBio {
+  composes: fontMedium from '../../components/typography.css';
 }
 
 .mainImage {

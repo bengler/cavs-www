@@ -3,7 +3,37 @@ import Search from './Search'
 import Layout from '../../components/Layout'
 
 function createQuery(query) {
-  return `*[][title match "${query}"]{...}[0..100]`
+  return `
+  *[
+    title match "${query}"
+    || name match "${query}"
+    || name match "${query}"
+  ]
+  {
+    ...,
+    identifier,
+    portraits[] {
+      _key,
+      asset -> {url}
+    },
+    imageAssets[] {
+      _key,
+      asset -> {url}
+    },
+    "references": *[references(^._id)] {
+      ...,
+      identifier,
+      portraits[] {
+        _key,
+        asset -> {url}
+      },
+      imageAssets[] {
+        _key,
+        asset -> {url}
+      }
+    }
+  }[0..100]
+`
 }
 
 export default {

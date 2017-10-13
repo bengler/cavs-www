@@ -5,19 +5,18 @@
 
 .list {
   margin: 0;
-  display: block;
   padding: 0;
-  clear: both;
+  display: block;
+  columns: 2;
 }
 
 .item {
-  composes: item from '../../components/Subjects/Subjects.css';
   display: block;
-  float: left;
-  margin-left: 0;
+  margin: 0;
+  padding: 0;
+  composes: fontMedium from '../../components/typography.css';
 }
 
 .link {
-  composes: link from '../../components/Subjects/Subjects.css';
-  margin-left: 0 !important;
+  color: #000;
 }

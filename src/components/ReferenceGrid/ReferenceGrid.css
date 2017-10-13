@@ -2,25 +2,38 @@
 
 .grid {
   @media (--screen-md-min) {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .item {
-  border-top: 3px solid #000;
   display: block;
+}
 
-  @media (--screen-md-min) {
-    padding: 1rem;
-    width: 32.333333%;
-    box-sizing: border-box;
-    margin-right: 1%;
-  }
+.image {
+  width: 100%;
+  height: auto;
 }
 
 .itemTitle {
-  margin-top: 1rem;
+  composes: fontMedium from '../typography.css';
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  color: black;
+}
+
+.image {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.itemType {
+  display: none;
 }
 
 .reference {

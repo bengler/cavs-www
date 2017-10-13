@@ -27,13 +27,12 @@ class Persons extends React.Component {
     return (
       <div>
         <div className={s.container}>
+          <h1 className={s.title}>{name}</h1>
+          <p className={s.shortBio}>{shortBio}</p>
           {
             portraits && portraits[0]
-            && <img className={s.mainImage} src={`${portraits[0].asset.url}?w=1200`} alt="" />
+            && <img className={s.mainImage} src={`${portraits[0].asset.url}?w=2000&fit=max`} alt="" />
           }
-          <h1 className={s.title}>{name}</h1>
-          <p className={s.description}>{shortBio}</p>
-
           <ImageGallery images={portraits} excludeFirst />
 
         </div>

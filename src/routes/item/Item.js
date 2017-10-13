@@ -80,6 +80,8 @@ class Item extends React.PureComponent {
       return <div>Nothing here</div>
     }
 
+    console.log('item', item)
+
     return (
       <div className={s.root}>
         {

@@ -17,23 +17,23 @@ class LinkResolver extends React.Component {
   }
 
   render() {
-    const {item, children} = this.props
+    const {item, children, ...rest} = this.props
     if (item.identifier) {
       return (
-        <Link to={`/item/${item.identifier}`}>
+        <Link to={`/item/${item.identifier}`} {...rest}>
           {children || item.title || item.name || 'Untitled'}
         </Link>
       )
     }
     if (!item.identifier && item._id) {
       return (
-        <Link to={`/group/${item._id}`}>
+        <Link to={`/group/${item._id}`} {...rest}>
           {children || item.title || item.name || 'Untitled'}
         </Link>
       )
     }
     return (
-      <span>
+      <span {...rest}>
         Could not resolve link
         {children || item.title || item.name || 'Untitled'}
       </span>
