@@ -3,7 +3,10 @@ import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './MatrixElement.css'
 
-const MatrixElement = ({matrix, children}) => (
+const MatrixElement = ({
+  matrix,
+  children
+}) => (
   <div
     className={s.root}
     style={{

@@ -1,6 +1,5 @@
 import React from 'react'
-import {filter, last, findIndex, values} from 'lodash'
-import {Motion, spring} from 'react-motion'
+import {filter, last, findIndex} from 'lodash'
 import mat4 from 'gl-mat4'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
