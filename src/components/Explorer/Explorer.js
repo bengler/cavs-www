@@ -25,7 +25,7 @@ function transformMatrix(matrix, transforms) {
 
 function getCameraMatrix(source, scroll = 0, distance = 400) {
   return transformMatrix(source, [
-    ['translate', [0, scroll, 500]],
+    ['translate', [0, scroll, distance]],
     ['invert']
   ])
 }
