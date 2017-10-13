@@ -98,8 +98,8 @@ class Explorer extends React.Component {
               theme: theme,
               transforms: [
                 ...active.transforms,
-                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 50 + 50]],
-                ['rotateX', Math.random() * 1],
+                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 10 + 10]],
+                // ['rotateX', Math.random() * 0.5],
                 ['rotateZ', (Math.random() - 0.5) * 2]
               ]
             }))
@@ -167,34 +167,21 @@ class Explorer extends React.Component {
       ...next
     ])
 
-    const viewPlainArray = [...view]
-    const motion = Object.assign({}, animate ? viewPlainArray.map(value => (
-      spring(value)
-    )) : viewPlainArray)
-
     return (
-      <Motion style={motion} onRest={this.handleAnimationRest}>
-        {interpolated => {
-          const interpolatedView = values(interpolated)
+      <Scroller onScroll={this.handleScroll} theme={active.theme}>
+        <div className={s.spacer} />
 
-          return (
-            <Scroller onScroll={this.handleScroll} theme={active.theme}>
-              <div className={s.spacer} />
-
-              <MatrixCamera view={interpolatedView}>
-                {items.map(item => (
-                  <MatrixElement key={item.theme.key} transforms={item.transforms}>
-                    <Theme
-                      theme={item.theme}
-                      active={item === active}
-                    />
-                  </MatrixElement>
-                ))}
-              </MatrixCamera>
-            </Scroller>
-          )
-        }}
-      </Motion>
+        <MatrixCamera view={view} animate={animate}>
+          {items.map(item => (
+            <MatrixElement key={item.theme.key} transforms={item.transforms}>
+              <Theme
+                theme={item.theme}
+                active={item === active}
+              />
+            </MatrixElement>
+          ))}
+        </MatrixCamera>
+      </Scroller>
     )
   }
 }

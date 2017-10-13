@@ -18,18 +18,16 @@ class Item extends React.Component {
   render() {
     const {item} = this.props
 
-    const style = {
-      transform: `translate3d(
-        ${Math.random() * 100}px,
-        ${Math.random() * 100}px,
-        ${Math.random() * 100}px
-      )`
-    }
-
-    console.log(style)
+    // const style = {
+    //   transform: `translate3d(
+    //     ${Math.random() * 100}px,
+    //     ${Math.random() * 100}px,
+    //     ${Math.random() * 100}px
+    //   )`
+    // }
 
     return (
-      <div className={s.root} style={style}>
+      <div className={s.root}>
         <img src={`${item.imageAssets[0].asset.url}?w=300`} alt="" />
       </div>
     )

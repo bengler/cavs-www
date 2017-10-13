@@ -7,7 +7,8 @@ import s from './MatrixCamera.css'
 const MatrixCamera = ({
   children,
   projection = perspective([], 0.005, 1, 2, 1),
-  view = create()
+  view = create(),
+  animate = false
 }) => {
   const matrix = create()
 
@@ -21,8 +22,10 @@ const MatrixCamera = ({
     `
   }
 
+  console.log(animate)
+
   return (
-    <div className={s.camera} style={style}>
+    <div className={animate ? s.cameraAnimated : s.camera} style={style}>
       {children}
     </div>
   )
