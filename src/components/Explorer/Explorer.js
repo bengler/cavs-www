@@ -14,12 +14,14 @@ import s from './Explorer.css'
 
 const nextCache = {}
 
-function getViewMatrix(target, scroll = 0) {
+function getViewMatrix(target, scroll = 0, distance = 400) {
   const view = mat4.create()
 
-  mat4.translate(view, view, target.position)
-  mat4.rotate(view, view, ...target.rotation)
-  mat4.translate(view, view, [0, scroll, 400])
+  target.transforms.forEach(([key, ...params]) => {
+    mat4[key](view, view, ...params)
+  })
+
+  mat4.translate(view, view, [0, scroll, distance])
   mat4.invert(view, view)
 
   return view
@@ -94,18 +96,11 @@ class Explorer extends React.Component {
           if (this.mounted) {
             const next = themes.map((theme, i) => ({
               theme: theme,
-              position: [
-                active.position[0],
-                active.position[1] + (i + 1) * 100,
-                active.position[2] + (i + 1) * 50 + 50
-              ],
-              rotation: [
-                active.rotation[0] + (Math.random() - 0.5) * 0.5,
-                [
-                  active.rotation[1][0] + 0,
-                  active.rotation[1][1] + 0,
-                  active.rotation[1][2] + 1
-                ]
+              transforms: [
+                ...active.transforms,
+                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 50 + 50]],
+                ['rotateX', Math.random() * 1],
+                ['rotateZ', (Math.random() - 0.5) * 2]
               ]
             }))
 
@@ -121,7 +116,6 @@ class Explorer extends React.Component {
   }
 
   getPlacements(nextTheme) {
-    // Has previous state
     const {previous, next, active} = this.state
     const nextIndex = findIndex(next, item => item.theme.key === nextTheme.key)
     const previousIndex = findIndex(previous, item => item.theme.key === nextTheme.key)
@@ -152,8 +146,7 @@ class Explorer extends React.Component {
     }
 
     const nextActive = {
-      position: [0, 0, 0],
-      rotation: [0, [0, 0, 0]],
+      transforms: [],
       theme: nextTheme
     }
 
@@ -190,7 +183,7 @@ class Explorer extends React.Component {
 
               <MatrixCamera view={interpolatedView}>
                 {items.map(item => (
-                  <MatrixElement key={item.theme.key} position={item.position} rotation={item.rotation}>
+                  <MatrixElement key={item.theme.key} transforms={item.transforms}>
                     <Theme
                       theme={item.theme}
                       active={item === active}

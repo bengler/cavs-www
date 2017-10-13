@@ -22,6 +22,8 @@ class Theme extends React.Component {
     const {theme, active} = this.props
     const {type, key, title} = theme
 
+    const visibleItems = active ? theme.items : theme.items.slice(0, 2)
+
     return (
       <section className={s.root}>
         <h2 className={s.heading}>
@@ -37,7 +39,7 @@ class Theme extends React.Component {
         </h2>
 
         <div className={s.grid}>
-          {theme.items.map(item => (
+          {visibleItems.map(item => (
             <Item key={item._id} item={item} />
           ))}
         </div>
