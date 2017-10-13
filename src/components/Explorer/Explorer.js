@@ -14,17 +14,21 @@ import s from './Explorer.css'
 
 const nextCache = {}
 
-function getViewMatrix(target, scroll = 0, distance = 400) {
-  const view = mat4.create()
+function transformMatrix(matrix, transforms) {
+  const clone = mat4.clone(matrix)
 
-  target.transforms.forEach(([key, ...params]) => {
-    mat4[key](view, view, ...params)
+  transforms.forEach(([key, ...params]) => {
+    mat4[key](clone, clone, ...params)
   })
 
-  mat4.translate(view, view, [0, scroll, distance])
-  mat4.invert(view, view)
+  return clone
+}
 
-  return view
+function getCameraMatrix(source, scroll = 0, distance = 400) {
+  return transformMatrix(source, [
+    ['translate', [0, scroll, 500]],
+    ['invert']
+  ])
 }
 
 class Explorer extends React.Component {
@@ -71,7 +75,10 @@ class Explorer extends React.Component {
   handleScroll = e => {
     this.setState({
       animate: false,
-      view: getViewMatrix(this.state.active, e.currentTarget.scrollTop)
+      view: getCameraMatrix(
+        this.state.active.matrix,
+        e.currentTarget.scrollTop
+      )
     })
   }
 
@@ -96,12 +103,11 @@ class Explorer extends React.Component {
           if (this.mounted) {
             const next = themes.map((theme, i) => ({
               theme: theme,
-              transforms: [
-                ...active.transforms,
-                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 10 + 10]],
-                // ['rotateX', Math.random() * 0.5],
-                ['rotateZ', (Math.random() - 0.5) * 2]
-              ]
+              matrix: transformMatrix(active.matrix, [
+                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 100 + 10]],
+                ['rotateZ', (Math.random() - 0.5) * 2],
+                ['rotateX', Math.random() * 0.5]
+              ])
             }))
 
             nextCache[cacheKey] = next
@@ -130,7 +136,7 @@ class Explorer extends React.Component {
         previous: [...previous, active],
         next: [],
         active: nextActive,
-        view: getViewMatrix(nextActive)
+        view: getCameraMatrix(nextActive.matrix)
       }
     }
 
@@ -141,20 +147,21 @@ class Explorer extends React.Component {
         previous: previous.slice(0, previousIndex),
         next: [],
         active: nextActive,
-        view: getViewMatrix(nextActive)
+        view: getCameraMatrix(nextActive.matrix)
       }
     }
 
     const nextActive = {
       transforms: [],
-      theme: nextTheme
+      theme: nextTheme,
+      matrix: mat4.create()
     }
 
     return {
       previous: [],
       next: [],
       active: nextActive,
-      view: getViewMatrix(nextActive)
+      view: getCameraMatrix(nextActive.matrix)
     }
   }
 
@@ -173,7 +180,7 @@ class Explorer extends React.Component {
 
         <MatrixCamera view={view} animate={animate}>
           {items.map(item => (
-            <MatrixElement key={item.theme.key} transforms={item.transforms}>
+            <MatrixElement key={item.theme.key} matrix={item.matrix}>
               <Theme
                 theme={item.theme}
                 active={item === active}
