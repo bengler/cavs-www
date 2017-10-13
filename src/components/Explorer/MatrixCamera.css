@@ -3,6 +3,7 @@
   top: 200px;
   left: 50%;
   transform-style: preserve-3d;
+  transform-origin: center center;
 }
 
 .perspective {
@@ -12,5 +13,5 @@
 
 .animated {
   composes: camera;
-  transition: transform 1s cubic-bezier(0.15, 0.46, 0, 1);
+  transition: transform 2s cubic-bezier(0.15, 0.46, 0, 1);
 }

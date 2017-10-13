@@ -1,6 +1,7 @@
 import React from 'react'
-import {filter, last, findIndex} from 'lodash'
+import {filter, last, findIndex, camelCase} from 'lodash'
 import mat4 from 'gl-mat4'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
 import {themeShape} from '../../themes'
@@ -12,6 +13,18 @@ import MatrixElement from './MatrixElement'
 import s from './Explorer.css'
 
 const nextCache = {}
+
+const Fade = ({children, ...props}) => {
+  return (
+    <CSSTransition
+      {...props}
+      timeout={1000}
+      classNames="fade"
+    >
+      {children}
+    </CSSTransition>
+  )
+}
 
 function transformMatrix(matrix, transforms) {
   const clone = mat4.clone(matrix)
@@ -103,8 +116,8 @@ class Explorer extends React.Component {
             const next = themes.map((theme, i) => ({
               theme: theme,
               matrix: transformMatrix(active.matrix, [
-                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 100 + 10]],
-                ['rotateZ', (Math.random() - 0.5) * 2],
+                ['translate', [(Math.random() - 0.5) * 500, (i + 1) * 150 + 500, (i + 1) * 30 + 20]],
+                ['rotateZ', (Math.random() - 0.5) * 1],
                 ['rotateX', Math.random() * 0.5]
               ])
             }))
@@ -178,14 +191,18 @@ class Explorer extends React.Component {
         <div className={s.spacer} />
 
         <MatrixCamera view={view} animate={animate}>
-          {items.map(item => (
-            <MatrixElement key={item.theme.key} matrix={item.matrix}>
-              <Theme
-                theme={item.theme}
-                active={item === active}
-              />
-            </MatrixElement>
-          ))}
+          <TransitionGroup>
+            {items.map(item => (
+              <Fade key={item.theme.key}>
+                <MatrixElement key={item.theme.key} matrix={item.matrix}>
+                  <Theme
+                    theme={item.theme}
+                    active={item === active}
+                  />
+                </MatrixElement>
+              </Fade>
+            ))}
+          </TransitionGroup>
         </MatrixCamera>
       </Scroller>
     )

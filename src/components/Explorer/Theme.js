@@ -1,12 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 
 import {themeShape} from '../../themes'
 import Link from '../Link/Link'
 import Item from './Item'
 
 import s from './Theme.css'
+
+const Fade = ({children, ...props}) => {
+  return (
+    <CSSTransition
+      {...props}
+      timeout={1000}
+      classNames="fade"
+    >
+      {children}
+    </CSSTransition>
+  )
+}
 
 class Theme extends React.Component {
   static propTypes = {
@@ -39,9 +52,13 @@ class Theme extends React.Component {
         </h2>
 
         <div className={s.grid}>
-          {visibleItems.map(item => (
-            <Item key={item._id} item={item} />
-          ))}
+          <TransitionGroup>
+            {visibleItems.map(item => (
+              <Fade key={item._id}>
+                <Item key={item._id} item={item} />
+              </Fade>
+            ))}
+          </TransitionGroup>
         </div>
       </section>
     )
