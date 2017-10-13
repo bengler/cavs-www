@@ -10,25 +10,23 @@ const MatrixCamera = ({
   view = mat4.create(),
   animate = false
 }) => {
-  const matrix = mat4.create()
+  const styles = {
+    perspective: {
+      transform: `
+        matrix3d(${projection.join()})
+      `
+    },
 
-  mat4.multiply(matrix, matrix, view)
-
-  const pstyle = {
-    transform: `
-      matrix3d(${projection.join()})
-    `
-  }
-
-  const style = {
-    transform: `
-      matrix3d(${matrix.join()})
-    `
+    view: {
+      transform: `
+        matrix3d(${view.join()})
+      `
+    }
   }
 
   return (
-    <div className={s.perspective} style={pstyle}>
-      <div className={animate ? s.animated : s.camera} style={style}>
+    <div className={s.perspective} style={styles.perspective}>
+      <div className={animate ? s.animated : s.camera} style={styles.view}>
         {children}
       </div>
     </div>
