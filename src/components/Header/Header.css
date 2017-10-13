@@ -6,17 +6,23 @@
   padding: 1rem;
   box-sizing: border-box;
   z-index: 10;
+  position: relative;
 }
 
 .title {
   display: block;
   text-decoration: none;
-  color: #000;
+  color: black;
   font-size: var(--font-size--large);
   margin: 0;
   padding: 0;
   line-height: 1em;
   margin-right: 10rem;
+}
+
+.titleOnExplore {
+  composes: title;
+  color: black;
 }
 
 .logo {
