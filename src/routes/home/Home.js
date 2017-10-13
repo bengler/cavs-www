@@ -3,7 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import PropTypes from 'prop-types'
 
 import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
-import PeopleGrid from '../../components/PeopleGrid/PeopleGrid'
+
 import s from './Home.css'
 
 class Home extends React.Component {
@@ -23,7 +23,6 @@ class Home extends React.Component {
     return (
       <div className={s.root}>
         <ReferenceGrid references={recentObjects} />
-        <PeopleGrid people={people} />
       </div>
     )
   }

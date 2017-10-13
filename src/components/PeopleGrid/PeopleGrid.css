@@ -1,7 +1,47 @@
 @import '../variables.css';
 
 .grid {
-  background-color: #fff;
   position: relative;
-  padding-top: 10rem;
+  margin: 1rem;
+}
+
+.lane {
+  display: block;
+}
+
+.period {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  border-left: 1px solid black;
+  font-size: 10px;
+}
+
+.periodYear {
+  padding-left: 5px;
+  margin-top: 5px;
+}
+
+.periodContent {
+  display: block;
+  position: absolute;
+  color: #000;
+  transform: rotate(90deg);
+  transform-origin: top left;
+  font-size: 10px;
+  font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.periodName {
+
+}
+
+.periodRole {
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -22,52 +22,29 @@ class Period extends React.PureComponent {
     const {period, laneWidth} = this.props
 
     const periodStyle = {
-      position: 'absolute',
       top: `${period._start * TOTAL_HEIGHT}px`,
-      height: `${period._duration * TOTAL_HEIGHT}px`,
-      width: '100%',
-      backgroundColor: '#fff',
-      borderLeft: '1px solid black',
-      fontSize: '10px'
+      height: `${period._duration * TOTAL_HEIGHT}px`
     }
 
     const paddingLeft = 4
 
     const contentStyle = {
-      position: 'sticky',
-      color: '#000',
       width: `${(period._duration * TOTAL_HEIGHT) - (paddingLeft * 2)}px`,
-      transformOrigin: 'top left',
-      fontSize: '10px',
-      fontWeight: '300',
       paddingLeft: `${paddingLeft}px`,
-      marginLeft: `${laneWidth - laneWidth / 7}px`,
-      transform: 'rotate(90deg)',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
+      marginLeft: `${laneWidth - laneWidth / 7}px`
     }
-
-    const positionStyle = {
-      fontStyle: 'italic',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
-    }
-
-    const yearStyle = {paddingLeft: '5px', marginTop: '5px'}
 
     // {period.start.getFullYear()} - {period.end.getFullYear()}
 
     return (
       <Link to={`/person/${period._id}`}>
-        <div style={periodStyle}>
-          <div style={yearStyle}>
+        <div style={periodStyle} className={s.period}>
+          <div className={s.periodYear}>
             {period.start.getFullYear()}
           </div>
-          <div style={contentStyle}>
-            {period.name}
-            <div style={positionStyle}>
+          <div style={contentStyle} className={s.periodContent}>
+            <div className={s.periodName}>{period.name}</div>
+            <div className={s.periodRole}>
               {period.role}
             </div>
           </div>
@@ -92,7 +69,11 @@ class Lane extends React.Component {
         {
           periods.map(period => {
             return (
-              <Period key={period._start + period.role} laneWidth={laneWidth} period={period} />
+              <Period
+                key={period._start + period.role}
+                laneWidth={laneWidth}
+                period={period}
+              />
             )
           })
         }
@@ -129,7 +110,6 @@ class PeopleGrid extends React.Component {
     const affiliationPeriods = processPeople(people)
     const {normalizedPeriods} = normalizePeriods(affiliationPeriods)
     const swimLanes = new SwimLaneKeeper(normalizedPeriods).getLanes()
-
     const laneTotal = swimLanes.length
 
     const screenWidth = window.innerWidth
@@ -152,7 +132,7 @@ class PeopleGrid extends React.Component {
             }
 
             return (
-              <div key={idx} style={laneStyle}>
+              <div key={idx} style={laneStyle} className={s.lane}>
                 <Lane laneWidth={laneWidth} lane={lane} />
               </div>
             )

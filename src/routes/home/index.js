@@ -8,9 +8,7 @@ export default {
 
   async action({fetch}) {
     const query = `
-      {"people":
-        *[_type=="person"][0..5000],
-        "recentObjects":
+      {"recentObjects":
         *[
         _type == "building" ||
         _type == "event" ||

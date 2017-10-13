@@ -82,7 +82,38 @@ export default {
 
         return {
           title: 'People',
-          component: <Layout><People people={people} view={params.view} /></Layout>,
+          component: <Layout><People people={people} view="portraits" /></Layout>,
+        }
+      }
+    },
+    {
+      path: '/timeline',
+      async action({fetch, params}) {
+        const resp = await fetch(`
+          *[_type=="person"]{
+            _id,
+            _type,
+            _createdAt,
+            name,
+            identifier,
+            title,
+            date,
+            affiliationsPeriods,
+            ...
+          }
+          [0..5000]
+        `, {})
+
+        const people = sortBy(resp, person => {
+          if (person.name) {
+            return last(person.name.split(' '))
+          }
+          return false
+        })
+
+        return {
+          title: 'People',
+          component: <Layout><People people={people} view="timeline" /></Layout>,
         }
       }
     }
