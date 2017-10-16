@@ -1,19 +1,23 @@
 .container {
   composes: container from '../../components/common.css';
+  clear: both;
 }
 
 .list {
-  display: block;
   margin: 0;
   padding: 0;
+  display: block;
+  columns: 2;
 }
 
 .item {
-  display: inline-block;
-  font-size: 2rem;
-  margin-right: 1em;
+  display: block;
+  margin: 0;
+  padding: 0;
+  text-transform: capitalize;
+  composes: fontMedium from '../../components/typography.css';
 }
 
 .link {
-  display: inline-block;
+  color: #000;
 }

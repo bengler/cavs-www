@@ -15,7 +15,7 @@ export default {
 
     return {
       title: 'Formats',
-      component: <Layout><Formats formats={union(flattenDeep(formats))} /></Layout>,
+      component: <Layout><Formats formats={union(flattenDeep(formats)).sort()} /></Layout>,
     }
   },
 
