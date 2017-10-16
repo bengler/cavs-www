@@ -35,7 +35,7 @@ class Theme extends React.Component {
     const {theme, active} = this.props
     const {type, key, title} = theme
 
-    const visibleItems = active ? theme.items : theme.items.slice(0, 3)
+    const visibleItems = active ? theme.items : theme.items
 
     return (
       <section className={s.root}>

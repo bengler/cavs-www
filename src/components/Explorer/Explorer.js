@@ -116,7 +116,7 @@ class Explorer extends React.Component {
             const next = themes.map((theme, i) => ({
               theme: theme,
               matrix: transformMatrix(active.matrix, [
-                ['translate', [(Math.random() - 0.5) * 500, (i + 1) * 150 + 500, (i + 1) * 30 + 20]],
+                ['translate', [(Math.random() - 0.5) * 500, (i + 1) * 150 + 100, (i + 1) * 30 + 20]],
                 ['rotateZ', (Math.random() - 0.5) * 1],
                 ['rotateX', Math.random() * 0.5]
               ])
