@@ -1,5 +1,5 @@
 import React from 'react'
-import {union, flattenDeep} from 'lodash'
+import {flattenDeep, compact, uniq} from 'lodash'
 import Subjects from './Subjects'
 import Layout from '../../components/Layout'
 
@@ -15,7 +15,7 @@ export default {
 
     return {
       title: 'Subjects',
-      component: <Layout><Subjects subjects={union(flattenDeep(subjects))} /></Layout>,
+      component: <Layout><Subjects subjects={compact(uniq(flattenDeep(subjects))).sort()} /></Layout>,
     }
   },
 
