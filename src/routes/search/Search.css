@@ -3,11 +3,15 @@
 }
 
 .input {
-  composes: fontMedium from '../../components/typography.css';
+  composes: fontLarge from '../../components/typography.css';
   width: 100%;
   border: none;
   border-bottom: 2px solid black;
   outline: none !important;
+  line-height: 1em;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 1em;
 }
 
 .submit {
@@ -50,4 +54,14 @@
 .itemPerson {
   composes: item;
   grid-column: span 2 / 3;
+}
+
+.noResult {
+  margin: 1em;
+  text-align: center;
+}
+
+.type {
+  font-size: 0.5rem;
+  text-transform: uppercase;
 }

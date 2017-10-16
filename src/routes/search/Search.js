@@ -5,35 +5,10 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import url from 'url'
 import {get} from 'lodash'
 import history from '../../history'
-import Link from '../../components/Link'
 import LinkResolver from '../../components/Link/Resolver'
 
 import s from './Search.css'
 
-function isItem(type) {
-  return (
-    type == 'building'
-    || type == 'event'
-    || type == 'exhibition'
-    || type == 'institution'
-    || type == 'multipleInstallation'
-    || type == 'multipleTimebased'
-    || type == 'work2d'
-    || type == 'work3d'
-    || type == 'workTimebased'
-    || type == 'audioRecording'
-    || type == 'correspondence'
-    || type == 'document'
-    || type == 'ephemera'
-    || type == 'eResource'
-    || type == 'floorplan'
-    || type == 'movingImage'
-    || type == 'newsClipping'
-    || type == 'poster'
-    || type == 'publication'
-    || type == 'stillImage'
-  )
-}
 
 class Search extends React.PureComponent {
 
@@ -50,12 +25,20 @@ class Search extends React.PureComponent {
   }
 
   state = {
-    query: this.props.query
+    query: this.props.query,
+    isSearching: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.result != this.props.result) {
+      this.setState({isSearching: false})
+    }
   }
 
   handleInputChange = event => {
     this.setState({
-      query: event.target.value
+      query: event.target.value,
+      isSearching: true
     })
     const currentUrl = url.parse(document.location.href, true)
     currentUrl.query.q = event.target.value
@@ -67,14 +50,10 @@ class Search extends React.PureComponent {
     const portrait = get(item, 'portraits[0].asset.url')
     const image = get(item, 'imageAssets[0].asset.url')
     const src = portrait || image
-    let to = `/${item._type}/${item._id}`
-
-    if (isItem(item._type)) {
-      to = `/item/${item.identifier || item._id}`
-    }
 
     return (
       <li key={item._id} className={item._type == 'person' ? s.itemPerson : s.item}>
+        <div className={s.type}>{item._type}</div>
         <LinkResolver item={item} className={s.link}>
           {
             src && (
@@ -82,7 +61,7 @@ class Search extends React.PureComponent {
             )
           }
           <h3 className={s.itemTitle}>
-            {item.title || item.name}
+            {item.title || item.name || 'Untitled…'}
           </h3>
         </LinkResolver>
       </li>
@@ -91,7 +70,7 @@ class Search extends React.PureComponent {
 
   render() {
     const {result} = this.props
-    const {query} = this.state
+    const {query, isSearching} = this.state
 
     return (
       <div className={s.root}>
@@ -126,6 +105,13 @@ class Search extends React.PureComponent {
                 })
               )
             })
+          }
+          {
+            !isSearching && query && result && (result.length < 1) && (
+              <div className={s.noResult}>
+                No result for {query}
+              </div>
+            )
           }
         </ul>
       </div>

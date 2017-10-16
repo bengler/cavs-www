@@ -20,26 +20,33 @@ class Extents extends React.PureComponent {
   render() {
     const {extents, type} = this.props
 
+    if (!extents.width || !extents.height) {
+      return false
+    }
+
     if (type === 'work3d' && extents) {
+      if (!extents.depth) {
+        return false
+      }
       return (
-        <div>
-          <p>{extents.description}</p>
+        <span>
+          <span>{extents.description}</span>
           {extents.width} × {extents.height} × {extents.depth} meters
-        </div>
+        </span>
       )
     }
 
     if (type === 'work2d' && extents) {
       return (
-        <div>
-          <p>{extents.description}</p>
+        <span>
+          <span>{extents.description}</span>
           {extents.width} × {extents.height} meters
-        </div>
+        </span>
       )
     }
 
 
-    return <div />
+    return <span />
   }
 }
 

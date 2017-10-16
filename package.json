@@ -37,6 +37,7 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-motion": "^0.5.2",
+    "react-transition-group": "^2.2.1",
     "seedrandom": "^2.4.3",
     "serialize-javascript": "^1.3.0",
     "source-map-support": "^0.4.14",

@@ -20,7 +20,7 @@
 }
 
 .partOf {
-  padding: 1rem 0;
+  padding: 0;
   composes: fontMedium from '../../components/typography.css';
   margin-bottom: 1rem;
 }
@@ -36,7 +36,8 @@
 
 .description {
   composes: fontMedium from '../../components/typography.css';
-  margin-bottom: 1rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .video {

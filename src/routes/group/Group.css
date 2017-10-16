@@ -16,7 +16,7 @@
   composes: fontMedium from '../../components/typography.css';
 }
 
-.subjects {
+.meta {
   display: block;
 }
 
@@ -26,4 +26,8 @@
 
 .description {
   composes: fontMedium from '../../components/typography.css';
+}
+
+.documentation {
+  padding-bottom: 2rem;
 }

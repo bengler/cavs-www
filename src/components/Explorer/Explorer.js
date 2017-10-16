@@ -1,7 +1,7 @@
 import React from 'react'
-import {filter, last, findIndex, values} from 'lodash'
-import {Motion, spring} from 'react-motion'
+import {filter, last, findIndex, camelCase} from 'lodash'
 import mat4 from 'gl-mat4'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
 import {themeShape} from '../../themes'
@@ -14,17 +14,33 @@ import s from './Explorer.css'
 
 const nextCache = {}
 
-function getViewMatrix(target, scroll = 0, distance = 400) {
-  const view = mat4.create()
+const Fade = ({children, ...props}) => {
+  return (
+    <CSSTransition
+      {...props}
+      timeout={1000}
+      classNames="fade"
+    >
+      {children}
+    </CSSTransition>
+  )
+}
 
-  target.transforms.forEach(([key, ...params]) => {
-    mat4[key](view, view, ...params)
+function transformMatrix(matrix, transforms) {
+  const clone = mat4.clone(matrix)
+
+  transforms.forEach(([key, ...params]) => {
+    mat4[key](clone, clone, ...params)
   })
 
-  mat4.translate(view, view, [0, scroll, distance])
-  mat4.invert(view, view)
+  return clone
+}
 
-  return view
+function getCameraMatrix(source, scroll = 0, distance = 400) {
+  return transformMatrix(source, [
+    ['translate', [0, scroll, distance]],
+    ['invert']
+  ])
 }
 
 class Explorer extends React.Component {
@@ -71,7 +87,10 @@ class Explorer extends React.Component {
   handleScroll = e => {
     this.setState({
       animate: false,
-      view: getViewMatrix(this.state.active, e.currentTarget.scrollTop)
+      view: getCameraMatrix(
+        this.state.active.matrix,
+        e.currentTarget.scrollTop
+      )
     })
   }
 
@@ -96,12 +115,11 @@ class Explorer extends React.Component {
           if (this.mounted) {
             const next = themes.map((theme, i) => ({
               theme: theme,
-              transforms: [
-                ...active.transforms,
-                ['translate', [0, (i + 1) * 100 + 500, (i + 1) * 50 + 50]],
-                ['rotateX', Math.random() * 1],
-                ['rotateZ', (Math.random() - 0.5) * 2]
-              ]
+              matrix: transformMatrix(active.matrix, [
+                ['translate', [(Math.random() - 0.5) * 500, (i + 1) * 150 + 100, (i + 1) * 30 + 20]],
+                ['rotateZ', (Math.random() - 0.5) * 1],
+                ['rotateX', Math.random() * 0.5]
+              ])
             }))
 
             nextCache[cacheKey] = next
@@ -130,7 +148,7 @@ class Explorer extends React.Component {
         previous: [...previous, active],
         next: [],
         active: nextActive,
-        view: getViewMatrix(nextActive)
+        view: getCameraMatrix(nextActive.matrix)
       }
     }
 
@@ -141,20 +159,21 @@ class Explorer extends React.Component {
         previous: previous.slice(0, previousIndex),
         next: [],
         active: nextActive,
-        view: getViewMatrix(nextActive)
+        view: getCameraMatrix(nextActive.matrix)
       }
     }
 
     const nextActive = {
       transforms: [],
-      theme: nextTheme
+      theme: nextTheme,
+      matrix: mat4.create()
     }
 
     return {
       previous: [],
       next: [],
       active: nextActive,
-      view: getViewMatrix(nextActive)
+      view: getCameraMatrix(nextActive.matrix)
     }
   }
 
@@ -167,34 +186,25 @@ class Explorer extends React.Component {
       ...next
     ])
 
-    const viewPlainArray = [...view]
-    const motion = Object.assign({}, animate ? viewPlainArray.map(value => (
-      spring(value)
-    )) : viewPlainArray)
-
     return (
-      <Motion style={motion} onRest={this.handleAnimationRest}>
-        {interpolated => {
-          const interpolatedView = values(interpolated)
+      <Scroller onScroll={this.handleScroll} theme={active.theme}>
+        <div className={s.spacer} />
 
-          return (
-            <Scroller onScroll={this.handleScroll} theme={active.theme}>
-              <div className={s.spacer} />
-
-              <MatrixCamera view={interpolatedView}>
-                {items.map(item => (
-                  <MatrixElement key={item.theme.key} transforms={item.transforms}>
-                    <Theme
-                      theme={item.theme}
-                      active={item === active}
-                    />
-                  </MatrixElement>
-                ))}
-              </MatrixCamera>
-            </Scroller>
-          )
-        }}
-      </Motion>
+        <MatrixCamera view={view} animate={animate}>
+          <TransitionGroup>
+            {items.map(item => (
+              <Fade key={item.theme.key}>
+                <MatrixElement key={item.theme.key} matrix={item.matrix}>
+                  <Theme
+                    theme={item.theme}
+                    active={item === active}
+                  />
+                </MatrixElement>
+              </Fade>
+            ))}
+          </TransitionGroup>
+        </MatrixCamera>
+      </Scroller>
     )
   }
 }

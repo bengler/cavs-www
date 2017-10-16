@@ -80,16 +80,22 @@ class Item extends React.PureComponent {
       return <div>Nothing here</div>
     }
 
-    console.log('item', item)
-
     return (
       <div className={s.root}>
         {
           imageAssets && imageAssets[0]
-          && <img className={s.mainImage} src={`${imageAssets[0].asset.url}?w=1200`} alt="" />
+          && (
+            <img
+              className={s.mainImage}
+              src={`${imageAssets[0].asset.url}?w=1200`}
+              alt=""
+            />
+          )
         }
         <div className={s.container}>
-          <div className={s.type}><ResolveType type={_type} /></div>
+          <div className={s.type}>
+            <ResolveType type={_type} />
+          </div>
           <h1 className={s.title}>
             {title}, {this.getYear(date)}, <Creators creators={creators} />
           </h1>

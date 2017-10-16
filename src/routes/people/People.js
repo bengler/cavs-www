@@ -73,8 +73,8 @@ class Persons extends React.Component {
     return (
       <div>
         <ul className={s.menu}>
-          <li><Link to="/people">Alphabetical</Link></li>
-          <li><Link to="/people/portraits">Portraits</Link></li>
+          <li><Link to="/people/alphabetical">Alphabetical</Link></li>
+          <li><Link to="/people">Portraits</Link></li>
           <li><Link to="/people/timeline">Timeline</Link></li>
         </ul>
 

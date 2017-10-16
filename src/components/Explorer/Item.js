@@ -19,14 +19,12 @@ class Item extends React.Component {
     const {item} = this.props
 
     const style = {
-      transform: `translate3d(
-        ${Math.random() * 100}px,
-        ${Math.random() * 100}px,
-        ${Math.random() * 100}px
+      transform: `translate(
+        ${Math.random() * 150}px,
+        ${Math.random() * 150}px,
+        0
       )`
     }
-
-    console.log(style)
 
     return (
       <div className={s.root} style={style}>

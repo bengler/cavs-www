@@ -31,12 +31,21 @@ class Persons extends React.Component {
           <p className={s.shortBio}>{shortBio}</p>
           {
             portraits && portraits[0]
-            && <img className={s.mainImage} src={`${portraits[0].asset.url}?w=2000&fit=max`} alt="" />
+            && (
+              <img
+                className={s.mainImage}
+                src={`${portraits[0].asset.url}?w=2000&fit=max`} alt=""
+              />
+            )
           }
           <ImageGallery images={portraits} excludeFirst />
-
+          {
+            references && references.length > 0 && (
+              <h2>Related work:</h2>
+            )
+          }
+          <ReferenceGrid references={references} />
         </div>
-        <ReferenceGrid references={references} />
       </div>
     )
   }
