@@ -1,0 +1,25 @@
+.root {
+  width: 80vw;
+  transform-style: preserve-3d;
+}
+
+.heading {
+  margin-top: 0;
+  text-align: center;
+}
+
+.title {
+  composes: link from '../Navigation/Navigation.css';
+  white-space: nowrap;
+  pointer-events: all;
+  background: white;
+}
+
+.link {
+  composes: title;
+}
+
+.grid {
+  column-width: 300px;
+  column-gap: 0;
+}

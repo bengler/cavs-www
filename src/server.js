@@ -44,6 +44,7 @@ app.use(bodyParser.json())
 // -----------------------------------------------------------------------------
 app.get('*', async (req, res, next) => {
   try {
+    const seed = Math.random()
     const css = new Set()
 
     // Global (context) variables that can be easily accessed from any React component
@@ -56,13 +57,14 @@ app.get('*', async (req, res, next) => {
         styles.forEach(style => css.add(style._getCss()))
       },
       // Universal HTTP client
-      fetch: createFetch(),
+      fetch: createFetch()
     }
 
     const route = await router.resolve({
       path: req.path,
       query: req.query,
       fetch: context.fetch,
+      seed: seed
     })
 
     if (route.redirect) {
@@ -71,6 +73,7 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = {...route}
+    data.seed = seed
     data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>)
     data.styles = [
       {id: 'css', cssText: [...css].join('')},

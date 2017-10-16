@@ -23,7 +23,8 @@ class Html extends React.Component {
       cssText: PropTypes.string.isRequired,
     }).isRequired),
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
-    app: PropTypes.object, // eslint-disable-line
+    app: PropTypes.object, // eslint-disable-line,
+    seed: PropTypes.number, // eslint-disable-line
     children: PropTypes.string.isRequired,
   };
 
@@ -33,7 +34,7 @@ class Html extends React.Component {
   };
 
   render() {
-    const {title, description, styles, scripts, app, children} = this.props
+    const {title, description, styles, scripts, app, seed, children} = this.props
     return (
       <html className="no-js" lang="en">
         <head>
@@ -53,7 +54,7 @@ class Html extends React.Component {
           ))}
         </head>
         <body>
-          <div id="app" dangerouslySetInnerHTML={{__html: children}} />
+          <div id="app" data-seed={seed} dangerouslySetInnerHTML={{__html: children}} />
           <script dangerouslySetInnerHTML={{__html: `window.App=${serialize(app)}`}} />
           {scripts.map(script => <script key={script} src={script} />)}
           {config.analytics.googleTrackingId

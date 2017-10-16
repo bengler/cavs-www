@@ -1,13 +1,19 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 import Explorer from '../../components/Explorer/Explorer'
-import {getRandomTheme} from '../../themes'
+import {getTheme, getRandomTheme} from '../../themes'
 
 export default {
-  path: '/',
+  path: '/explore/:type/:key',
 
-  async action({fetch, seed}) {
-    const theme = await getRandomTheme(fetch, seed)
+  async action({fetch, seed, params}) {
+    const {type, key} = params
+    const theme = await getTheme(fetch, type, key)
+
+    theme.related = [
+      await getRandomTheme(fetch, theme.key),
+      await getRandomTheme(fetch, `${theme.key}-2`)
+    ]
 
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
