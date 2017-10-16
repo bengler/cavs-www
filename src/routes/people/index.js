@@ -10,8 +10,7 @@ function createQuery() {
   return `
     *[_type=="person"]{
       _id,
-      name,
-      "references": count(*[references(^._id)])
+      name
     }
     [0..5000]
   `
@@ -22,7 +21,7 @@ export default {
   path: '/people',
   children: [
     {
-      path: '/alphabetical',
+      path: '/',
       async action({fetch}) {
         const resp = await fetch(createQuery(), {})
 
@@ -59,7 +58,7 @@ export default {
       }
     },
     {
-      path: '/',
+      path: '/portraits',
       async action({fetch, params}) {
         const resp = await fetch(`
           *[_type=="person"]{

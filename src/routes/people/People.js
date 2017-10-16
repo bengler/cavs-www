@@ -49,15 +49,13 @@ class Persons extends React.Component {
           people.map(item => {
             const id = item._id
             const src = get(item, 'portraits[0].asset.url')
+            if (!src) {
+              return false
+            }
             return (
               <li key={item._id} className={s.portraitItem}>
                 <Link to={`/person/${id}`}>
-                  {
-                    src && <img src={`${src}?w=300&fit=max`} />
-                  }
-                  {
-                    !src && <div className={s.imagePlaceholder}><div /></div>
-                  }
+                  <img src={`${src}?w=300&fit=max`} />
                   {item.name || 'No name…'}
                 </Link>
               </li>
@@ -73,8 +71,8 @@ class Persons extends React.Component {
     return (
       <div>
         <ul className={s.menu}>
-          <li><Link to="/people/alphabetical">Alphabetical</Link></li>
-          <li><Link to="/people">Portraits</Link></li>
+          <li><Link to="/people">Alphabetical</Link></li>
+          <li><Link to="/people/portraits">Portraits</Link></li>
           <li><Link to="/people/timeline">Timeline</Link></li>
         </ul>
 
