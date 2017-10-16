@@ -18,6 +18,14 @@ class LinkResolver extends React.Component {
 
   render() {
     const {item, children, ...rest} = this.props
+    if (item._type === 'person') {
+      return (
+        <Link to={`/person/${item._id}`} {...rest}>
+          person
+          {children || item.title || item.name || 'Untitled'}
+        </Link>
+      )
+    }
     if (item.identifier) {
       return (
         <Link to={`/item/${item.identifier}`} {...rest}>

@@ -45,11 +45,6 @@ a {
 
 .content {
   min-height: 100vh;
-  margin-top: 7rem;
-
-  @media (--screen-xs-min) {
-    margin-top: 5rem;
-  }
 }
 
 /*

@@ -2,16 +2,6 @@
   display: inline;
 }
 
-/*
-.list {
-  composes: list from '../Subjects/Subjects.css';
-}
-
-.item {
-  display: inline-block;
-}
-*/
-
 .item {
   display: inline;
 
@@ -21,5 +11,5 @@
 }
 
 .link {
-  display: inline-block;
+  display: inline;
 }

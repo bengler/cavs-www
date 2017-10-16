@@ -22,7 +22,7 @@ export default {
   path: '/people',
   children: [
     {
-      path: '',
+      path: '/alphabetical',
       async action({fetch}) {
         const resp = await fetch(createQuery(), {})
 
@@ -59,7 +59,7 @@ export default {
       }
     },
     {
-      path: '/portraits',
+      path: '/',
       async action({fetch, params}) {
         const resp = await fetch(`
           *[_type=="person"]{

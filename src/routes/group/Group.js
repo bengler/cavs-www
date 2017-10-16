@@ -10,7 +10,7 @@ import Creators from '../../components/Creators/Creators'
 import Locations from '../../components/Locations/Locations'
 import Extents from '../../components/Extents/Extents'
 import ResolveType from '../../components/ResolveType'
-
+import Annotation from '../../components/Annotation/Annotation'
 
 class Item extends React.Component {
 
@@ -72,17 +72,38 @@ class Item extends React.Component {
             <Creators creators={creators} />
           </div>
           <p className={s.description}>{description}</p>
-          {
-             (_type === 'work3d' || _type === 'work2d') && (
-               <Extents extents={group.extents} type={group._type} />
-             )
-          }
-          <div className={s.subjects}>
+
+          <div className={s.meta}>
+            {
+               (_type === 'work3d' || _type === 'work2d') && (
+                 <span>
+                   <Extents extents={group.extents} type={group._type} />
+                 </span>
+               )
+            }
             <Subjects subjects={subjects} />
           </div>
 
-          <h2>Documentation</h2>
-          <ReferenceGrid references={references} />
+          {
+            references && references.length > 0 && (
+              <div className={s.documentation}>
+                <h2>Documentation</h2>
+                <ReferenceGrid references={references} />
+              </div>
+            )
+          }
+          {
+            references && references.length > 0 && references.map(ref => {
+              if (ref._type == 'annotation') {
+                return (
+                  <div>
+                    <Annotation annotation={ref} />
+                  </div>
+                )
+              }
+              return false
+            })
+          }
 
         </div>
         <Locations locations={locations} />

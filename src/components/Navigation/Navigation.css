@@ -9,10 +9,10 @@
   color: var(--brand-color);
 
   @nest &:not(:first-child) {
-    padding-left: 0.25em;
+    padding-right: 0.25em;
   }
 
   @nest &:not(:last-child)::after {
-    content: ', ';
+    content: ',\00a0';
   }
 }
