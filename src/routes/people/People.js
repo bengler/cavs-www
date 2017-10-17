@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {get} from 'lodash'
 import PeopleGrid from '../../components/PeopleGrid/PeopleGrid'
+import Menu from './Menu'
 
 import s from './People.css'
 import Link from '../../components/Link'
@@ -70,11 +71,7 @@ class Persons extends React.Component {
     const {people, chunks, view} = this.props
     return (
       <div>
-        <ul className={s.menu}>
-          <li><Link to="/people">Alphabetical</Link></li>
-          <li><Link to="/people/portraits">Portraits</Link></li>
-          <li><Link to="/people/timeline">Timeline</Link></li>
-        </ul>
+        <Menu />
 
         <div className={s.container}>
           <div className={s.grid}>

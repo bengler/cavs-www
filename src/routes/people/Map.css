@@ -1,0 +1,78 @@
+.root {
+  display: block;
+}
+
+.map {
+  width: 100%;
+  height: 100vh;
+}
+
+.marker {
+  height: 0;
+  width: 0;
+  border: 10px solid blue;
+  border-radius: 50%;
+}
+
+.map {
+  @nest & :global(.leaflet-control-zoom.leaflet-bar) {
+    border-color: blue;
+  }
+
+  @nest & :global(.leaflet-control-zoom-in) {
+    color: blue;
+    padding: 0.5em;
+
+    @nest &:hover {
+      background-color: blue;
+    }
+  }
+
+  @nest & :global(.leaflet-control-zoom-out) {
+    padding: 0.5em;
+    color: blue;
+
+    @nest &:hover {
+      background-color: blue;
+    }
+  }
+
+  @nest & :global(.marker-cluster) {
+    background-color: blue;
+    color: white;
+    box-sizing: border-box;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    transform: translateY(50%);
+  }
+
+  @nest & :global(.marker-cluster-medium) {
+    display: block;
+  }
+
+  @nest & :global(.leaflet-popup-close-button) {
+    color: red;
+  }
+
+  @nest & :global(.leaflet-popup-content) {
+    padding: 0 1rem;
+    margin: 0;
+  }
+
+  @nest & :global(.leaflet-popup) {
+    border: 1px solid black;
+    padding: 0;
+    background: white;
+    width: 300px;
+
+    @nest & a {
+      color: black;
+    }
+
+    @nest & img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

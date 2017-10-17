@@ -1,0 +1,22 @@
+
+.menu {
+  composes: fontMedium from '../../components/typography.css';
+  margin: 2rem 1rem;
+  margin-top: 0;
+  padding: 0;
+  display: block;
+
+  @nest & > li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+
+    @nest &:not(:last-child)::after {
+      content: ', ';
+    }
+  }
+
+  @nest & > li > a {
+    display: inline;
+  }
+}

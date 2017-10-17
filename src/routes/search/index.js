@@ -22,6 +22,7 @@ function createQuery(query) {
     },
     "references": *[references(^._id)] {
       ...,
+      _id,
       identifier,
       portraits[] {
         _key,

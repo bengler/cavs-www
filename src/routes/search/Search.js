@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import url from 'url'
-import {get} from 'lodash'
+import {get, sortBy} from 'lodash'
 import history from '../../history'
 import LinkResolver from '../../components/Link/Resolver'
 
@@ -47,30 +47,77 @@ class Search extends React.PureComponent {
   }
 
   renderItem = item => {
-    const portrait = get(item, 'portraits[0].asset.url')
-    const image = get(item, 'imageAssets[0].asset.url')
-    const src = portrait || image
-
     return (
       <li key={item._id} className={item._type == 'person' ? s.itemPerson : s.item}>
         <div className={s.type}>{item._type}</div>
         <LinkResolver item={item} className={s.link}>
           {
-            src && (
-              <img src={`${src}?w=500`} className={s.image} />
+            item.src && (
+              <img src={`${item.src}?w=500`} className={s.image} />
             )
           }
           <h3 className={s.itemTitle}>
-            {item.title || item.name || 'Untitled…'}
+            {item.title || item.name || 'Untitled…'}
           </h3>
         </LinkResolver>
       </li>
     )
   }
 
+  checkItemForImage = item => {
+    const portrait = get(item, 'portraits[0].asset.url')
+    const image = get(item, 'imageAssets[0].asset.url')
+    let refImg = get(item, 'references[0].imageAssets[0].asset.url')
+
+    if (item.references && item.references.length > 0) {
+      item.references.forEach(ref => {
+        const src = get(ref, 'imageAssets[0].asset.url')
+        if (src) {
+          refImg = src
+        }
+      })
+    }
+
+    if (refImg) {
+      console.log('found ref', refImg)
+    } else {
+      console.log('no ref for', item)
+    }
+
+    return portrait || image || refImg
+  }
+
   render() {
     const {result} = this.props
     const {query, isSearching} = this.state
+
+    const itemsWithImage = []
+    const itemsWithoutImage = []
+
+    result.forEach(item => {
+      const src = this.checkItemForImage(item)
+      if (src) {
+        const itemWithImage = Object.assign(item, {})
+        itemWithImage.src = src
+        itemsWithImage.push(itemWithImage)
+      } else {
+        itemsWithoutImage.push(item)
+      }
+
+      // item.references && item.references.forEach(ref => {
+      //   if (item._id === ref._id) {
+      //     return
+      //   }
+      //   const refSrc = this.checkItemForImage(ref)
+      //   if (refSrc) {
+      //     const itemWithImage = Object.assign(ref, {})
+      //     itemWithImage.refSrc = refSrc
+      //     itemsWithImage.push(itemWithImage)
+      //   } else {
+      //     itemsWithoutImage.push(ref)
+      //   }
+      // })
+    })
 
     return (
       <div className={s.root}>
@@ -93,17 +140,13 @@ class Search extends React.PureComponent {
         </form>
         <ul className={s.result}>
           {
-            result.map(item => {
+            sortBy(itemsWithImage, 'type').reverse().map(item => {
               return this.renderItem(item)
             })
           }
           {
-            result.map(item => {
-              return (
-                item.references && item.references.map(ref => {
-                  return this.renderItem(ref)
-                })
-              )
+            itemsWithoutImage.map(item => {
+              return this.renderItem(item)
             })
           }
           {

@@ -1,9 +1,9 @@
 import React from 'react'
-import {sortBy, last} from 'lodash'
+import {compact, sortBy, last} from 'lodash'
 
 import People from './People'
+import Map from './Map'
 import Layout from '../../components/Layout'
-import {compact} from 'lodash'
 
 // for counting "references": count(*[references(^._id)])
 function createQuery() {
@@ -113,6 +113,27 @@ export default {
         return {
           title: 'People',
           component: <Layout><People people={people} view="timeline" /></Layout>,
+        }
+      }
+    },
+    {
+      path: '/map',
+      async action({fetch, params}) {
+        const people = await fetch(`
+          *[_type=="person"]{
+            _id,
+            name,
+            placeOfBirth,
+            portraits[] {
+              asset -> {url}
+            }
+          }
+          [0..5000]
+        `, {})
+
+        return {
+          title: 'People - map',
+          component: <Layout><Map people={people} /></Layout>,
         }
       }
     }
