@@ -4,19 +4,20 @@
 
 .map {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 14rem);
 }
 
-.marker {
-  height: 0;
-  width: 0;
-  border: 10px solid blue;
-  border-radius: 50%;
+.popupTitle {
+  line-height: 2rem;
 }
 
 .map {
   @nest & :global(.leaflet-control-zoom.leaflet-bar) {
     border-color: blue;
+  }
+
+  @nest & :global(.leaflet-popup-tip-container) {
+    display: none;
   }
 
   @nest & :global(.leaflet-control-zoom-in) {
@@ -52,12 +53,19 @@
   }
 
   @nest & :global(.leaflet-popup-close-button) {
-    color: red;
+    font-size: 1.5rem;
+    margin-right: 0.25em;
   }
 
   @nest & :global(.leaflet-popup-content) {
-    padding: 0 1rem;
+    padding: 0 2rem;
     margin: 0;
+    padding-top: 0 !important;
+
+    @nest & span {
+      display: block;
+      line-height: 3em;
+    }
   }
 
   @nest & :global(.leaflet-popup) {
@@ -71,6 +79,7 @@
     }
 
     @nest & img {
+      margin-top: 2rem;
       width: 100%;
       height: auto;
     }

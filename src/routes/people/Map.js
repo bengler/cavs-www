@@ -20,8 +20,8 @@ class Persons extends React.Component {
     const src = get(person, 'portraits[0].asset.url')
     return `
       <a href="/person/${person._id}">
-        ${src ? `<img src="${src}" />` : ''}
-        <span>${person.name}</span>
+        ${src ? `<img src="${src}?w=300&fit=max" />` : ''}
+        <span clasa="${s.popupTitle}">${person.name}</span>
       </a>
     `
   }
@@ -44,10 +44,9 @@ class Persons extends React.Component {
 
       const majorMarkerIcon = L.icon({
         iconUrl: '/images/map-marker.png',
-        className: s.marker,
-        iconSize: [14, 14], // size of the icon
-        iconAnchor: [7, 7], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, -10], // point from which the popup should open relative to the iconAnchor
+        iconSize: [24, 24], // size of the icon
+        iconAnchor: [12, 24], // point of the icon which will correspond to marker's location
+        popupAnchor: [-12, -18], // point from which the popup should open relative to the iconAnchor
       })
 
       people.forEach(person => {
