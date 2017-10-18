@@ -20,6 +20,19 @@ spec:
         ports:
         - containerPort: 3000
           name: http
+        env:
+        - name: OPBEAT_APP_ID
+          value: b4fe6bbc01
+        - name: OPBEAT_ORGANIZATION_ID
+          valueFrom:
+            secretKeyRef:
+              name: opbeat
+              key: organization-id
+        - name: OPBEAT_SECRET_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: opbeat
+              key: secret-token
         readinessProbe:
           httpGet:
             port: 3000
