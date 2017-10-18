@@ -1,3 +1,8 @@
+const opbeat = require('opbeat').start({
+  appId: '950d503819',
+  organizationId: '6187cd126f54404d9c40e9185056f204',
+  secretToken: 'e0655073cfcac654720162b3b7c46c236ac80d64'
+})
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
@@ -38,7 +43,7 @@ app.use(bodyParser.json())
 //   rootValue: { request: req },
 //   pretty: __DEV__,
 // })));
-
+app.use(opbeat.middleware.express())
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
