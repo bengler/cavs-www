@@ -1,15 +1,17 @@
-.title {
-  composes: title from '../../components/common.css';
-  display: none;
-}
+@import '../../components/variables.css';
 
 .container {
   composes: container from '../../components/common.css';
 }
 
+.title {
+  composes: title from '../../components/common.css';
+  display: none;
+}
+
 .grid {
-  columns: 3;
   column-gap: 4rem;
+  composes: columns from '../../components/common.css';
 }
 
 .list {
@@ -25,12 +27,15 @@
 
 .chunkTitle {
   composes: fontMedium from '../../components/typography.css';
+  padding-top: 0;
+  margin-top: 0;
   text-transform: uppercase;
 }
 
 .chunkInnerList {
   composes: list;
   composes: fontMedium from '../../components/typography.css';
+  margin-bottom: 2rem;
 }
 
 .link {
@@ -50,7 +55,7 @@
 
 .portraitItem {
   composes: item;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   @nest & > a {
     display: block;

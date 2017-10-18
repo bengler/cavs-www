@@ -1,13 +1,19 @@
+@import '../../components/variables.css';
+
 .container {
   composes: container from '../../components/common.css';
-  clear: both;
 }
 
 .list {
   margin: 0;
   padding: 0;
   display: block;
-  columns: 2;
+  margin-top: 4rem;
+
+  @media (--screen-sm-min) {
+    columns: 2;
+    column-gap: 2rem;
+  }
 }
 
 .item {

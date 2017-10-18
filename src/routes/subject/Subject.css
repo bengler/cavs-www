@@ -1,5 +1,6 @@
 .title {
-  composes: title from '../../components/common.css';
+  composes: title from '../../components/typography.css';
+  margin-bottom: 2rem;
 }
 
 .container {

@@ -9,7 +9,6 @@ import LinkResolver from '../../components/Link/Resolver'
 
 import s from './Search.css'
 
-
 class Search extends React.PureComponent {
 
   static propTypes = {
@@ -47,9 +46,17 @@ class Search extends React.PureComponent {
   }
 
   renderItem = item => {
+
+    const aspect = get(item, 'imageAssets[0].asset.metadata.dimensions.aspectRatio')
+
     return (
-      <li key={item._id} className={item._type == 'person' ? s.itemPerson : s.item}>
-        <div className={s.type}>{item._type}</div>
+      <li
+        key={item._id}
+        className={`
+          ${item._type == 'person' ? s.itemPerson : s.item}
+          ${aspect < 1 ? s.aspectPortrait : s.aspectLandscape}
+        `}
+      >
         <LinkResolver item={item} className={s.link}>
           {
             item.src && (
@@ -77,13 +84,6 @@ class Search extends React.PureComponent {
         }
       })
     }
-
-    if (refImg) {
-      console.log('found ref', refImg)
-    } else {
-      console.log('no ref for', item)
-    }
-
     return portrait || image || refImg
   }
 
@@ -103,20 +103,6 @@ class Search extends React.PureComponent {
       } else {
         itemsWithoutImage.push(item)
       }
-
-      // item.references && item.references.forEach(ref => {
-      //   if (item._id === ref._id) {
-      //     return
-      //   }
-      //   const refSrc = this.checkItemForImage(ref)
-      //   if (refSrc) {
-      //     const itemWithImage = Object.assign(ref, {})
-      //     itemWithImage.refSrc = refSrc
-      //     itemsWithImage.push(itemWithImage)
-      //   } else {
-      //     itemsWithoutImage.push(ref)
-      //   }
-      // })
     })
 
     return (
@@ -140,7 +126,7 @@ class Search extends React.PureComponent {
         </form>
         <ul className={s.result}>
           {
-            sortBy(itemsWithImage, 'type').reverse().map(item => {
+            sortBy(itemsWithImage, 'type').map(item => {
               return this.renderItem(item)
             })
           }
@@ -149,14 +135,14 @@ class Search extends React.PureComponent {
               return this.renderItem(item)
             })
           }
-          {
-            !isSearching && query && result && (result.length < 1) && (
-              <div className={s.noResult}>
-                No result for {query}
-              </div>
-            )
-          }
         </ul>
+        {
+          !isSearching && query && result && (result.length < 1) && (
+            <div className={s.noResult}>
+              No result for <span>{query}</span>
+            </div>
+          )
+        }
       </div>
     )
   }

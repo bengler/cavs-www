@@ -1,9 +1,9 @@
 .root {
-  display: block;
+  composes: container from '../../components/common.css';
 }
 
 .menu {
-  margin: 0 1rem;
+  margin: 0;
   padding: 0;
   composes: fontMedium from '../../components/typography.css';
 }
@@ -23,5 +23,5 @@
 }
 
 .content {
-  composes: container from '../../components/common.css';
+  composes: textContainer from '../../components/common.css';
 }

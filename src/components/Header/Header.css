@@ -18,6 +18,10 @@
   padding: 0;
   line-height: 1em;
   margin-right: 10rem;
+
+  @nest &:visited {
+    color: inherit;
+  }
 }
 
 .logo {

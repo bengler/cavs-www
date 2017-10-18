@@ -3,11 +3,13 @@ import Search from './Search'
 import Layout from '../../components/Layout'
 
 function createQuery(query) {
+  const q = query.split(' ').map(i => ` "${i}**"`).toString()
+
   return `
   *[
-    title match "${query}"
-    || name match "${query}"
-    || name match "${query}"
+    title match [${q}]
+    || name match [${q}]
+    || name match [${q}]
   ]
   {
     ...,
@@ -18,7 +20,7 @@ function createQuery(query) {
     },
     imageAssets[] {
       _key,
-      asset -> {url}
+      asset -> {metadata, url}
     },
     "references": *[references(^._id)] {
       ...,

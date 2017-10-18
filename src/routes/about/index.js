@@ -6,7 +6,7 @@ function createQuery(title) {
   return `
   {
     "pages": *[_type == 'sitePage']{_id, title},
-    "current": *[_type == "sitePage" && title == "${title}"]
+    "currentPage": *[_type == "sitePage" && title == "${title}"]
   }
   `
 }

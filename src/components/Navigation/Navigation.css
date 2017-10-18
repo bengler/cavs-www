@@ -8,6 +8,10 @@
   display: inline-block;
   color: var(--brand-color);
 
+  @nest &:visited {
+    color: var(--brand-color);
+  }
+
   @nest &:not(:first-child) {
     padding-right: 0.25em;
   }

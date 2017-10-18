@@ -1,15 +1,13 @@
 @import '../variables.css';
 
 .grid {
-  @media (--screen-md-min) {
-    display: grid;
-    grid-gap: 2rem;
-    grid-template-columns: repeat(3, 1fr);
-  }
+  composes: columns from '../common.css';
 }
 
 .item {
   display: block;
+  margin-bottom: 4rem;
+  break-inside: avoid;
 }
 
 .image {

@@ -2,6 +2,10 @@
   display: block;
 }
 
+.container {
+  composes: container from '../../components/common.css';
+}
+
 .type {
   composes: type from '../item/Item.css';
   display: none;
@@ -18,10 +22,6 @@
 
 .meta {
   display: block;
-}
-
-.container {
-  composes: container from '../../components/common.css';
 }
 
 .description {

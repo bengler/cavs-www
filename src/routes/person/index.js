@@ -15,6 +15,9 @@ export default {
           ...,
           asset -> {url}
         },
+        deceased,
+        dob,
+        ...,
         "references": *[references(^._id)]{
           _id,
           _type,

@@ -21,7 +21,6 @@ class LinkResolver extends React.Component {
     if (item._type === 'person') {
       return (
         <Link to={`/person/${item._id}`} {...rest}>
-          person
           {children || item.title || item.name || 'Untitled'}
         </Link>
       )

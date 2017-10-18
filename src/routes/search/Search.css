@@ -1,3 +1,5 @@
+@import '../../components/variables.css';
+
 .root {
   composes: container from '../../components/common.css';
 }
@@ -24,7 +26,26 @@
   margin-top: 2rem;
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(3, 1fr);
+
+  @media (--screen-sm-min) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (--screen-lg-min) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (--screen-xlg-min) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (--screen-xxlg-min) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (--screen-xxxlg-min) {
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
 
 .image {
@@ -48,17 +69,33 @@
 }
 
 .link {
+  display: block;
   color: black;
 }
 
 .itemPerson {
   composes: item;
-  grid-column: span 2 / 3;
+  grid-column: span 2;
+}
+
+.aspectLandscape {
+  display: block;
+}
+
+.aspectPortrait {
+  grid-row: span 2;
 }
 
 .noResult {
+  composes: fontMedium from '../../components/typography.css';
   margin: 1em;
   text-align: center;
+  display: block;
+  font-weight: 400;
+
+  @nest & > span {
+    font-weight: 700;
+  }
 }
 
 .type {

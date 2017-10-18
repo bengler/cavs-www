@@ -27,14 +27,16 @@ export default {
 
         const people = sortBy(resp, person => {
           if (person.name) {
-            return last(person.name.split(' '))
+            const lastName = last(person.name.split(' '))
+            return lastName
           }
           return false
         })
 
         const buckets = []
         people.forEach(person => {
-          buckets[person.name.charAt(0).toLowerCase()] = true
+          const lastName = last(person.name.split(' '))
+          buckets[lastName.charAt(0).toLowerCase()] = true
         })
 
         const alphaNumericals = Object.keys(buckets).sort()
@@ -43,7 +45,7 @@ export default {
           return {
             title: character,
             items: compact(people.map(person => {
-              if (person.name && person.name.charAt(0).toLowerCase() === character) {
+              if (person.name && last(person.name.split(' ')).charAt(0).toLowerCase() === character) {
                 return person
               }
               return false
@@ -137,23 +139,5 @@ export default {
         }
       }
     }
-    // {
-    //   path: '/:view',
-    //   async action({fetch, params}) {
-    //     const resp = await fetch(createQuery(), {})
-    //
-    //     const people = sortBy(resp, person => {
-    //       if (person.name) {
-    //         return last(person.name.split(' '))
-    //       }
-    //       return false
-    //     })
-    //
-    //     return {
-    //       title: 'People',
-    //       component: <Layout><People people={people} view={params.view} /></Layout>,
-    //     }
-    //   }
-    // },
   ]
 }

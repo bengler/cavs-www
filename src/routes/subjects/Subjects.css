@@ -1,13 +1,35 @@
+@import '../../components/variables.css';
+
 .container {
   composes: container from '../../components/common.css';
-  clear: both;
 }
 
 .list {
   margin: 0;
   padding: 0;
   display: block;
-  columns: 2;
+  margin-top: 2rem;
+
+  @media (--screen-sm-min) {
+    columns: 2;
+  }
+
+  @media (--screen-lg-min) {
+    columns: 3;
+  }
+
+  @media (--screen-xlg-min) {
+    columns: 3;
+    margin-top: 4rem;
+  }
+
+  @media (--screen-xxlg-min) {
+    columns: 4;
+  }
+
+  @media (--screen-xxxlg-min) {
+    columns: 4;
+  }
 }
 
 .item {

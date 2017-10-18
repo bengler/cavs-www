@@ -13,9 +13,9 @@ class About extends React.PureComponent {
   static propTypes = {
     content: PropTypes.shape(
       {
-        current: PropTypes.arrayOf(
+        currentPage: PropTypes.arrayOf(
           PropTypes.shape({
-            body: PropTypes.object,
+            body: PropTypes.array,
             title: PropTypes.string
           })
         ),
@@ -35,7 +35,7 @@ class About extends React.PureComponent {
 
   render() {
     const {content} = this.props
-    const {pages, current} = content
+    const {pages, currentPage} = content
     return (
       <div className={s.root}>
         <ul className={s.menu}>
@@ -50,7 +50,11 @@ class About extends React.PureComponent {
           }
         </ul>
         <div className={s.content}>
-          <Blocks blocks={current[0].body} />
+          {
+            currentPage && currentPage.length > 0 && (
+              <Blocks blocks={currentPage[0].body} />
+            )
+          }
         </div>
       </div>
     )
