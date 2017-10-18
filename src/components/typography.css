@@ -1,34 +1,16 @@
 @import './variables.css';
 
-@font-face {
-  font-family: 'Unica77LLWebBold';
-  src: url('/fonts/Unica77LLWeb-Bold.eot');
-  src:
-    url('/fonts/Unica77LLWeb-Bold.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Unica77LLWeb-Bold.woff2') format('woff2'),
-    url('/fonts/Unica77LLWeb-Bold.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Unica77LLSubBold';
-  src: url('/fonts/Unica77LLSub-Bold.eot');
-  src:
-    url('/fonts/Unica77LLSub-Bold.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Unica77LLSub-Bold.woff2') format('woff2'),
-    url('/fonts/Unica77LLSub-Bold.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .fontSmall {
   font-size: var(--font-size--small);
 }
 
 .fontMedium {
-  font-size: var(--font-size--medium);
   line-height: 1.2em;
+  font-size: calc(var(--font-size--medium) * 0.75);
+
+  @media (--screen-sm-min) {
+    font-size: var(--font-size--medium);
+  }
 }
 
 .fontLarge {
@@ -40,4 +22,5 @@
   line-height: 1em;
   margin: 0;
   padding: 0;
+  margin-top: 0.5em;
 }

@@ -9,6 +9,7 @@
 
 .shortBio {
   composes: fontMedium from '../../components/typography.css';
+  composes: textContainer from '../../components/common.css';
 }
 
 .mainImage {

@@ -10,6 +10,8 @@ import Scroller from './Scroller'
 import MatrixCamera from './MatrixCamera'
 import MatrixElement from './MatrixElement'
 
+import Header from '../Header'
+
 import s from './Explorer.css'
 
 const nextCache = {}
@@ -191,6 +193,9 @@ class Explorer extends React.Component {
         <div className={s.spacer} />
 
         <MatrixCamera view={view} animate={animate}>
+          <div className={s.header}>
+            <Header inverted />
+          </div>
           <TransitionGroup>
             {items.map(item => (
               <Fade key={item.theme.key}>

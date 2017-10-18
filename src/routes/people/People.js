@@ -57,7 +57,9 @@ class Persons extends React.Component {
               <li key={item._id} className={s.portraitItem}>
                 <Link to={`/person/${id}`}>
                   <img src={`${src}?w=300&fit=max`} />
-                  {item.name || 'No name…'}
+                  <span className={s.portraitTitle}>
+                    {item.name || 'No name…'}
+                  </span>
                 </Link>
               </li>
             )

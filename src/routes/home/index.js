@@ -12,7 +12,7 @@ export default {
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
-        <Layout>
+        <Layout showHeader={false} inverted>
           <Explorer theme={theme} />
         </Layout>
       ),

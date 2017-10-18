@@ -9,6 +9,19 @@
   z-index: 10;
 }
 
+.rootInverted {
+  composes: root;
+  color: #fff;
+
+  @nest & .title {
+    color: #fff;
+
+    @nest &:visited {
+      color: #fff;
+    }
+  }
+}
+
 .title {
   display: block;
   text-decoration: none;
@@ -29,7 +42,7 @@
   }
 
   @nest &:visited {
-    color: inherit;
+    color: #000;
   }
 }
 
@@ -38,14 +51,18 @@
   display: block;
   right: 1rem;
   top: 1rem;
-  height: 2rem;
+  height: 1.5rem;
   width: auto;
 
   @media (--screen-xs-min) {
-    height: 3rem;
+    height: var(--font-size--medium);
   }
 
   @media (--screen-sm-min) {
-    height: 5rem;
+    height: var(--font-size--large);
   }
+}
+
+.noBreak {
+  white-space: nowrap;
 }

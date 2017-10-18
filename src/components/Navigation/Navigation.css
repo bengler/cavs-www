@@ -1,11 +1,15 @@
 @import '../variables.css';
 
 .root {
+  line-height: 1em;
+  margin-top: 0.5em;
+
   @media (--screen-xs-min) {
     font-size: var(--font-size--medium);
   }
 
   @media (--screen-sm-min) {
+    margin-top: 0;
     font-size: var(--font-size--large);
   }
 }
@@ -25,4 +29,8 @@
   @nest &:not(:last-child)::after {
     content: ',\00a0';
   }
+}
+
+.noBreak {
+  white-space: nowrap;
 }

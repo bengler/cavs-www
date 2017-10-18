@@ -1,7 +1,6 @@
 .menu {
   composes: fontMedium from '../../components/typography.css';
-  margin: 2rem 1rem;
-  margin-top: 0;
+  margin: 1em 1rem;
   padding: 0;
   display: block;
   color: blue;

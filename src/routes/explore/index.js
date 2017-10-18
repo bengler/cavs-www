@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../../components/Layout'
 import Explorer from '../../components/Explorer/Explorer'
-import {getTheme, getRandomTheme} from '../../themes'
+import {getTheme} from '../../themes'
 
 export default {
   path: '/explore/:type/:key',
@@ -10,15 +10,10 @@ export default {
     const {type, key} = params
     const theme = await getTheme(fetch, type, key)
 
-    theme.related = [
-      await getRandomTheme(fetch, theme.key),
-      await getRandomTheme(fetch, `${theme.key}-2`)
-    ]
-
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
-        <Layout>
+        <Layout showHeader={false} inverted>
           <Explorer theme={theme} />
         </Layout>
       ),

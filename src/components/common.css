@@ -5,9 +5,7 @@
 }
 
 .textContainer {
-  @media (--screen-lg-min) {
-    max-width: var(--max-content-width);
-  }
+  max-width: var(--max-content-width);
 }
 
 .description {
