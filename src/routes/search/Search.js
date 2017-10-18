@@ -105,6 +105,36 @@ class Search extends React.PureComponent {
       }
     })
 
+    // Also show references
+    result.forEach(item => {
+      if (item.references && item.references.length > 0) {
+        item.references.forEach(ref => {
+          const copies = itemsWithImage.find(i => {
+            const match = i._id === ref._id
+            return match
+          })
+          const copies2 = itemsWithoutImage.find(i => {
+            const match = i._id === ref._id
+            return match
+          })
+
+          // Not show if we have item in result
+          if (copies || copies2) {
+            return
+          }
+
+          const refSrc = this.checkItemForImage(ref)
+          if (refSrc) {
+            const itemWithImage = Object.assign(ref, {})
+            itemWithImage.src = refSrc
+            itemsWithImage.push(itemWithImage)
+          } else {
+            itemsWithoutImage.push(ref)
+          }
+        })
+      }
+    })
+
     return (
       <div className={s.root}>
         <form method="get" action="/search">
