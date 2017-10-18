@@ -6,6 +6,7 @@ import Map from './Map'
 import Layout from '../../components/Layout'
 
 // for counting "references": count(*[references(^._id)])
+// faster? "references": defined(*[references(^._id)][0])
 function createQuery() {
   return `
     *[_type=="person"]{

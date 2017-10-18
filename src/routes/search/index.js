@@ -9,33 +9,52 @@ function createQuery(query) {
   *[
     title match [${q}]
     || name match [${q}]
-    || name match [${q}]
   ]
   {
-    ...,
+    _id,
+    _type,
+    title,
+    name,
     identifier,
-    portraits[] {
+    portraits[0...1] {
       _key,
       asset -> {url}
     },
-    imageAssets[] {
+    imageAssets[0...1] {
       _key,
       asset -> {metadata, url}
     },
-    "references": *[references(^._id)] {
-      ...,
+    "references": *[references(^._id)][0..10] {
       _id,
+      _type,
+      title,
+      name,
       identifier,
-      portraits[] {
+      portraits[0...1] {
         _key,
         asset -> {url}
       },
-      imageAssets[] {
+      imageAssets[0...1] {
         _key,
         asset -> {url}
+      },
+      "references": *[references(^._id)][0...1] {
+        _id,
+        _type,
+        title,
+        name,
+        identifier,
+        portraits[0...1] {
+          _key,
+          asset -> {url}
+        },
+        imageAssets[0...1] {
+          _key,
+          asset -> {url}
+        },
       }
     }
-  }[0..100]
+  }[0..20]
 `
 }
 

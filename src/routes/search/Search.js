@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import url from 'url'
-import {get, sortBy} from 'lodash'
+import {get, sortBy, debounce} from 'lodash'
 import history from '../../history'
 import LinkResolver from '../../components/Link/Resolver'
 
@@ -35,15 +35,20 @@ class Search extends React.PureComponent {
   }
 
   handleInputChange = event => {
+    const query = event.target.value
     this.setState({
-      query: event.target.value,
+      query: query,
       isSearching: true
     })
+    this.doSearch(query)
+  }
+
+  doSearch = debounce(query => {
     const currentUrl = url.parse(document.location.href, true)
-    currentUrl.query.q = event.target.value
+    currentUrl.query.q = query
     delete currentUrl.search
     history.push(url.parse(url.format(currentUrl)).path)
-  }
+  }, 300)
 
   renderItem = item => {
 
@@ -154,18 +159,27 @@ class Search extends React.PureComponent {
           />
           <button type="submit" className={s.submit}>Search</button>
         </form>
-        <ul className={s.result}>
-          {
-            sortBy(itemsWithImage, 'type').map(item => {
-              return this.renderItem(item)
-            })
-          }
-          {
-            itemsWithoutImage.map(item => {
-              return this.renderItem(item)
-            })
-          }
-        </ul>
+        {
+          isSearching && (
+            <div className={s.loader}>Loading…</div>
+          )
+        }
+        {
+          !isSearching && result && (
+            <ul className={s.result}>
+              {
+                sortBy(itemsWithImage, 'type').map(item => {
+                  return this.renderItem(item)
+                })
+              }
+              {
+                itemsWithoutImage.map(item => {
+                  return this.renderItem(item)
+                })
+              }
+            </ul>
+          )
+        }
         {
           !isSearching && query && result && (result.length < 1) && (
             <div className={s.noResult}>
