@@ -1,5 +1,27 @@
 @import './variables.css';
 
+@font-face {
+  font-family: 'Unica77LLWebBold';
+  src: url('/fonts/Unica77LLWeb-Bold.eot');
+  src:
+    url('/fonts/Unica77LLWeb-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Unica77LLWeb-Bold.woff2') format('woff2'),
+    url('/fonts/Unica77LLWeb-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unica77LLSubBold';
+  src: url('/fonts/Unica77LLSub-Bold.eot');
+  src:
+    url('/fonts/Unica77LLSub-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Unica77LLSub-Bold.woff2') format('woff2'),
+    url('/fonts/Unica77LLSub-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .fontSmall {
   font-size: var(--font-size--small);
 }
