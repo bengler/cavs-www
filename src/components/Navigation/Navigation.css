@@ -1,7 +1,13 @@
 @import '../variables.css';
 
 .root {
-  font-size: var(--font-size--large);
+  @media (--screen-xs-min) {
+    font-size: var(--font-size--medium);
+  }
+
+  @media (--screen-sm-min) {
+    font-size: var(--font-size--large);
+  }
 }
 
 .link {

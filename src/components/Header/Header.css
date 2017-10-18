@@ -13,11 +13,20 @@
   display: block;
   text-decoration: none;
   color: #000;
-  font-size: var(--font-size--large);
   margin: 0;
   padding: 0;
   line-height: 1em;
-  margin-right: 10rem;
+  margin-right: 5rem;
+
+  @media (--screen-xs-min) {
+    font-size: var(--font-size--medium);
+    margin-right: 8rem;
+  }
+
+  @media (--screen-sm-min) {
+    font-size: var(--font-size--large);
+    margin-right: 12rem;
+  }
 
   @nest &:visited {
     color: inherit;
@@ -29,6 +38,14 @@
   display: block;
   right: 1rem;
   top: 1rem;
-  height: 5rem;
+  height: 2rem;
   width: auto;
+
+  @media (--screen-xs-min) {
+    height: 3rem;
+  }
+
+  @media (--screen-sm-min) {
+    height: 5rem;
+  }
 }

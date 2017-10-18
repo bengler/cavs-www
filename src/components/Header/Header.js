@@ -12,7 +12,9 @@ class Header extends React.Component {
           Center for Advanced Visual Studies Special Collection
         </Link>
         <Navigation />
-        <img src="/MIT-logo-black-gray.svg" className={s.logo} />
+        <a href="http://web.mit.edu/">
+          <img src="/MIT-logo-black-gray.svg" className={s.logo} />
+        </a>
       </div>
     )
   }
