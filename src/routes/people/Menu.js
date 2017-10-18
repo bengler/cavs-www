@@ -1,7 +1,7 @@
 import React from 'react'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
-import s from './menu.css'
+import s from './Menu.css'
 import Link from '../../components/Link'
 
 class PeopleMenu extends React.PureComponent {
