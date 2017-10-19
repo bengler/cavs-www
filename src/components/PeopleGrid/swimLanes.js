@@ -65,6 +65,13 @@ export class SwimLaneKeeper {
     }
   }
 
+  sort() {
+    this.lanes = this.lanes.sort((laneA, laneB) => {
+      return (laneA.periods[0]._start - laneB.periods[0]._start)
+    })
+    return this
+  }
+
   addPeriodList(periodList) {
     periodList.forEach(period => this.addPeriod(period))
     this.sortLanes()

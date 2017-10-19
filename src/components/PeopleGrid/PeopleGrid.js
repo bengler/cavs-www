@@ -11,38 +11,35 @@ import Link from '../Link/Link'
 
 import s from './PeopleGrid.css'
 
-const TOTAL_HEIGHT = 6000
+const TOTAL_HEIGHT = 2600
+const TOTAL_WIDTH = 6000
 
 class Period extends React.PureComponent {
   static propTypes = {
     period: PropTypes.object,
-    laneWidth: PropTypes.number
+    laneHeight: PropTypes.number
   }
   render() {
-    const {period, laneWidth} = this.props
+    const {period, laneHeight} = this.props
 
     const periodStyle = {
-      top: `${period._start * TOTAL_HEIGHT}px`,
-      height: `${period._duration * TOTAL_HEIGHT}px`
+      left: `${period._start * TOTAL_WIDTH}px`,
+      width: `${period._duration * TOTAL_WIDTH}px`,
     }
 
-    const paddingLeft = 4
+    const paddingLeft = 2
 
     const contentStyle = {
-      width: `${(period._duration * TOTAL_HEIGHT) - (paddingLeft * 2)}px`,
+      width: `${(period._duration * TOTAL_WIDTH) - (paddingLeft * 2)}px`,
       paddingLeft: `${paddingLeft}px`,
-      marginLeft: `${laneWidth - laneWidth / 7}px`
+      marginLeft: `${laneHeight - laneHeight / 7}px`
     }
-
-    // {period.start.getFullYear()} - {period.end.getFullYear()}
 
     return (
       <Link to={`/person/${period._id}`}>
         <div style={periodStyle} className={s.period}>
-          <div className={s.periodYear}>
-            {period.start.getFullYear()}
-          </div>
           <div style={contentStyle} className={s.periodContent}>
+            <div className={s.periodYear}>{period.start.getFullYear()}</div>
             <div className={s.periodName}>{period.name}</div>
             <div className={s.periodRole}>
               {period.role}
@@ -109,12 +106,11 @@ class PeopleGrid extends React.Component {
     const {people} = this.props
     const affiliationPeriods = processPeople(people)
     const {normalizedPeriods} = normalizePeriods(affiliationPeriods)
-    const swimLanes = new SwimLaneKeeper(normalizedPeriods).getLanes()
+    const swimLanes = new SwimLaneKeeper(normalizedPeriods).sort().getLanes()
     const laneTotal = swimLanes.length
 
-    const screenWidth = window.innerWidth
     const margin = 1
-    const laneWidth = (screenWidth - (laneTotal * margin)) / (laneTotal)
+    const laneHeight = (TOTAL_HEIGHT - (laneTotal * margin)) / (laneTotal)
 
     // console.info(screenWidth, laneTotal, margin, laneWidth)
     // console.info(laneWidth)
@@ -126,14 +122,12 @@ class PeopleGrid extends React.Component {
 
             const laneStyle = {
               position: 'absolute',
-              width: `${laneWidth}px`,
-              left: `${(laneWidth + margin) * idx}px`,
-              top: 0
+              top: `${laneHeight * idx}px`,
             }
 
             return (
               <div key={idx} style={laneStyle} className={s.lane}>
-                <Lane laneWidth={laneWidth} lane={lane} />
+                <Lane laneHeight={laneHeight} lane={lane} />
               </div>
             )
 
