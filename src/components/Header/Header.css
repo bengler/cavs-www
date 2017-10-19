@@ -32,12 +32,12 @@
   margin-right: 5rem;
 
   @media (--screen-xs-min) {
-    font-size: var(--font-size--medium);
+    font-size: var(--font-size--medium--relative);
     margin-right: 8rem;
   }
 
   @media (--screen-sm-min) {
-    font-size: var(--font-size--large);
+    font-size: var(--font-size--large--relative);
     margin-right: 12rem;
   }
 
@@ -55,11 +55,11 @@
   width: auto;
 
   @media (--screen-xs-min) {
-    height: var(--font-size--medium);
+    height: var(--font-size--medium--relative);
   }
 
   @media (--screen-sm-min) {
-    height: var(--font-size--large);
+    height: var(--font-size--large--relative);
   }
 }
 

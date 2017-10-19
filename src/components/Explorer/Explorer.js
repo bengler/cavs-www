@@ -20,7 +20,7 @@ const Fade = ({children, ...props}) => {
   return (
     <CSSTransition
       {...props}
-      timeout={1000}
+      timeout={300}
       classNames="fade"
     >
       {children}
@@ -114,7 +114,7 @@ class Explorer extends React.Component {
     } else {
       setTimeout(() => {
         active.theme.getRelated().then(themes => {
-          if (this.mounted) {
+          if (this.mounted && themes && themes.length > 0) {
             const next = themes.map((theme, i) => ({
               theme: theme,
               matrix: transformMatrix(active.matrix, [
@@ -131,7 +131,7 @@ class Explorer extends React.Component {
             })
           }
         })
-      }, 1000)
+      }, 200)
     }
   }
 
@@ -190,14 +190,15 @@ class Explorer extends React.Component {
 
     return (
       <Scroller onScroll={this.handleScroll} theme={active.theme}>
-        <div className={s.spacer} />
-
         <MatrixCamera view={view} animate={animate}>
           <div className={s.header}>
             <Header inverted />
           </div>
+        </MatrixCamera>
+        <div className={s.spacer} />
+        <MatrixCamera view={view} animate={animate}>
           <TransitionGroup>
-            {items.map(item => (
+            {items && items.length > 0 && items.map(item => (
               <Fade key={item.theme.key}>
                 <MatrixElement key={item.theme.key} matrix={item.matrix}>
                   <Theme

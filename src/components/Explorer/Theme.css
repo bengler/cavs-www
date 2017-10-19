@@ -19,6 +19,10 @@
   transform: scale(0.5);
   text-transform: uppercase;
 
+  @nest &:hover {
+    background-color: color(lime a(20%));
+  }
+
   @nest &:visited {
     color: lime;
   }

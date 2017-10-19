@@ -5,7 +5,7 @@
 .header {
   transform: translate(-50vw, -15vh);
   width: 100vw;
-  font-size: 2em;
+  font-size: 3em;
 }
 
 :global {
