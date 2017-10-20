@@ -3,7 +3,7 @@ import dateFns from 'date-fns'
 export default function approximationDate(data) {
   const {approximation, date} = data
 
-  if (!date.utc) {
+  if (!date || !date.utc) {
     return ''
   }
 

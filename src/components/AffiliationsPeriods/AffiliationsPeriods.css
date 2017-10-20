@@ -1,0 +1,15 @@
+.list {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: inline;
+  margin: 0;
+  padding: 0;
+
+  @nest &:not(:last-child)::after {
+    content: ',  ';
+  }
+}

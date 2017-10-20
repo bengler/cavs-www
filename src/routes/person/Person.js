@@ -5,7 +5,7 @@ import s from './Person.css'
 import ImageGallery from '../../components/ImageGallery/ImageGallery'
 import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
 import approximationDate from '../../components/ApproximationDate/ApproximationDate'
-
+import AffiliationsPeriods from '../../components/AffiliationsPeriods/AffiliationsPeriods'
 class Persons extends React.Component {
 
   static propTypes = {
@@ -42,13 +42,18 @@ class Persons extends React.Component {
 
   render() {
     const {person} = this.props
-    const {name, portraits, shortBio, deceased, dob, references = []} = person
+    const {name, portraits, shortBio, deceased, dob, affiliationsPeriods, references = []} = person
     return (
       <div>
         <div className={s.container}>
           <h1 className={s.title}>{name}</h1>
           <p className={s.shortBio}>{shortBio}</p>
-          {this.renderDates(deceased, dob)}
+          <div>
+            <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
+          </div>
+          <div>
+            {this.renderDates(deceased, dob)}
+          </div>
           {
             portraits && portraits[0]
             && (
