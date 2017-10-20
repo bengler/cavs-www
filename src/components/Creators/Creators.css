@@ -1,9 +1,10 @@
 .root {
   font-size: 1em;
+  display: inline;
 }
 
 .list {
-  display: block;
+  display: inline;
   margin: 0;
   padding: 0;
 }

@@ -30,7 +30,7 @@ class AffiliationsPeriods extends React.PureComponent {
           affiliationsPeriods.map(period => (
             <li key={period._key} className={s.item}>
               {period.role}&nbsp;
-              {approximationDate(period.start)}–{approximationDate(period.end)}
+              {approximationDate(period.start)}&#8202;–&#8202;{approximationDate(period.end)}
             </li>
           ))
         }

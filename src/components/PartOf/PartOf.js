@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import {findLast} from 'lodash'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import LinkResolver from '../Link/Resolver'
-import ResolveType from '../ResolveType'
-
 
 import s from './PartOf.css'
 
@@ -51,7 +49,18 @@ class PartOf extends React.Component {
               )
             }
             <LinkResolver item={part} />
-            {/* (<ResolveType type={part._type} />) */}
+            {
+              part.creators && part.creators.length > 0 && (
+                <span>
+                  &nbsp;by&nbsp;
+                  {
+                    part.creators.map(person => {
+                      return <LinkResolver key={person._id} item={person}>{person.name}</LinkResolver>
+                    })
+                  }
+                </span>
+              )
+            }
           </li>
         )
       }
@@ -62,7 +71,6 @@ class PartOf extends React.Component {
 
   render() {
     const {partOf} = this.props
-
     if (!partOf.length) {
       return (
         <div />

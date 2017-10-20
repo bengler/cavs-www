@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Format.css'
-import ReferenceList from '../../components/ReferenceList/ReferenceList'
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
 
 class Format extends React.PureComponent {
 
@@ -23,7 +23,7 @@ class Format extends React.PureComponent {
     return (
       <div className={s.container}>
         <h1 className={s.title}>{format}</h1>
-        <ReferenceList references={items} />
+        <ReferenceGrid references={items} />
       </div>
     )
   }

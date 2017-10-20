@@ -87,25 +87,36 @@ class Item extends React.PureComponent {
           && (
             <img
               className={s.mainImage}
-              src={`${imageAssets[0].asset.url}?w=1200`}
+              src={`${imageAssets[0].asset.url}?w=1200&fit=max`}
               alt=""
             />
           )
         }
         <div className={s.container}>
-          <div className={s.type}>
-            <ResolveType type={_type} />
-          </div>
+          {
+            partOf && partOf.length > 0 && partOf[0].name && (
+              <div className={s.partOf}>
+                <PartOf partOf={partOf} showCreators />
+              </div>
+            )
+          }
+
           <h1 className={s.title}>
-            {title}, {this.getYear(date)}, <Creators creators={creators} />
+            {title}, {this.getYear(date)}
+            {
+              creators && creators.length > 0 && (
+                <span>,&nbsp;
+                  <span className={s.creatorsType}>
+                    <ResolveType type={_type} />
+                  </span>
+                  &nbsp; by <Creators creators={creators} />
+                </span>
+              )
+            }
           </h1>
           <p className={s.description}>
             {description || 'No description'}
           </p>
-
-          <div className={s.partOf}>
-            <PartOf partOf={partOf} />
-          </div>
 
           <div className={s.meta}>
             <Subjects subjects={subjects} />&nbsp;

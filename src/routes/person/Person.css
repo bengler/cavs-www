@@ -12,6 +12,10 @@
   composes: textContainer from '../../components/common.css';
 }
 
+.referenceGrid {
+  margin-top: 1rem;
+}
+
 .mainImage {
   width: 100%;
   display: block;

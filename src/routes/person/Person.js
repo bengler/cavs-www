@@ -28,7 +28,7 @@ class Persons extends React.Component {
         <span
           title={`Born:${approximationDate(dob)} Deceased ${approximationDate(deceased)}`}
         >
-          {approximationDate(dob)}–{approximationDate(deceased)}
+          {approximationDate(dob)}&#8202;–&#8202;{approximationDate(deceased)}
         </span>)
     }
     if (dob) {
@@ -64,12 +64,9 @@ class Persons extends React.Component {
             )
           }
           <ImageGallery images={portraits} excludeFirst />
-          {
-            references && references.length > 0 && (
-              <h2>Related work:</h2>
-            )
-          }
-          <ReferenceGrid references={references} />
+          <div className={s.referenceGrid}>
+            <ReferenceGrid references={references} />
+          </div>
         </div>
       </div>
     )

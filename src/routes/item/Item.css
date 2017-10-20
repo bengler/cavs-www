@@ -9,8 +9,14 @@
   margin-bottom: 2em;
 }
 
-.type {
-  display: none;
+.creatorsType {
+  @nest & a {
+    color: inherit;
+
+    @nest &:hover {
+      color: blue;
+    }
+  }
 }
 
 .title {
@@ -21,8 +27,6 @@
 
 .partOf {
   padding: 0;
-  composes: fontMedium from '../../components/typography.css';
-  margin-bottom: 1rem;
 }
 
 .meta {
@@ -37,7 +41,7 @@
 .description {
   composes: fontMedium from '../../components/typography.css';
   padding-bottom: 0;
-  margin-bottom: 0;
+  margin-bottom: 1em;
 }
 
 .video {

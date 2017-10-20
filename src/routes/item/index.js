@@ -27,6 +27,10 @@ export default {
           _id,
           _type,
           name,
+          creators[] -> {
+            name,
+            _id
+          },
           "references": *[references(^._id)] {name, title, imageAssets[] {asset -> {url}}},
           ...
         },

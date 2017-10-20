@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {get} from 'lodash'
+import {get, groupBy, toArray} from 'lodash'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import LinkResolver from '../Link/Resolver'
 import ImageGallery from '../ImageGallery/ImageGallery'
@@ -23,14 +23,84 @@ class ReferencesGrid extends React.Component {
   render() {
     const {references} = this.props
 
+    const used = []
+    const groupedReferences = groupBy(references, ref => {
+      return ref._type
+    })
+
+    const sortedReferences = []
+
+    const workTypes = [
+      'work2d',
+      'work3d',
+      'workTimebased',
+      'event',
+      'exhibition',
+      'conference',
+      'building',
+      'institution',
+      'multipleInstallation',
+      'multipleTimebased'
+    ]
+
+    const itemTypes = [
+      'stillImage',
+      'movingImage',
+      'correspondence',
+      'audioRecording',
+      'document',
+      'poster',
+      'publication',
+      'ephemera',
+      'eResource',
+      'floorplan',
+      'newsClipping'
+    ]
+
+    console.log('groupedReferences', groupedReferences)
+
+    workTypes.forEach(key => {
+      if (groupedReferences[key]) {
+        if (groupedReferences[key]) {
+          groupedReferences[key].forEach(item => {
+            sortedReferences.push(item)
+          })
+        }
+      }
+    })
+
+    itemTypes.forEach(key => {
+      if (groupedReferences[key]) {
+        if (groupedReferences[key]) {
+          groupedReferences[key].forEach(item => {
+            sortedReferences.push(item)
+          })
+        }
+      }
+    })
 
     return (
       <div className={s.grid}>
         {
-          references.map(reference => {
+          sortedReferences.map(reference => {
             const year = get(reference, 'date.date.utc')
             let imageAssets = []
-
+            if (used.includes(reference._id)) {
+              return false
+            }
+            used.push(reference._id)
+            if (reference.references && reference.references.length > 0) {
+              let isUsed = false
+              reference.references.forEach(ref => {
+                if (used.includes(ref._id)) {
+                  isUsed = true
+                }
+                used.push(ref._id)
+              })
+              if (isUsed) {
+                return <div />
+              }
+            }
             if (reference.imageAssets && reference.imageAssets.length > 0) {
               imageAssets = reference.imageAssets
             } else if (reference.references && reference.references.length > 0) {
