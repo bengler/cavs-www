@@ -3,9 +3,16 @@
 }
 
 .header {
+  width: 100%;
+  pointer-events: auto;
   transform: translate(-50vw, -15vh);
+}
+
+.headerCamera {
+  position: absolute;
   width: 100vw;
-  font-size: 3em;
+  font-size: 2em;
+  pointer-events: none;
 }
 
 :global {

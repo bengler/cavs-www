@@ -190,12 +190,13 @@ class Explorer extends React.Component {
 
     return (
       <Scroller onScroll={this.handleScroll} theme={active.theme}>
-        <MatrixCamera view={view} animate={animate}>
-          <div className={s.header}>
-            <Header inverted />
-          </div>
-        </MatrixCamera>
-        <div className={s.spacer} />
+        <div className={s.headerCamera}>
+          <MatrixCamera view={view} animate={animate}>
+            <div className={s.header}>
+              <Header inverted />
+            </div>
+          </MatrixCamera>
+        </div>
         <MatrixCamera view={view} animate={animate}>
           <TransitionGroup>
             {items && items.length > 0 && items.map(item => (
@@ -210,6 +211,7 @@ class Explorer extends React.Component {
             ))}
           </TransitionGroup>
         </MatrixCamera>
+        <div className={s.spacer} />
       </Scroller>
     )
   }
