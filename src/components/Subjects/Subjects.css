@@ -16,6 +16,7 @@
   }
 
   @nest &:not(:last-child)::after {
+    color: black;
     content: ', ';
   }
 }

@@ -14,6 +14,8 @@
 }
 
 .columns {
+  column-gap: 2rem;
+
   @media (--screen-xs-min) {
     columns: 2;
   }

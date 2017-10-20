@@ -19,6 +19,7 @@
 
 .title {
   font-size: var(--font-size--title);
+  letter-spacing: -0.03em;
   line-height: 1em;
   margin: 0;
   padding: 0;

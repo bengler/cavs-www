@@ -10,10 +10,8 @@ class Navigation extends React.Component {
         <Link className={s.link} to="/people">People</Link>
         <Link className={s.link} to="/subjects">Subjects</Link>
         <Link className={s.link} to="/formats">Formats</Link>
-        <span className={s.noBreak}>
-          <Link className={s.link} to="/about">About</Link>
-          <Link className={s.link} to="/search">Search</Link>
-        </span>
+        <Link className={s.link} to="/about">About</Link>
+        <Link className={s.link} to="/search">Search</Link>
       </div>
     )
   }

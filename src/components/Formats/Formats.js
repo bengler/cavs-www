@@ -17,7 +17,7 @@ class Formats extends React.Component {
     const {formats} = this.props
     return (
       <div className={s.root}>
-        Format: {
+        Format:&nbsp;{
           formats.map(formatTitle => (
             <span className={s.item} key={formatTitle}>
               <Link className={s.link} to={`/format/${formatTitle}`}>{formatTitle}</Link>

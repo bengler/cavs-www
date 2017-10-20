@@ -1,3 +1,7 @@
+:root {
+  --item-meta-max-width: 70rem;
+}
+
 .root {
   display: block;
   margin-bottom: 2rem;
@@ -6,7 +10,9 @@
 .mainImage {
   width: 100%;
   height: auto;
-  margin-bottom: 2em;
+  padding: 1em;
+  margin-bottom: 1em;
+  box-sizing: border-box;
 }
 
 .creatorsType {
@@ -23,13 +29,17 @@
   composes: fontMedium from '../../components/typography.css';
   padding: 0;
   margin: 0;
+  margin-bottom: 0.5em;
+  max-width: var(--item-meta-max-width);
 }
 
 .partOf {
+  max-width: var(--item-meta-max-width);
   padding: 0;
 }
 
 .meta {
+  max-width: var(--item-meta-max-width);
   display: block;
   clear: both;
 }
@@ -40,8 +50,10 @@
 
 .description {
   composes: fontMedium from '../../components/typography.css';
-  padding-bottom: 0;
-  margin-bottom: 1em;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.5em;
+  max-width: var(--item-meta-max-width);
 }
 
 .video {

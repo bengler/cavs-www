@@ -31,10 +31,29 @@
 
   @nest & :global(.leaflet-control-zoom-out) {
     padding: 0.5em;
-    color: blue;
+    color: transparent;
+    position: relative;
+
+    @nest &::after {
+      display: block;
+      line-height: 2em;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      color: blue;
+      content: '−';
+      text-align: center;
+    }
 
     @nest &:hover {
       background-color: blue;
+      color: transparent;
+
+      @nest &::after {
+        color: white;
+      }
     }
   }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {get} from 'lodash'
-import PeopleGrid from '../../components/PeopleGrid/PeopleGrid'
+import PeopleTimeline from '../../components/PeopleTimeline/PeopleTimeline'
 import Menu from './Menu'
 
 import s from './People.css'
@@ -98,7 +98,7 @@ class Persons extends React.Component {
           </div>
         </div>
         {
-          view === 'timeline' && people && <PeopleGrid people={people} />
+          view === 'timeline' && people && <PeopleTimeline people={people} />
         }
       </div>
     )

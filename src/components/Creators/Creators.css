@@ -14,13 +14,13 @@
 
   @nest &:not(:first-child):before {
     content: ',';
-    margin-right: 0.5em;
+    margin-right: 0.25em;
   }
 
   @nest &:last-child:not(:first-child) {
     @nest &:before {
       display: inline;
-      margin-left: 0.5em;
+      margin-left: 0.25em;
       content: 'and';
     }
   }

@@ -22,10 +22,12 @@
 
 .meta {
   display: block;
+  margin-bottom: 2rem;
 }
 
 .description {
   composes: fontMedium from '../../components/typography.css';
+  composes: textContainer from '../../components/common.css';
 }
 
 .documentation {

@@ -9,9 +9,9 @@ import normalizePeriods from './normalizePeriods'
 import {SwimLaneKeeper} from './swimLanes'
 import Link from '../Link/Link'
 
-import s from './PeopleGrid.css'
+import s from './PeopleTimeline.css'
 
-const TOTAL_HEIGHT = 2600
+const TOTAL_HEIGHT = 4600
 const TOTAL_WIDTH = 6000
 
 class Period extends React.PureComponent {
@@ -25,20 +25,13 @@ class Period extends React.PureComponent {
     const periodStyle = {
       left: `${period._start * TOTAL_WIDTH}px`,
       width: `${period._duration * TOTAL_WIDTH}px`,
-    }
-
-    const paddingLeft = 2
-
-    const contentStyle = {
-      width: `${(period._duration * TOTAL_WIDTH) - (paddingLeft * 2)}px`,
-      paddingLeft: `${paddingLeft}px`,
-      marginLeft: `${laneHeight - laneHeight / 7}px`
+      height: `${laneHeight}px`
     }
 
     return (
       <Link to={`/person/${period._id}`}>
         <div style={periodStyle} className={s.period}>
-          <div style={contentStyle} className={s.periodContent}>
+          <div className={s.periodContent}>
             <div className={s.periodYear}>{period.start.getFullYear()}</div>
             <div className={s.periodName}>{period.name}</div>
             <div className={s.periodRole}>
@@ -55,10 +48,10 @@ class Period extends React.PureComponent {
 class Lane extends React.Component {
   static propTypes = {
     lane: PropTypes.object,
-    laneWidth: PropTypes.number
+    laneHeight: PropTypes.number
   }
   render() {
-    const {lane, laneWidth} = this.props
+    const {lane, laneHeight} = this.props
     const periods = lane.getPeriods()
 
     return (
@@ -68,7 +61,7 @@ class Lane extends React.Component {
             return (
               <Period
                 key={period._start + period.role}
-                laneWidth={laneWidth}
+                laneHeight={laneHeight}
                 period={period}
               />
             )
@@ -116,23 +109,30 @@ class PeopleGrid extends React.Component {
     // console.info(laneWidth)
 
     return (
-      <div className={s.grid}>
-        {
-          swimLanes.map((lane, idx) => {
+      <div className={s.root}>
+        <div
+          className={s.grid} style={{
+            height: `${TOTAL_HEIGHT}px`,
+            width: `${TOTAL_WIDTH}px`
+          }}
+        >
+          {
+            swimLanes.map((lane, idx) => {
 
-            const laneStyle = {
-              position: 'absolute',
-              top: `${laneHeight * idx}px`,
-            }
+              const laneStyle = {
+                position: 'absolute',
+                top: `${laneHeight * idx}px`,
+              }
 
-            return (
-              <div key={idx} style={laneStyle} className={s.lane}>
-                <Lane laneHeight={laneHeight} lane={lane} />
-              </div>
-            )
+              return (
+                <div key={idx} style={laneStyle} className={s.lane}>
+                  <Lane laneHeight={laneHeight} lane={lane} />
+                </div>
+              )
 
-          })
-        }
+            })
+          }
+        </div>
       </div>
     )
   }

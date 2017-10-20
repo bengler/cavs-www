@@ -48,11 +48,13 @@ class Persons extends React.Component {
         <div className={s.container}>
           <h1 className={s.title}>{name}</h1>
           <p className={s.shortBio}>{shortBio}</p>
-          <div>
-            <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
-          </div>
-          <div>
-            {this.renderDates(deceased, dob)}
+          <div className={s.meta}>
+            <div>
+              <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
+            </div>
+            <div>
+              {this.renderDates(deceased, dob)}
+            </div>
           </div>
           {
             portraits && portraits[0]
@@ -64,9 +66,7 @@ class Persons extends React.Component {
             )
           }
           <ImageGallery images={portraits} excludeFirst />
-          <div className={s.referenceGrid}>
-            <ReferenceGrid references={references} />
-          </div>
+          <ReferenceGrid references={references} />
         </div>
       </div>
     )

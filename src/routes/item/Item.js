@@ -119,7 +119,7 @@ class Item extends React.PureComponent {
           </p>
 
           <div className={s.meta}>
-            <Subjects subjects={subjects} />&nbsp;
+            <Subjects subjects={subjects} />&ensp;
             <Formats formats={format} />
           </div>
           <Rights rights={rights} />

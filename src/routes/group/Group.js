@@ -87,7 +87,7 @@ class Item extends React.Component {
           {
             references && references.length > 0 && (
               <div className={s.documentation}>
-                <h2>Documentation</h2>
+                {/* <h2>Documentation</h2> */}
                 <ReferenceGrid references={references} />
               </div>
             )

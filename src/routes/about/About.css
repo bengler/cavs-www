@@ -22,6 +22,10 @@
   @nest &:not(:last-child)::after {
     content: ',\00a0';
   }
+
+  @nest & > a:visited {
+    color: blue;
+  }
 }
 
 .content {
