@@ -10,9 +10,9 @@ const MatrixElement = ({
   <div
     className={s.root}
     style={{
-      transformOrigin: 'top center',
+      transformOrigin: 'top left',
       transform: `
-        translate(-50%, 0)
+        translate(0, 0)
         matrix3d(${matrix.join()})
       `
     }}

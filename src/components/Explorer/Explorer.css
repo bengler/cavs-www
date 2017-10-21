@@ -2,25 +2,29 @@
   height: 10000px;
 }
 
-.header {
-  width: 100vw;
-  font-size: 2.5em;
-  /*transform: translateX(calc(-50vw + 50%));*/
+.top {
+  background: rgba(0, 255, 0, 0.2);
   transform-style: preserve-3d;
-
-  @nest & a {
-    pointer-events: auto;
-  }
+  transform:
+    translateY(calc(50vh - 50%))
+    translateZ(calc(200px))
+    scale(0.5)
+    translateY(calc(-50vh + 50%))
+  ;
 }
 
-.headerScale {
-  transform: scale(0.5);
-  transform-style: preserve-3d;
+.header {
+  font-size: 2rem;
+  background: rgba(255, 0, 0, 0.3);
 }
 
 .intro {
+  background: rgba(0, 0, 255, 0.5);
+  font-size: 2rem;
   color: white;
-  transform: rotateY(5deg);
+  padding: 1rem;
+  transform-origin: top left;
+  transform: rotateY(15deg);
 }
 
 :global {

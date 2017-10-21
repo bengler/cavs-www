@@ -195,36 +195,20 @@ class Explorer extends React.Component {
       ...next
     ])
 
-    const headerMatrix = mat4.create()
-
-    mat4.translate(headerMatrix, headerMatrix, [0, 0, 200])
-
     return (
       <Scroller onScroll={this.handleScroll} theme={active.theme}>
         <MatrixCamera view={view} animate={animate}>
-          <div className={s.headerScale}>
-            <MatrixElement matrix={headerMatrix}>
-              <div className={s.header}>
-                <Header inverted />
-                <div className={s.intro}>
-                  <Blocks blocks={intro.body} />
-                </div>
-              </div>
-            </MatrixElement>
+
+          <div className={s.top}>
+            <div className={s.header}>
+              <Header inverted />
+            </div>
+
+            <div className={s.intro}>
+              <Blocks blocks={intro.body} />
+            </div>
           </div>
 
-          <TransitionGroup>
-            {items && items.length > 0 && items.map(item => (
-              <Fade key={item.theme.key}>
-                <MatrixElement key={item.theme.key} matrix={item.matrix}>
-                  <Theme
-                    theme={item.theme}
-                    active={item === active}
-                  />
-                </MatrixElement>
-              </Fade>
-            ))}
-          </TransitionGroup>
         </MatrixCamera>
 
         <div className={s.spacer} />
