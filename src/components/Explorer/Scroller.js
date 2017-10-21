@@ -18,6 +18,14 @@ class Scroller extends React.Component {
     children: null
   }
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
+
   componentWillReceiveProps(nextProps) {
     const prevTheme = this.props.theme
     const nextTheme = nextProps.theme
@@ -39,10 +47,15 @@ class Scroller extends React.Component {
 
   render() {
     return (
-      <div className={s.scroller} onScroll={this.handleScroll}>
+      <div>
         {this.props.children}
       </div>
     )
+    // return (
+    //   <div className={s.scroller} onScroll={this.handleScroll}>
+    //     {this.props.children}
+    //   </div>
+    // )
   }
 }
 

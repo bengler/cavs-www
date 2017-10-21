@@ -1,8 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {filter, last, findIndex, camelCase} from 'lodash'
 import mat4 from 'gl-mat4'
 import {CSSTransition, TransitionGroup} from 'react-transition-group'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
+import Blocks from '@sanity/block-content-to-react'
 
 import {themeShape} from '../../themes'
 import Theme from './Theme'
@@ -47,7 +49,10 @@ function getCameraMatrix(source, scroll = 0, distance = 400) {
 
 class Explorer extends React.Component {
   static propTypes = {
-    theme: themeShape.isRequired
+    theme: themeShape.isRequired,
+    intro: PropTypes.shape({
+      body: PropTypes.array
+    })
   }
 
   constructor(props) {
@@ -91,7 +96,7 @@ class Explorer extends React.Component {
       animate: false,
       view: getCameraMatrix(
         this.state.active.matrix,
-        e.currentTarget.scrollTop
+        document.documentElement.scrollTop
       )
     })
   }
@@ -103,6 +108,7 @@ class Explorer extends React.Component {
   }
 
   getNext = () => {
+    return
     const {active} = this.state
     const cacheKey = `${active.theme.type}:${active.theme.key}`
     const cached = nextCache[cacheKey]
@@ -180,6 +186,7 @@ class Explorer extends React.Component {
   }
 
   render() {
+    const {intro} = this.props
     const {previous, next, active, view, animate} = this.state
 
     const items = filter([
@@ -188,16 +195,24 @@ class Explorer extends React.Component {
       ...next
     ])
 
+    const headerMatrix = mat4.create()
+
+    mat4.translate(headerMatrix, headerMatrix, [0, 0, 200])
+
     return (
       <Scroller onScroll={this.handleScroll} theme={active.theme}>
-        <div className={s.headerCamera}>
-          <MatrixCamera view={view} animate={animate}>
-            <div className={s.header}>
-              <Header inverted />
-            </div>
-          </MatrixCamera>
-        </div>
         <MatrixCamera view={view} animate={animate}>
+          <div className={s.headerScale}>
+            <MatrixElement matrix={headerMatrix}>
+              <div className={s.header}>
+                <Header inverted />
+                <div className={s.intro}>
+                  <Blocks blocks={intro.body} />
+                </div>
+              </div>
+            </MatrixElement>
+          </div>
+
           <TransitionGroup>
             {items && items.length > 0 && items.map(item => (
               <Fade key={item.theme.key}>
@@ -211,6 +226,7 @@ class Explorer extends React.Component {
             ))}
           </TransitionGroup>
         </MatrixCamera>
+
         <div className={s.spacer} />
       </Scroller>
     )

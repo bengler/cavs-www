@@ -21,15 +21,8 @@ class Item extends React.Component {
   render() {
     const {item} = this.props
 
-    const style = {
-      transform: `translate(
-        ${Math.random() * 150}px,
-        ${Math.random() * 150}px,
-        0
-      )`
-    }
     return (
-      <div className={s.root} style={style}>
+      <div className={s.root}>
         {
           item.link && (
             <LinkResolver item={item.link} className={s.link}>
