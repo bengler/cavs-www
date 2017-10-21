@@ -209,6 +209,10 @@ class Explorer extends React.Component {
             </div>
           </div>
 
+          <div>
+            <Blocks blocks={intro.body} />
+          </div>
+
         </MatrixCamera>
 
         <div className={s.spacer} />
