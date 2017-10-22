@@ -146,10 +146,21 @@ class Explorer extends React.Component {
     return (
       <div className={s.root}>
         {items.map((item, i) => {
-          const opacity = phases[i].value
+          const phase = phases[i].value
+          const opacity = phase
+
+          const style = {
+            opacity: phase,
+            visibility: opacity ? 'visible' : 'hidden'
+          }
+
+          if (phase > 0 && phase < 1) {
+            const amount = easings.easeInOutQuint(1 - phase)
+            style.filter = `blur(${amount * 10}px)`
+          }
 
           return (
-            <div key={item.key} ref={item.key} className={s.item} style={{opacity, visibility: opacity ? 'visible' : 'hidden'}}>
+            <div key={item.key} ref={item.key} className={s.item} style={style}>
               <div className={s.perspective} style={{transform: `matrix3d(${perspective.join()})`}}>
                 <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
                   <div className={s.model} style={{transform: `matrix3d(${item.matrix.join()})`}}>
