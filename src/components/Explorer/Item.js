@@ -51,7 +51,7 @@ class Item extends React.Component {
         translate3d(
           ${(random() - 0.5) * 100}px,
           ${random() * 100}px,
-          ${random() * -150}px
+          ${random() * -100}px
         )
       `
     }

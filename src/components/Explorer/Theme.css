@@ -1,11 +1,11 @@
 .root {
   margin: 0 10vw;
+  transform-style: preserve-3d;
 }
 
 .heading {
   margin-top: 0;
   text-align: center;
-  z-index: 1;
 }
 
 .title {
