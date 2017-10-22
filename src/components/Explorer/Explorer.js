@@ -1,10 +1,11 @@
 import React from 'react'
-import {filter, last, first} from 'lodash'
+import {filter, last} from 'lodash'
 import PropTypes from 'prop-types'
 import mat4 from 'gl-mat4'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import Blocks from '@sanity/block-content-to-react'
 
+import Theme from './Theme'
 import easings from './easings'
 import {themeShape} from '../../themes'
 import Header from '../Header'
@@ -41,6 +42,7 @@ class Explorer extends React.Component {
 
     this.state = {
       scroll: 0,
+      height: 1000,
       items: [
         {
           type: 'header',
@@ -56,23 +58,23 @@ class Explorer extends React.Component {
           ])
         },
 
-        ...Array(10).fill().map((v, i) => ({
-          type: 'intro',
-          key: `intro-${i}`,
+        {
+          type: 'theme',
+          key: 'theme',
           rect: null,
           matrix: transformMatrix(mat4.create(), [
-            ['rotateY', Math.sin(i) * 1],
-            ['rotateX', Math.cos(i * 3) * 0.5],
-            ['translate', [Math.sin(i * 3) * 1000, Math.cos(i * 10) * 1000, Math.sin(i * 2) * 500]]
+            ['rotateY', 1],
+            ['rotateX', 1],
+            ['translate', [0, -100, -200]]
           ])
-        }))
+        }
       ]
     }
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-    this.updateItems()
+    this.updateDimensions()
   }
 
   componentWillUnmount() {
@@ -80,15 +82,17 @@ class Explorer extends React.Component {
   }
 
   handleScroll = e => {
-    this.setState({
-      scroll: window.pageYOffset
-    })
-
-    this.updateItems()
+    this.updateDimensions()
   }
 
-  updateItems() {
+  handleResize = () => {
+    this.updateDimensions()
+  }
+
+  updateDimensions() {
     this.setState({
+      scroll: window.pageYOffset,
+      height: window.innerHeight,
       items: this.state.items.map(item => ({
         ...item,
         rect: this.refs[item.key].getBoundingClientRect()
@@ -97,14 +101,15 @@ class Explorer extends React.Component {
   }
 
   getPhases() {
-    const {items, scroll} = this.state
+    const {items, scroll, height} = this.state
+    const span = Math.min(height, 1000)
 
-    const transition = easings.easeInOutQuad(Math.min(1, (scroll + 150) / 500))
+    const transition = easings.easeInOutQuad(Math.min(1, (scroll + 150) / 300))
 
     const phases = items.map((item, i) => {
       const multiplier = i === 0 ? 2.5 - transition : transition
-      const enter = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.top : Infinity) / 1000))) * multiplier
-      const exit = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.bottom : Infinity) / 1000))) * multiplier
+      const enter = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.top : Infinity) / span))) * multiplier
+      const exit = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.bottom : Infinity) / span))) * multiplier
 
       return {
         enter,
@@ -117,7 +122,7 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const {intro} = this.props
+    const {intro, theme} = this.props
     const {items} = this.state
 
     const phases = this.getPhases()
@@ -154,10 +159,10 @@ class Explorer extends React.Component {
             visibility: opacity ? 'visible' : 'hidden'
           }
 
-          if (phase > 0 && phase < 1) {
-            const amount = easings.easeInOutQuint(1 - phase)
-            style.filter = `blur(${amount * 10}px)`
-          }
+          // if (phase > 0 && phase < 1) {
+          //   const amount = easings.easeInOutQuint(1 - phase)
+          //   style.filter = `blur(${amount * 10}px)`
+          // }
 
           return (
             <div key={item.key} ref={item.key} className={s.item} style={style}>
@@ -178,7 +183,7 @@ class Explorer extends React.Component {
                       ))
 
                       || (item.type === 'theme' && (
-                        <div className={s.theme} />
+                        <Theme theme={theme} />
                       ))
                     }
                   </div>
@@ -187,6 +192,8 @@ class Explorer extends React.Component {
             </div>
           )
         })}
+
+        <div className={s.loader} />
       </div>
     )
   }

@@ -8,6 +8,7 @@
 }
 
 .item {
+  margin-bottom: 200px;
 }
 
 .space {
@@ -37,8 +38,8 @@
   padding: 1rem;
 }
 
-.theme {
-  min-height: 1000px;
+.loader {
+  height: 100vh;
 }
 
 :global {
