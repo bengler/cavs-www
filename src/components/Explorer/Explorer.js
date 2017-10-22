@@ -54,14 +54,13 @@ class Explorer extends React.Component {
           key: 'intro',
           rect: null,
           matrix: transformMatrix(mat4.create(), [
-            ['rotateY', 0.2],
-            ['rotateX', -0.1]
+            ['rotateY', 0.3],
+            ['rotateX', -0.2]
           ])
-        },
-
-        {
+        }, {
           type: 'theme',
           key: 'theme',
+          theme: props.theme,
           rect: null,
           matrix: transformMatrix(mat4.create(), [
             ['rotateY', 1],
@@ -76,6 +75,7 @@ class Explorer extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
     this.updateDimensions()
+    this.props.theme.getRelated().then(this.handleRelated)
   }
 
   componentWillUnmount() {
@@ -96,6 +96,31 @@ class Explorer extends React.Component {
     }
 
     this.itemRefs[key] = ref
+  }
+
+  handleRelated = related => {
+    const next = last(related.filter(theme => theme.items.length > 2))
+
+    this.setState({
+      items: [
+        ...this.state.items,
+        {
+          type: 'theme',
+          key: next.key,
+          theme: next,
+          rect: null,
+          matrix: transformMatrix(last(this.state.items).matrix, [
+            ['rotateY', (Math.random() - 0.5) * 2],
+            ['rotateX', Math.random() * 2],
+            ['translate', [
+              0,
+              -200,
+              0
+            ]]
+          ])
+        }
+      ]
+    })
   }
 
   updateDimensions() {
@@ -131,7 +156,7 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const {intro, theme} = this.props
+    const {intro} = this.props
     const {items} = this.state
 
     const phases = this.getPhases()
@@ -189,7 +214,7 @@ class Explorer extends React.Component {
                       ))
 
                       || (item.type === 'theme' && (
-                        <Theme theme={theme} />
+                        <Theme theme={item.theme} />
                       ))
                     }
                   </div>
