@@ -24,18 +24,9 @@ function lerp(a, b, t) {
   return a * (1 - t) + b * t
 }
 
-//
-// function getCameraMatrix(source, distance = 400) {
-//   return transformMatrix(source, [
-//     ['translate', [0, 0, distance]],
-//     ['invert']
-//   ])
-// }
-
-// function getElementMatrix (transforms) {
-//   const projection = mat4.perspective([], 0.005, 1, 2, 1)
-//   const view = mat4.create()
-// }
+function lerpArray(a, b, t) {
+  return a.map((value, i) => lerp(value, b[i], t))
+}
 
 class Explorer extends React.Component {
   static propTypes = {
@@ -49,16 +40,17 @@ class Explorer extends React.Component {
     super(props)
 
     this.state = {
+      scroll: 0,
       items: [
         {
           type: 'header',
           key: 'header',
-          rect: {top: 0},
+          rect: null,
           matrix: mat4.create()
         }, {
           type: 'intro',
           key: 'intro',
-          rect: {top: 0},
+          rect: null,
           matrix: transformMatrix(mat4.create(), [
             ['rotateY', 0.5]
           ])
@@ -67,11 +59,11 @@ class Explorer extends React.Component {
         ...Array(10).fill().map((v, i) => ({
           type: 'intro',
           key: `intro-${i}`,
-          rect: {top: 0},
+          rect: null,
           matrix: transformMatrix(mat4.create(), [
             ['rotateY', Math.sin(i) * 1],
             ['rotateX', Math.cos(i * 3) * 0.5],
-            ['translate', [Math.sin(i * 3) * 500, Math.cos(i * 5) * 500, Math.sin(i) * 500]]
+            ['translate', [Math.sin(i * 3) * 1000, Math.cos(i * 10) * 1000, Math.sin(i * 2) * 500]]
           ])
         }))
       ]
@@ -80,6 +72,7 @@ class Explorer extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
+    this.updateItems()
   }
 
   componentWillUnmount() {
@@ -88,6 +81,14 @@ class Explorer extends React.Component {
 
   handleScroll = e => {
     this.setState({
+      scroll: window.pageYOffset
+    })
+
+    this.updateItems()
+  }
+
+  updateItems() {
+    this.setState({
       items: this.state.items.map(item => ({
         ...item,
         rect: this.refs[item.key].getBoundingClientRect()
@@ -95,34 +96,60 @@ class Explorer extends React.Component {
     })
   }
 
+  getPhases() {
+    const {items, scroll} = this.state
+
+    const transition = easings.easeInOutQuad(Math.min(1, (scroll + 150) / 500))
+
+    const phases = items.map((item, i) => {
+      const multiplier = i === 0 ? 2.5 - transition : transition
+      const enter = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.top : Infinity) / 1000))) * multiplier
+      const exit = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.bottom : Infinity) / 1000))) * multiplier
+
+      return {
+        enter,
+        exit,
+        value: enter - exit
+      }
+    })
+
+    return phases
+  }
+
   render() {
     const {intro} = this.props
     const {items} = this.state
 
+    const phases = this.getPhases()
     const perspective = mat4.perspective([], 0.005, 1, 2, 1)
+    const currentView = mat4.create()
 
-    const prev = last(filter(items, item => (
-      item.rect.top <= 0
-    )))
+    const nextPhase = last(filter(phases, phase => phase.value))
 
-    const next = first(filter(items, item => (
-      item.rect.top > 0
-    )))
+    if (nextPhase) {
+      const nextIndex = phases.indexOf(nextPhase)
+      const prevIndex = nextIndex ? nextIndex - 1 : 0
+      const next = items[nextIndex]
+      const prev = items[prevIndex]
+      const transition = easings.easeInOutCubic(nextPhase.enter)
 
-    const transition = 1 - Math.min(1, Math.max(0, (next ? next.rect.top : Infinity) / 1000))
+      lerpArray(prev.matrix, next.matrix, transition).forEach((v, i) => {
+        currentView[i] = v
+      })
+    }
 
-    const m = transition ? prev.matrix.map((v, i) => lerp(v, next.matrix[i], easings.easeInOutCubic(transition))) : prev.matrix
-
-    const view = transformMatrix(m, [
+    const view = transformMatrix(currentView, [
       ['translate', [0, 0, 400]],
       ['invert']
     ])
 
     return (
       <div className={s.root}>
-        {items.map(item => {
+        {items.map((item, i) => {
+          const opacity = phases[i].value
+
           return (
-            <div key={item.key} ref={item.key} className={s.item}>
+            <div key={item.key} ref={item.key} className={s.item} style={{opacity, visibility: opacity ? 'visible' : 'hidden'}}>
               <div className={s.perspective} style={{transform: `matrix3d(${perspective.join()})`}}>
                 <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
                   <div className={s.model} style={{transform: `matrix3d(${item.matrix.join()})`}}>

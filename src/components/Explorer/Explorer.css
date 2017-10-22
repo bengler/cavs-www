@@ -1,6 +1,5 @@
 .root {
   pointer-events: none;
-  /*background: yellow;*/
   overflow: hidden;
 
   @nest & a {
@@ -9,8 +8,6 @@
 }
 
 .item {
-  margin-bottom: 200px;
-  /*background: rgba(0, 0, 255, 0.3);*/
 }
 
 .space {
@@ -19,7 +16,6 @@
 
 .perspective {
   composes: space;
-  /*background: rgba(255, 0, 0, 0.3);*/
 }
 
 .model {
@@ -28,7 +24,6 @@
 
 .view {
   composes: space;
-  /*transition: transform 1.5s cubic-bezier(0.15, 0.46, 0, 1);*/
 }
 
 .header {
