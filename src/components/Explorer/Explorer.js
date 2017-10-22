@@ -182,26 +182,28 @@ class Explorer extends React.Component {
     ])
 
     return (
-      <Scroller onScroll={this.handleScroll} theme={active.theme}>
-        <MatrixCamera view={view} scroll={scroll}>
-          <div className={s.top}>
-            <div className={s.header}>
-              <Header inverted />
+      <div className={s.root}>
+        <Scroller onScroll={this.handleScroll} theme={active.theme}>
+          <MatrixCamera view={view} scroll={scroll}>
+            <div className={s.top}>
+              <div className={s.header}>
+                <Header inverted />
+              </div>
+
+              <div className={s.intro}>
+                <Blocks blocks={intro.body} />
+              </div>
             </div>
 
-            <div className={s.intro}>
-              <Blocks blocks={intro.body} />
+            <div>
+              <Theme theme={active.theme} seed={seed} />
             </div>
-          </div>
 
-          <div>
-            <Theme theme={active.theme} seed={seed} />
-          </div>
+          </MatrixCamera>
 
-        </MatrixCamera>
-
-        <div className={s.spacer} />
-      </Scroller>
+          <div className={s.spacer} />
+        </Scroller>
+      </div>
     )
   }
 }

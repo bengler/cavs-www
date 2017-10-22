@@ -1,9 +1,16 @@
+.root {
+  pointer-events: none;
+
+  @nest & a {
+    pointer-events: all;
+  }
+}
+
 .spacer {
   height: 10000px;
 }
 
 .top {
-  /*background: rgba(0, 255, 0, 0.2);*/
   transform-style: preserve-3d;
   transform:
     translateY(calc(50vh - 50%))
