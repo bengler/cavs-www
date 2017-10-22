@@ -32,7 +32,7 @@
   color: white;
   padding: 1rem;
   transform-origin: top left;
-  transform: rotateY(20deg);
+  transform: rotateY(20deg) rotateX(-5deg);
   margin-bottom: -200px;
 }
 
