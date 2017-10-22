@@ -42,7 +42,7 @@ function transformMatrix(matrix, transforms) {
 
 function getCameraMatrix(source, scroll = 0, distance = 400) {
   return transformMatrix(source, [
-    ['translate', [0, scroll, distance]],
+    ['translate', [0, 0, distance]],
     ['invert']
   ])
 }
@@ -60,7 +60,7 @@ class Explorer extends React.Component {
 
     this.state = {
       view: null,
-      animate: false,
+      scroll: mat4.create(),
       previous: [],
       next: [],
       active: null
@@ -93,11 +93,7 @@ class Explorer extends React.Component {
 
   handleScroll = e => {
     this.setState({
-      animate: false,
-      view: getCameraMatrix(
-        this.state.active.matrix,
-        document.documentElement.scrollTop
-      )
+      scroll: mat4.translate([], mat4.create(), [0, -document.documentElement.scrollTop, 0])
     })
   }
 
@@ -187,7 +183,7 @@ class Explorer extends React.Component {
 
   render() {
     const {intro} = this.props
-    const {previous, next, active, view, animate} = this.state
+    const {previous, next, active, view, scroll} = this.state
 
     const items = filter([
       last(previous),
@@ -197,8 +193,7 @@ class Explorer extends React.Component {
 
     return (
       <Scroller onScroll={this.handleScroll} theme={active.theme}>
-        <MatrixCamera view={view} animate={animate}>
-
+        <MatrixCamera view={view} scroll={scroll}>
           <div className={s.top}>
             <div className={s.header}>
               <Header inverted />
@@ -210,7 +205,7 @@ class Explorer extends React.Component {
           </div>
 
           <div>
-            <Blocks blocks={intro.body} />
+            <Theme theme={active.theme} />
           </div>
 
         </MatrixCamera>
