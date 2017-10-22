@@ -57,7 +57,7 @@ class Item extends React.Component {
     }
 
     return (
-      <div className={s.root} style={displace}>
+      <div className={s.root}>
         {
           item.link && (
             <LinkResolver item={item.link} className={s.link}>

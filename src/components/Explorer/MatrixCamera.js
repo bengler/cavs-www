@@ -8,13 +8,13 @@ const MatrixCamera = ({
   children,
   projection = mat4.perspective([], 0.005, 1, 2, 1),
   view = mat4.create(),
-  scroll = 0,
+  scroll = mat4.create(),
   animate = false
 }) => {
   return (
     <div className={s.projection} style={{transform: `matrix3d(${projection.join()})`}}>
-      <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
-        <div className={s.scroll} style={{transform: `matrix3d(${scroll.join()})`}}>
+      <div className={s.scroll} style={{transform: `matrix3d(${scroll.join()})`}}>
+        <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
           {children}
         </div>
       </div>

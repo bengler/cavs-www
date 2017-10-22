@@ -49,7 +49,7 @@ class Explorer extends React.Component {
     super(props)
 
     this.state = {
-      view: null,
+      view: getCameraMatrix(mat4.create()),
       scroll: mat4.create(),
       previous: [],
       next: [],
@@ -83,7 +83,7 @@ class Explorer extends React.Component {
 
   handleScroll = e => {
     this.setState({
-      scroll: mat4.translate([], mat4.create(), [0, -document.documentElement.scrollTop, 0])
+      scroll: mat4.translate([], mat4.create(), [0, -window.pageYOffset, 0])
     })
   }
 
@@ -157,17 +157,21 @@ class Explorer extends React.Component {
       }
     }
 
+    const activeMatrix = mat4.create()
+    mat4.rotateZ(activeMatrix, activeMatrix, -45)
+    mat4.translate(activeMatrix, activeMatrix, [-500, 500, -300])
+
     const nextActive = {
       transforms: [],
       theme: nextTheme,
-      matrix: mat4.create()
+      matrix: activeMatrix
     }
 
     return {
       previous: [],
       next: [],
       active: nextActive,
-      view: getCameraMatrix(nextActive.matrix)
+      view: getCameraMatrix(activeMatrix, 0, 1000)
     }
   }
 
@@ -195,11 +199,9 @@ class Explorer extends React.Component {
               </div>
             </div>
 
-            <div style={{position: 'relative'}}>
-              <MatrixElement matrix={mat4.rotateY([], mat4.create(), 20)}>
-                <Theme theme={active.theme} seed={seed} />
-              </MatrixElement>
-            </div>
+            <MatrixElement matrix={active.matrix}>
+              <Theme theme={active.theme} seed={seed} />
+            </MatrixElement>
 
           </MatrixCamera>
 
