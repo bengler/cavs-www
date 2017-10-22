@@ -1,10 +1,10 @@
 .root {
-  pointer-events: none;
+  /*pointer-events: none;*/
   overflow: hidden;
 
-  @nest & a {
+  /*@nest & a {
     pointer-events: all;
-  }
+  }*/
 }
 
 .item {
@@ -29,6 +29,10 @@
 
 .header {
   font-size: 2em;
+
+  @nest & a:hover {
+    color: white;
+  }
 }
 
 .intro {

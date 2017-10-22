@@ -41,7 +41,7 @@ class Explorer extends React.Component {
     super(props)
 
     this.state = {
-      scroll: 0,
+      scroll: 1,
       height: 1000,
       items: [
         {
@@ -54,7 +54,8 @@ class Explorer extends React.Component {
           key: 'intro',
           rect: null,
           matrix: transformMatrix(mat4.create(), [
-            ['rotateY', 0.5]
+            ['rotateY', 0.2],
+            ['rotateX', -0.1]
           ])
         },
 
@@ -64,8 +65,8 @@ class Explorer extends React.Component {
           rect: null,
           matrix: transformMatrix(mat4.create(), [
             ['rotateY', 1],
-            ['rotateX', 1],
-            ['translate', [0, -100, -200]]
+            ['rotateX', 0.5],
+            ['translate', [0, -500, -100]]
           ])
         }
       ]
@@ -89,13 +90,21 @@ class Explorer extends React.Component {
     this.updateDimensions()
   }
 
+  handleItemRef = (key, ref) => {
+    if (!this.itemRefs) {
+      this.itemRefs = {}
+    }
+
+    this.itemRefs[key] = ref
+  }
+
   updateDimensions() {
     this.setState({
       scroll: window.pageYOffset,
       height: window.innerHeight,
       items: this.state.items.map(item => ({
         ...item,
-        rect: this.refs[item.key].getBoundingClientRect()
+        rect: this.itemRefs[item.key].getBoundingClientRect()
       }))
     })
   }
@@ -104,10 +113,10 @@ class Explorer extends React.Component {
     const {items, scroll, height} = this.state
     const span = Math.min(height, 1000)
 
-    const transition = easings.easeInOutQuad(Math.min(1, (scroll + 150) / 300))
+    const transition = easings.easeInOutQuad(Math.min(1, (scroll + 300) / 400))
 
     const phases = items.map((item, i) => {
-      const multiplier = i === 0 ? 2.5 - transition : transition
+      const multiplier = i === 0 ? 5 - transition : transition
       const enter = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.top : Infinity) / span))) * multiplier
       const exit = (1 - Math.min(1, Math.max(0, (item.rect ? item.rect.bottom : Infinity) / span))) * multiplier
 
@@ -151,16 +160,18 @@ class Explorer extends React.Component {
     return (
       <div className={s.root}>
         {items.map((item, i) => {
+          const handleItemRef = ref => this.handleItemRef(item.key, ref)
           const phase = phases[i].value
           const opacity = phase
 
           const style = {
             opacity: phase,
-            visibility: opacity ? 'visible' : 'hidden'
+            visibility: opacity ? 'visible' : 'hidden',
+            pointerEvents: opacity > 0.5 ? 'auto' : 'none'
           }
 
           return (
-            <div key={item.key} ref={item.key} className={s.item} style={style}>
+            <div key={item.key} ref={handleItemRef} className={s.item} style={style}>
               <div className={s.perspective} style={{transform: `matrix3d(${perspective.join()})`}}>
                 <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
                   <div className={s.model} style={{transform: `matrix3d(${item.matrix.join()})`}}>

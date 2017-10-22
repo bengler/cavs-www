@@ -1,5 +1,6 @@
 .root {
-  width: 100vw;
+  width: 80vw;
+  margin: 0 auto;
   transform-style: preserve-3d;
 }
 
