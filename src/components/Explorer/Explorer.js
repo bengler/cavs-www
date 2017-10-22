@@ -159,11 +159,6 @@ class Explorer extends React.Component {
             visibility: opacity ? 'visible' : 'hidden'
           }
 
-          // if (phase > 0 && phase < 1) {
-          //   const amount = easings.easeInOutQuint(1 - phase)
-          //   style.filter = `blur(${amount * 10}px)`
-          // }
-
           return (
             <div key={item.key} ref={item.key} className={s.item} style={style}>
               <div className={s.perspective} style={{transform: `matrix3d(${perspective.join()})`}}>
