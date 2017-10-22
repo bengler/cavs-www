@@ -1,23 +1,14 @@
 import React from 'react'
+import {filter, last, first} from 'lodash'
 import PropTypes from 'prop-types'
-import {filter, last, findIndex, camelCase} from 'lodash'
 import mat4 from 'gl-mat4'
-import {TransitionGroup} from 'react-transition-group'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import Blocks from '@sanity/block-content-to-react'
 
+import easings from './easings'
 import {themeShape} from '../../themes'
-import Theme from './Theme'
-import Scroller from './Scroller'
-import MatrixCamera from './MatrixCamera'
-import MatrixElement from './MatrixElement'
-import Fade from './Fade'
-
 import Header from '../Header'
-
 import s from './Explorer.css'
-
-const nextCache = {}
 
 function transformMatrix(matrix, transforms) {
   const clone = mat4.clone(matrix)
@@ -29,17 +20,26 @@ function transformMatrix(matrix, transforms) {
   return clone
 }
 
-function getCameraMatrix(source, scroll = 0, distance = 400) {
-  return transformMatrix(source, [
-    ['translate', [0, 0, distance]],
-    ['invert']
-  ])
+function lerp(a, b, t) {
+  return a * (1 - t) + b * t
 }
+
+//
+// function getCameraMatrix(source, distance = 400) {
+//   return transformMatrix(source, [
+//     ['translate', [0, 0, distance]],
+//     ['invert']
+//   ])
+// }
+
+// function getElementMatrix (transforms) {
+//   const projection = mat4.perspective([], 0.005, 1, 2, 1)
+//   const view = mat4.create()
+// }
 
 class Explorer extends React.Component {
   static propTypes = {
     theme: themeShape.isRequired,
-    seed: PropTypes.string.isRequired,
     intro: PropTypes.shape({
       body: PropTypes.array
     }).isRequired
@@ -49,164 +49,109 @@ class Explorer extends React.Component {
     super(props)
 
     this.state = {
-      view: getCameraMatrix(mat4.create()),
-      scroll: mat4.create(),
-      previous: [],
-      next: [],
-      active: null
-    }
+      items: [
+        {
+          type: 'header',
+          key: 'header',
+          rect: {top: 0},
+          matrix: mat4.create()
+        }, {
+          type: 'intro',
+          key: 'intro',
+          rect: {top: 0},
+          matrix: transformMatrix(mat4.create(), [
+            ['rotateY', 0.5]
+          ])
+        },
 
-    this.state = {
-      ...this.state,
-      ...this.getPlacements(props.theme)
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const prevTheme = this.props.theme
-    const nextTheme = nextProps.theme
-    const themeChange = nextTheme && prevTheme.key !== nextTheme.key
-
-    if (themeChange) {
-      this.setState(this.getPlacements(nextProps.theme), () => this.getNext())
+        ...Array(10).fill().map((v, i) => ({
+          type: 'intro',
+          key: `intro-${i}`,
+          rect: {top: 0},
+          matrix: transformMatrix(mat4.create(), [
+            ['rotateY', Math.sin(i) * 1],
+            ['rotateX', Math.cos(i * 3) * 0.5],
+            ['translate', [Math.sin(i * 3) * 500, Math.cos(i * 5) * 500, Math.sin(i) * 500]]
+          ])
+        }))
+      ]
     }
   }
 
   componentDidMount() {
-    this.mounted = true
-    this.getNext()
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
-    this.mounted = false
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   handleScroll = e => {
     this.setState({
-      scroll: mat4.translate([], mat4.create(), [0, -window.pageYOffset, 0])
+      items: this.state.items.map(item => ({
+        ...item,
+        rect: this.refs[item.key].getBoundingClientRect()
+      }))
     })
-  }
-
-  handleAnimationRest = () => {
-    this.setState({
-      animate: false
-    })
-  }
-
-  getNext = () => {
-    return
-    const {active} = this.state
-    const cacheKey = `${active.theme.type}:${active.theme.key}`
-    const cached = nextCache[cacheKey]
-
-    if (cached) {
-      this.setState({
-        next: cached
-      })
-    } else {
-      setTimeout(() => {
-        active.theme.getRelated().then(themes => {
-          if (this.mounted && themes && themes.length > 0) {
-            const next = themes.map((theme, i) => ({
-              theme: theme,
-              matrix: transformMatrix(active.matrix, [
-                ['translate', [(Math.random() - 0.5) * 500, (i + 1) * 150 + 100, (i + 1) * 30 + 20]],
-                ['rotateZ', (Math.random() - 0.5) * 1],
-                ['rotateX', Math.random() * 0.5]
-              ])
-            }))
-
-            nextCache[cacheKey] = next
-
-            this.setState({
-              next
-            })
-          }
-        })
-      }, 200)
-    }
-  }
-
-  getPlacements(nextTheme) {
-    const {previous, next, active} = this.state
-    const nextIndex = findIndex(next, item => item.theme.key === nextTheme.key)
-    const previousIndex = findIndex(previous, item => item.theme.key === nextTheme.key)
-    const existsInNext = nextIndex > -1
-    const existsInPrevious = previousIndex > -1
-
-    if (existsInNext) {
-      const nextActive = next[nextIndex]
-
-      return {
-        animate: true,
-        previous: [...previous, active],
-        next: [],
-        active: nextActive,
-        view: getCameraMatrix(nextActive.matrix)
-      }
-    }
-
-    if (existsInPrevious) {
-      const nextActive = previous[previousIndex]
-      return {
-        animate: true,
-        previous: previous.slice(0, previousIndex),
-        next: [],
-        active: nextActive,
-        view: getCameraMatrix(nextActive.matrix)
-      }
-    }
-
-    const activeMatrix = mat4.create()
-    mat4.rotateZ(activeMatrix, activeMatrix, -45)
-    mat4.translate(activeMatrix, activeMatrix, [-500, 500, -300])
-
-    const nextActive = {
-      transforms: [],
-      theme: nextTheme,
-      matrix: activeMatrix
-    }
-
-    return {
-      previous: [],
-      next: [],
-      active: nextActive,
-      view: getCameraMatrix(activeMatrix, 0, 1000)
-    }
   }
 
   render() {
-    const {intro, seed} = this.props
-    const {previous, next, active, view, scroll} = this.state
+    const {intro} = this.props
+    const {items} = this.state
 
-    const items = filter([
-      last(previous),
-      active,
-      ...next
+    const perspective = mat4.perspective([], 0.005, 1, 2, 1)
+
+    const prev = last(filter(items, item => (
+      item.rect.top <= 0
+    )))
+
+    const next = first(filter(items, item => (
+      item.rect.top > 0
+    )))
+
+    const transition = 1 - Math.min(1, Math.max(0, (next ? next.rect.top : Infinity) / 1000))
+
+    const m = transition ? prev.matrix.map((v, i) => lerp(v, next.matrix[i], easings.easeInOutCubic(transition))) : prev.matrix
+
+    const view = transformMatrix(m, [
+      ['translate', [0, 0, 400]],
+      ['invert']
     ])
 
     return (
       <div className={s.root}>
-        <Scroller onScroll={this.handleScroll} theme={active.theme}>
-          <MatrixCamera view={view} scroll={scroll}>
-            <div className={s.top}>
-              <div className={s.header}>
-                <Header inverted />
-              </div>
+        {items.map(item => {
+          const model = item.matrix
+          // const viewModel = mat4.multiply([], view, item.matrix)
 
-              <div className={s.intro}>
-                <Blocks blocks={intro.body} />
+          return (
+            <div key={item.key} ref={item.key} className={s.item}>
+              <div className={s.perspective} style={{transform: `matrix3d(${perspective.join()})`}}>
+                <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
+                  <div className={s.model} style={{transform: `matrix3d(${model.join()})`}}>
+                    {
+                      (item.type === 'header' && (
+                        <div className={s.header}>
+                          <Header inverted />
+                        </div>
+                      ))
+
+                      || (item.type === 'intro' && (
+                        <div className={s.intro}>
+                          <Blocks blocks={intro.body} />
+                        </div>
+                      ))
+
+                      || (item.type === 'theme' && (
+                        <div className={s.theme} />
+                      ))
+                    }
+                  </div>
+                </div>
               </div>
             </div>
-
-            <MatrixElement matrix={active.matrix}>
-              <Theme theme={active.theme} seed={seed} />
-            </MatrixElement>
-
-          </MatrixCamera>
-
-          <div className={s.spacer} />
-        </Scroller>
+          )
+        })}
       </div>
     )
   }

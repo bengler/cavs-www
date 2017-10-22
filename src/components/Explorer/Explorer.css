@@ -1,41 +1,49 @@
 .root {
   pointer-events: none;
+  /*background: yellow;*/
+  overflow: hidden;
 
   @nest & a {
     pointer-events: all;
   }
 }
 
-.spacer {
-  height: 10000px;
+.item {
+  margin-bottom: 200px;
+  /*background: rgba(0, 0, 255, 0.3);*/
 }
 
-.top {
+.space {
   transform-style: preserve-3d;
-  transform:
-    translateY(calc(50vh - 50%))
-    translateZ(calc(100px))
-    scale(0.75)
-    translateY(calc(-50vh + 50%))
-  ;
+}
+
+.perspective {
+  composes: space;
+  /*background: rgba(255, 0, 0, 0.3);*/
+}
+
+.model {
+  composes: space;
+}
+
+.view {
+  composes: space;
+  /*transition: transform 1.5s cubic-bezier(0.15, 0.46, 0, 1);*/
 }
 
 .header {
-  /*background: rgba(255, 0, 0, 0.3);*/
   font-size: 2em;
-  transform: scale(1);
 }
 
 .intro {
-  /*background: rgba(0, 0, 255, 0.5);*/
   font-size: 2rem;
   max-width: 30em;
   color: white;
   padding: 1rem;
-  transform-origin: top left;
-  transform: rotateY(20deg) rotateX(-5deg);
-  margin-bottom: -200px;
+}
 
+.theme {
+  min-height: 1000px;
 }
 
 :global {

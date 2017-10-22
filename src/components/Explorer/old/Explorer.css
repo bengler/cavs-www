@@ -1,0 +1,44 @@
+.root {
+  pointer-events: none;
+
+  @nest & a {
+    pointer-events: all;
+  }
+}
+
+.spacer {
+  height: 10000px;
+}
+
+/*.top {
+  transform-style: preserve-3d;
+  transform:
+    translateY(calc(50vh - 50%))
+    translateZ(calc(100px))
+    scale(0.75)
+    translateY(calc(-50vh + 50%))
+  ;
+}*/
+
+.header {
+  /*background: rgba(255, 0, 0, 0.3);*/
+  font-size: 2em;
+  /*transform: scale(1);*/
+}
+
+.intro {
+  /*background: rgba(0, 0, 255, 0.5);*/
+  font-size: 2rem;
+  max-width: 30em;
+  color: white;
+  padding: 1rem;
+  /*transform-origin: top left;
+  transform: rotateY(20deg) rotateX(-5deg);*/
+
+}
+
+:global {
+  body {
+    background: black;
+  }
+}
