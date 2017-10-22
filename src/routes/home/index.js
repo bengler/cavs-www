@@ -12,7 +12,6 @@ export default {
 
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
-      scroll: false,
       component: (
         <Layout showHeader={false}>
           <Explorer theme={theme} intro={intro} seed={seed} />

@@ -42,8 +42,6 @@ let onRenderComplete = function initialRenderComplete() {
   onRenderComplete = function renderComplete(route, location) {
     document.title = route.title
 
-    console.log(route)
-
     updateMeta('description', route.description)
     // Update necessary tags in <head> at runtime here, ie:
     // updateMeta('keywords', route.keywords);
@@ -52,28 +50,26 @@ let onRenderComplete = function initialRenderComplete() {
     // updateLink('canonical', route.canonicalUrl);
     // etc.
 
-    if (route.scroll !== false) {
-      let scrollX = 0
-      let scrollY = 0
-      const pos = scrollPositionsHistory[location.key]
-      if (pos) {
-        scrollX = pos.scrollX
-        scrollY = pos.scrollY
-      } else {
-        const targetHash = location.hash.substr(1)
-        if (targetHash) {
-          const target = document.getElementById(targetHash)
-          if (target) {
-            scrollY = window.pageYOffset + target.getBoundingClientRect().top
-          }
+    let scrollX = 0
+    let scrollY = 0
+    const pos = scrollPositionsHistory[location.key]
+    if (pos) {
+      scrollX = pos.scrollX
+      scrollY = pos.scrollY
+    } else {
+      const targetHash = location.hash.substr(1)
+      if (targetHash) {
+        const target = document.getElementById(targetHash)
+        if (target) {
+          scrollY = window.pageYOffset + target.getBoundingClientRect().top
         }
       }
-
-      // Restore the scroll position if it was saved into the state
-      // or scroll to the given #hash anchor
-      // or scroll to top of the page
-      window.scrollTo(scrollX, scrollY)
     }
+
+    // Restore the scroll position if it was saved into the state
+    // or scroll to the given #hash anchor
+    // or scroll to top of the page
+    window.scrollTo(scrollX, scrollY)
 
 
     // Google Analytics tracking. Don't send 'pageview' event after
