@@ -15,15 +15,18 @@
 
 .header {
   /*background: rgba(255, 0, 0, 0.3);*/
+  font-size: 2em;
 }
 
 .intro {
   /*background: rgba(0, 0, 255, 0.5);*/
   font-size: 2rem;
+  max-width: 30em;
   color: white;
   padding: 1rem;
   transform-origin: top left;
-  transform: rotateY(15deg);
+  transform: rotateY(20deg);
+  margin-bottom: -200px;
 }
 
 :global {

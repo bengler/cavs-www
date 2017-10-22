@@ -14,7 +14,7 @@ export default {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
         <Layout showHeader={false}>
-          <Explorer theme={theme} intro={intro} />
+          <Explorer theme={theme} intro={intro} seed={seed} />
         </Layout>
       ),
     }

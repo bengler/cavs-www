@@ -1,20 +1,20 @@
 .root {
   break-inside: avoid;
-  pointer-events: none;
   text-align: center;
-  margin: 1em;
+  margin: 2em;
+  transform-style: preserve-3d;
 }
 
 .link {
   display: block;
-  pointer-events: auto;
-  border: 3px solid transparent;
   max-width: 500px;
   margin: 0 auto;
+  border: 3px solid transparent;
 
   @nest & img {
     display: block;
     width: 100%;
+
   }
 
   @nest &:hover {

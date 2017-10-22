@@ -39,6 +39,7 @@ function getCameraMatrix(source, scroll = 0, distance = 400) {
 class Explorer extends React.Component {
   static propTypes = {
     theme: themeShape.isRequired,
+    seed: PropTypes.number.isRequired,
     intro: PropTypes.shape({
       body: PropTypes.array
     })
@@ -171,7 +172,7 @@ class Explorer extends React.Component {
   }
 
   render() {
-    const {intro} = this.props
+    const {intro, seed} = this.props
     const {previous, next, active, view, scroll} = this.state
 
     const items = filter([
@@ -194,7 +195,7 @@ class Explorer extends React.Component {
           </div>
 
           <div>
-            <Theme theme={active.theme} />
+            <Theme theme={active.theme} seed={seed} />
           </div>
 
         </MatrixCamera>

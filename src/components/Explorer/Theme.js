@@ -13,6 +13,7 @@ import s from './Theme.css'
 class Theme extends React.Component {
   static propTypes = {
     active: PropTypes.bool,
+    seed: PropTypes.number.isRequired,
     theme: themeShape.isRequired
   }
 
@@ -21,7 +22,7 @@ class Theme extends React.Component {
   }
 
   render() {
-    const {theme, active} = this.props
+    const {theme, active, seed} = this.props
     const {type, key, title} = theme
 
     const visibleItems = active ? theme.items : theme.items
@@ -44,7 +45,7 @@ class Theme extends React.Component {
           <TransitionGroup>
             {visibleItems.map(item => (
               <Fade key={item._id}>
-                <Item key={item._id} item={item} />
+                <Item key={item._id} item={item} seed={seed} />
               </Fade>
             ))}
           </TransitionGroup>
