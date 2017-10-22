@@ -1,5 +1,6 @@
 .root {
-  width: 80vw;
+  margin: 0 auto;
+  width: 80%;
   transform-style: preserve-3d;
 }
 
@@ -12,15 +13,16 @@
 .title {
   white-space: nowrap;
   pointer-events: all;
-  border: 1px solid lime;
+  border: 0.1em solid lime;
   color: lime;
-  padding: 0.5em;
+  padding: 0.4em 0.5em 0.20em;
   font-size: 1em;
   transform: scale(0.5);
   text-transform: uppercase;
 
-  @nest &:hover {
-    background-color: color(lime a(20%));
+  @nest &:hover, &:visited:hover {
+    background-color: lime;
+    color: black;
   }
 
   @nest &:visited {
@@ -33,6 +35,6 @@
 }
 
 .grid {
-  column-width: 300px;
+  column-width: 400px;
   column-gap: 0;
 }

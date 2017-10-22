@@ -115,7 +115,7 @@ export function getItems(fetch, type, key) {
     title,
     imageAssets[0...1] {
       _key,
-      asset -> {url}
+      asset -> {url, metadata {dimensions}}
     },
     "link": *[_id == "${key}"]{
       _id,

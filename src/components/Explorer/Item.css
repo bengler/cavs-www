@@ -1,12 +1,15 @@
 .root {
   break-inside: avoid;
   pointer-events: none;
+  text-align: center;
+  margin: 2rem;
 }
 
 .link {
   display: inline-block;
   pointer-events: auto;
-  border: 2px solid transparent;
+  margin: 10px;
+  border: 3px solid transparent;
 
   @nest & img {
     display: inline-block;

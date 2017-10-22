@@ -18,6 +18,28 @@ class Item extends React.Component {
     return prevProps.item._id !== this.props.item._id
   }
 
+  renderImage() {
+    const {item} = this.props
+    const {asset} = item.imageAssets[0]
+    const {url, metadata} = asset
+    const {width, height} = metadata.dimensions
+
+    const length = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2))
+    const scale = 500 / length
+    const scaledWidth = Math.round(width * scale)
+
+    return (
+      <img
+        src={`${url}?w=${scaledWidth}`}
+        srcSet={`
+          ${url}?w=${scaledWidth} 1x,
+          ${url}?w=${scaledWidth * 2} 2x
+        `}
+        alt=""
+      />
+    )
+  }
+
   render() {
     const {item} = this.props
 
@@ -26,13 +48,13 @@ class Item extends React.Component {
         {
           item.link && (
             <LinkResolver item={item.link} className={s.link}>
-              <img src={`${item.imageAssets[0].asset.url}?w=300`} alt="" />
+              {this.renderImage()}
             </LinkResolver>
           )
         }
         {
           !item.link && (
-            <img src={`${item.imageAssets[0].asset.url}?w=300`} alt="" />
+            this.renderImage()
           )
         }
       </div>

@@ -9,12 +9,13 @@ export default {
   async action({fetch, seed, params}) {
     const {type, key} = params
     const theme = await getTheme(fetch, type, key)
+    const intro = await fetch('*[_type == "sitePage" && title == "Introduction"][0]{body}')
 
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
-        <Layout showHeader={false} inverted>
-          <Explorer theme={theme} />
+        <Layout showHeader={false}>
+          <Explorer theme={theme} intro={intro} />
         </Layout>
       ),
     }
