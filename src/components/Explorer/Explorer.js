@@ -42,7 +42,7 @@ class Explorer extends React.Component {
     seed: PropTypes.string.isRequired,
     intro: PropTypes.shape({
       body: PropTypes.array
-    })
+    }).isRequired
   }
 
   constructor(props) {
