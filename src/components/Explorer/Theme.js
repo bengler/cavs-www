@@ -1,25 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import {TransitionGroup} from 'react-transition-group'
 
 import {themeShape} from '../../themes'
 import Link from '../Link/Link'
 import Item from './Item'
+import Fade from './Fade'
 
 import s from './Theme.css'
-
-const Fade = ({children, ...props}) => {
-  return (
-    <CSSTransition
-      {...props}
-      timeout={1000}
-      classNames="fade"
-    >
-      {children}
-    </CSSTransition>
-  )
-}
 
 class Theme extends React.Component {
   static propTypes = {

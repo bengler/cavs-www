@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {filter, last, findIndex, camelCase} from 'lodash'
 import mat4 from 'gl-mat4'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import {TransitionGroup} from 'react-transition-group'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import Blocks from '@sanity/block-content-to-react'
 
@@ -11,24 +11,13 @@ import Theme from './Theme'
 import Scroller from './Scroller'
 import MatrixCamera from './MatrixCamera'
 import MatrixElement from './MatrixElement'
+import Fade from './Fade'
 
 import Header from '../Header'
 
 import s from './Explorer.css'
 
 const nextCache = {}
-
-const Fade = ({children, ...props}) => {
-  return (
-    <CSSTransition
-      {...props}
-      timeout={300}
-      classNames="fade"
-    >
-      {children}
-    </CSSTransition>
-  )
-}
 
 function transformMatrix(matrix, transforms) {
   const clone = mat4.clone(matrix)

@@ -3,7 +3,7 @@
 }
 
 .top {
-  background: rgba(0, 255, 0, 0.2);
+  /*background: rgba(0, 255, 0, 0.2);*/
   transform-style: preserve-3d;
   transform:
     translateY(calc(50vh - 50%))
@@ -14,11 +14,11 @@
 }
 
 .header {
-  background: rgba(255, 0, 0, 0.3);
+  /*background: rgba(255, 0, 0, 0.3);*/
 }
 
 .intro {
-  background: rgba(0, 0, 255, 0.5);
+  /*background: rgba(0, 0, 255, 0.5);*/
   font-size: 2rem;
   color: white;
   padding: 1rem;
@@ -29,23 +29,5 @@
 :global {
   body {
     background: black;
-  }
-
-  .fade-enter {
-    opacity: 0.01;
-  }
-
-  .fade-enter.fade-enter-active {
-    opacity: 1;
-    transition: opacity 0.2s linear;
-  }
-
-  .fade-exit {
-    opacity: 1;
-  }
-
-  .fade-exit.fade-exit-active {
-    opacity: 0.01;
-    transition: opacity 0.2s linear;
   }
 }

@@ -1,6 +1,5 @@
 .root {
-  margin: 0 auto;
-  width: 80%;
+  margin: 0 10vw;
   transform-style: preserve-3d;
 }
 
@@ -11,13 +10,11 @@
 }
 
 .title {
-  white-space: nowrap;
+  display: inline-block;
   pointer-events: all;
   border: 0.1em solid lime;
   color: lime;
   padding: 0.4em 0.5em 0.20em;
-  font-size: 1em;
-  transform: scale(0.5);
   text-transform: uppercase;
 
   @nest &:hover, &:visited:hover {
