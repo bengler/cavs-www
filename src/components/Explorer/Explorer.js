@@ -121,14 +121,11 @@ class Explorer extends React.Component {
     return (
       <div className={s.root}>
         {items.map(item => {
-          const model = item.matrix
-          // const viewModel = mat4.multiply([], view, item.matrix)
-
           return (
             <div key={item.key} ref={item.key} className={s.item}>
               <div className={s.perspective} style={{transform: `matrix3d(${perspective.join()})`}}>
                 <div className={s.view} style={{transform: `matrix3d(${view.join()})`}}>
-                  <div className={s.model} style={{transform: `matrix3d(${model.join()})`}}>
+                  <div className={s.model} style={{transform: `matrix3d(${item.matrix.join()})`}}>
                     {
                       (item.type === 'header' && (
                         <div className={s.header}>
