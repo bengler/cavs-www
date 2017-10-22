@@ -13,7 +13,7 @@ import s from './Theme.css'
 class Theme extends React.Component {
   static propTypes = {
     active: PropTypes.bool,
-    seed: PropTypes.number.isRequired,
+    seed: PropTypes.string.isRequired,
     theme: themeShape.isRequired
   }
 

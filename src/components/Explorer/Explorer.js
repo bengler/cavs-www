@@ -39,7 +39,7 @@ function getCameraMatrix(source, scroll = 0, distance = 400) {
 class Explorer extends React.Component {
   static propTypes = {
     theme: themeShape.isRequired,
-    seed: PropTypes.number.isRequired,
+    seed: PropTypes.string.isRequired,
     intro: PropTypes.shape({
       body: PropTypes.array
     })
@@ -195,8 +195,10 @@ class Explorer extends React.Component {
               </div>
             </div>
 
-            <div>
-              <Theme theme={active.theme} seed={seed} />
+            <div style={{position: 'relative'}}>
+              <MatrixElement matrix={mat4.rotateY([], mat4.create(), 20)}>
+                <Theme theme={active.theme} seed={seed} />
+              </MatrixElement>
             </div>
 
           </MatrixCamera>

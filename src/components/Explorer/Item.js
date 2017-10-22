@@ -8,7 +8,7 @@ import s from './Item.css'
 
 class Item extends React.Component {
   static propTypes = {
-    seed: PropTypes.number.isRequired,
+    seed: PropTypes.string.isRequired,
     item: PropTypes.shape({
       _id: PropTypes.string.isRequired,
       _type: PropTypes.string.isRequired,
