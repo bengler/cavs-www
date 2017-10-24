@@ -18,6 +18,12 @@
 
 .contact {
   font-size: var(--font-size--base);
+
+  @nest & a {
+    color: black;
+    text-decoration: none;
+    padding-left: 0.25em;
+  }
 }
 
 .actLogo {
