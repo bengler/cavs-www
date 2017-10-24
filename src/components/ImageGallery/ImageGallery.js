@@ -27,7 +27,7 @@ class ImageGallery extends React.Component {
       return false
     }
     return (
-      <div className={s.root}>
+      <div className={images.length > 1 ? s.grid : s.root}>
         {
           images.map((image, i) => {
             const url = get(image, 'asset.url')
@@ -35,7 +35,9 @@ class ImageGallery extends React.Component {
               return false
             }
             return (
-              <img key={image._key} className={s.image} src={`${url}?w=300`} alt="" />
+              <div className={s.item} key={image._key}>
+                <img className={s.image} src={`${url}?w=300`} alt="" />
+              </div>
             )
           })
         }

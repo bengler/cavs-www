@@ -2,6 +2,15 @@
   clear: both;
 }
 
+.grid {
+  composes: root;
+  composes: columns from '../common.css';
+}
+
+.grid .item {
+  margin-bottom: 2rem;
+}
+
 .image {
   width: 100%;
   height: auto;
