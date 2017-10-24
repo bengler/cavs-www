@@ -11,7 +11,7 @@
  * ========================================================================== */
 
 @font-face {
-  font-family: 'Unica77LLWebBold';
+  font-family: 'Unica77LLWeb';
   src: url('/fonts/Unica77LLWeb-Bold.eot');
   src:
     url('/fonts/Unica77LLWeb-Bold.eot?#iefix') format('embedded-opentype'),
@@ -21,18 +21,16 @@
   font-style: normal;
 }
 
-/*
 @font-face {
-  font-family: 'Unica77LLSubBold';
-  src: url('/fonts/Unica77LLSub-Bold.eot');
+  font-family: 'Unica77LLWeb';
+  src: url('/fonts/Unica77LLWeb-BoldItalic.eot');
   src:
-    url('/fonts/Unica77LLSub-Bold.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Unica77LLSub-Bold.woff2') format('woff2'),
-    url('/fonts/Unica77LLSub-Bold.woff') format('woff');
+    url('/fonts/Unica77LLWeb-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Unica77LLWeb-BoldItalic.woff2') format('woff2'),
+    url('/fonts/Unica77LLWeb-BoldItalic.woff') format('woff');
   font-weight: normal;
-  font-style: normal;
+  font-style: italic;
 }
-*/
 
 :global(#mfPreviewBar.normal) {
   display: none !important;
