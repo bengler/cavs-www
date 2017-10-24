@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {findLast} from 'lodash'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import LinkResolver from '../Link/Resolver'
-
 import s from './PartOf.css'
 
 class PartOf extends React.Component {
@@ -54,8 +53,17 @@ class PartOf extends React.Component {
                 <span>
                   &nbsp;by&nbsp;
                   {
-                    part.creators.map(person => {
-                      return <LinkResolver key={person._id} item={person}>{person.name}</LinkResolver>
+                    part.creators.map((person, i) => {
+                      let seperator = part.creators.length > 1 && ', '
+                      if (part.creators.length > 1 && i === part.creators.length - 1) {
+                        seperator = ' and '
+                      }
+                      return (
+                        <span className={s.creator}>
+                          {i > 0 && seperator}
+                          <LinkResolver key={person._id} item={person}>{person.name}</LinkResolver>
+                        </span>
+                      )
                     })
                   }
                 </span>

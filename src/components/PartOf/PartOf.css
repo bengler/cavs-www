@@ -22,3 +22,9 @@
   display: none;
   width: auto;
 }
+
+.creator {
+  @nest &:not(:first-child)::before {
+    
+  }
+}
