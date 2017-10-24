@@ -29,6 +29,10 @@
   border: 4px solid white;
   box-sizing: border-box;
   padding: 0.5em;
+
+  @nest &:hover {
+    background-color: var(--brand-color);
+  }
 }
 
 .periodName {
