@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './DSpace/App.css'
+import styles from './App.css'
 
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Space } from './Space'
 import bus from './bus'
-import style from './App.css'
+import style from '../App.css'
 
 export default class DElement extends React.Component {
   static propTypes = {

@@ -1,14 +1,18 @@
 import React from 'react'
 import styles from './App.css'
-import DSpace from './DSpace'
-import { Space } from './Space'
-import bus from './bus'
-// import Feature from './Feature'
+import DSpace from './DSpace/DSpace'
+import { Space } from './DSpace/Space'
+import bus from './DSpace/bus'
 
+import builder from './Builder'
+
+// import Feature from './Feature'
 
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+    this.space = new Space()
+    this.builder = new builder(this.space)
   }
 
   state = {
@@ -19,10 +23,11 @@ export default class App extends React.Component {
     this.setState({mounted: true})
     document.addEventListener('keydown', this.handleKeyPress)
     bus.dispatch({ event: 'setScroll', y: 0 })
-
   }
 
+
   componendWillUnmount() {
+    // stop when unmounting
     document.removeEventListener(this.handleKeyPress)
     this.subscription.unsubscribe()
   }

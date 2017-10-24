@@ -2,9 +2,6 @@ import React from 'react'
 import THREE from 'three-js/three'
 import Blocks from '@sanity/block-content-to-react'
 
-import s from './AppNew.css'
-import withStyles from 'isomorphic-style-loader/lib/withStyles'
-
 import bus from './bus'
 import { Space } from './Space'
 import { Column, Barrel } from '../layout'
@@ -65,11 +62,11 @@ class DSpace extends React.PureComponent {
         components: barrelComponents
       })
 
-      components[0] = (
-        <div className={s.header}>
-          <Header inverted />
-        </div>
-      )
+      // components[0] = (
+      //   <div className={s.header}>
+      //     <Header inverted />
+      //   </div>
+      // )
 
       components[2] = barrel
 
@@ -295,7 +292,7 @@ class DSpace extends React.PureComponent {
     )
   }
 }
-export default withStyles(s)(DSpace)
+export default DSpace
 
 function epsilon(value) {
   return Math.abs(value) < 1e-10 ? 0 : value

@@ -1,4 +1,11 @@
 
+
+.header {
+  width: 100%;
+  pointer-events: auto;
+  height: 40vh;
+}
+
 body {
   color: #fff;
   margin: 0;
@@ -22,6 +29,7 @@ img {
 .dElement {
   /*-webkit-transition: opacity 1s;
   transition: opacity 0.2s;*/
+  color: #fff;
   pointer-events: none;
 }
 
