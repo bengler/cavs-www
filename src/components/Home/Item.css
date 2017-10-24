@@ -9,7 +9,7 @@
   border: 2px solid transparent;
   
   @nest & img {
-    width: 400px;
+    width: 600px;
     display: inline-block;
   }
 

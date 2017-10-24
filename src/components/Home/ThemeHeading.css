@@ -1,6 +1,6 @@
 .root {
   width: 800px;
-  margin-bottom: 80px;
+  margin-bottom: 180px;
 }
 
 .heading {
@@ -11,10 +11,11 @@
 }
 
 .title {
+  white-space: nowrap;
   border: 4px solid lime;
   pointer-events: all;
   color: lime;
-  font-size: 2em;
+  font-size: 1.5em;
   text-transform: uppercase;
   padding: 0.5em;
   
