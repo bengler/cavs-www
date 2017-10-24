@@ -207,10 +207,9 @@ async function getRandomWork(fetch, random) {
   return work
 }
 
-export async function getRandomTheme(fetch, seed) {
-  const random = seedrandom(seed.toString())
-  const randomA = random()
-  const randomB = random()
+export async function getRandomTheme(fetch) {
+  const randomA = Math.random()
+  const randomB = Math.random()
 
   const types = {
     subject: await getRandomSubject(fetch, randomA),

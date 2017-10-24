@@ -70,6 +70,61 @@ export class Barrel extends THREE.Object3D {
   }
 }
 
+
+export class Theme extends THREE.Object3D {
+  constructor(options) {
+    super()
+    const objs = wrapReactComponents(options.components) //options.components.map((c) => new Component3D(c))
+
+    // Create vantage points for each object
+    objs.forEach(obj => ensureBasicVantagePoint(obj))
+
+    this.add(...objs)
+    this.objs = objs
+
+    this.randoms = objs.map(() => {
+      return Math.random()
+    })
+
+    this.nav = new NavPath(objs)
+    this.vantages = [objs[0].vantages[0]]
+    this.width = 0
+    this.height = 0
+    this.t = 0
+  }
+
+  update() {
+    const len = this.children.length
+    let prev = null
+    let obj = null
+    this.width = 0
+    this.height = 0
+    this.t += 1
+    for (let i = 0; i < len; i++) {
+      prev = obj
+      obj = this.children[i]
+      if (prev) {
+        if (prev.height === null || obj.height == null) break
+        obj.position.y = prev.position.y - prev.height / 2 - obj.height / 3
+
+        obj.position.x = (this.randoms[i] - 0.5) * 1000
+        obj.position.z = (this.randoms[i] - 0.5) * 100
+        // obj.position.x = obj.width
+        // obj.rotation.y = i * Math.sin(this.t / 100) * 0.2
+        obj.rotation.y = i * (this.randoms[i] - 0.5) * 0.05
+        obj.rotation.x = i * -0.05
+        // if (i == 4) obj.position.z = 100
+        // obj.position.z = i * 200
+        if (obj.width > this.width) {
+          this.width = obj.width
+          this.height = -obj.position.y + obj.height / 2
+        }
+      }
+    }
+  }
+}
+
+
 export class Column extends THREE.Object3D {
   constructor(options) {
     super()
@@ -107,7 +162,7 @@ export class Column extends THREE.Object3D {
         obj.position.y = prev.position.y - prev.height / 2 - obj.height / 2
         // obj.position.x = obj.width
         // obj.rotation.y = i * Math.sin(this.t / 100) * 0.2
-        obj.rotation.y = i * 0.2
+        obj.rotation.y = i * 0.09
         // if (i == 4) obj.position.z = 100
         // obj.position.z = i * 200
         if (obj.width > this.width) {

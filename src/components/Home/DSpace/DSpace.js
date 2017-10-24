@@ -1,15 +1,12 @@
 import React from 'react'
 import THREE from 'three-js/three'
-import Blocks from '@sanity/block-content-to-react'
+
 
 import bus from './bus'
 import { Space } from './Space'
 import { Column, Barrel } from '../layout'
 import { Navigator } from './Navigator'
 
-import Header from '../../Header'
-import ThemeHeading from '../ThemeHeading'
-import Item from '../Item'
 
 
 
@@ -43,57 +40,12 @@ class DSpace extends React.PureComponent {
     this.renderer3D = new THREE.WebGLRenderer()
     this.renderer3D.setSize(this.width * 2, this.height * 2)
 
-    if (true) {
+    if (false) {
       const components = [0, 1, 2, 3, 4, 5, 6].map(() => <ThemeHeading />)
-      const barrelComponents = [
-        'blur-building/Sections.jpg',
-        'blur-building/cloud22.jpg',
-        'blur-building/cloud34.jpg',
-        'blur-building/Nozzle.jpg',
-        'blur-building/cloud35.jpg',
-        'blur-building/cloud36.jpg'
-      ].map(src => <img src={'projects/' + src} style={{ width: '800px' }} />)
-
-      barrelComponents[4] = new Column({
-        components: [0, 1, 2, 3].map(() => <ThemeHeading />)
-      })
-
-      const barrel = new Barrel({
-        components: barrelComponents
-      })
-
-      // components[0] = (
-      //   <div className={s.header}>
-      //     <Header inverted />
-      //   </div>
-      // )
-
-      components[2] = barrel
-
       this.column = new Column({
         components
       })
-      // this.column.rotation.z = Math.PI / 2
       this.space.add(this.column)
-
-      const aside = new Column({
-        components: [
-          <h2>An aside</h2>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>,
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et nibh vitae metus dictum volutpat. Donec sollicitudin facilisis faucibus. Ut dolor orci, efficitur in elementum nec, tristique sit amet quam. Etiam mattis sit amet ligula et mattis. Aliquam eros mi, sodales ut purus ut, pretium faucibus velit. Aenean lobortis, purus at consequat accumsan, augue ipsum lobortis diam, eget semper erat ligula non nibh. Fusce nec consectetur mauris.</p>
-        ]
-      })
-
-      aside.rotation.z = Math.PI / 2
-      aside.position.x = 200
-      // aside.position.x = 10
-      this.column.children[5].add(aside)
       this.space.reindex()
     }
 
@@ -125,12 +77,13 @@ class DSpace extends React.PureComponent {
     this.space.navigator = this.navigator
 
     // Navigate to start element
-    var initialVantage = this.navigator.vantageObjectForPath(window.location.pathname)
-    if (!initialVantage) {
-      initialVantage = this.column.nav.vantages[0]
-    }
-    initialVantage = this.column.nav.vantages[0]
-    this.navigator.resetTo(initialVantage)
+    // var initialVantage = this.navigator.vantageObjectForPath(window.location.pathname)
+    // if (!initialVantage) {
+    //   initialVantage = this.column.nav.vantages[0]
+    // }
+    // TODO
+    // initialVantage = this.column.nav.vantages[0]
+    // this.navigator.resetTo(initialVantage)
 
     this.handleResize()
     this.start = new Date()
@@ -145,17 +98,6 @@ class DSpace extends React.PureComponent {
       space: this.space
     }
   }
-
-  buildIntro(intro) {
-    const introColumn = new Column({
-      components: [
-        <Blocks blocks={intro.body} />
-      ]
-    })
-    this.column.children[1] = introColumn
-    this.space.reindex()
-  }
-
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.intro) {
@@ -266,7 +208,7 @@ class DSpace extends React.PureComponent {
       `translate(${this.width / 2}px,${this.height / 2}px)`
     return (
       <div>
-        <div style={{ position: 'fixed' }} onClick={this.handleBackdropClick}>
+        <div style={{ position: 'fixed', color: '#fff' }} onClick={this.handleBackdropClick}>
           <div
             style={{
               position: 'fixed',

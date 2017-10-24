@@ -1,10 +1,9 @@
 import React from 'react'
-import styles from './App.css'
 import DSpace from './DSpace/DSpace'
-import { Space } from './DSpace/Space'
+import {Space} from './DSpace/Space'
 import bus from './DSpace/bus'
 
-import builder from './Builder'
+import Builder from './Builder'
 
 // import Feature from './Feature'
 
@@ -12,7 +11,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.space = new Space()
-    this.builder = new builder(this.space)
+    this.builder = new Builder(this.space, this.props.fetch)
+    this.space.add(this.builder)
   }
 
   state = {
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   componentDidMount() {
     this.setState({mounted: true})
     document.addEventListener('keydown', this.handleKeyPress)
-    bus.dispatch({ event: 'setScroll', y: 0 })
+    bus.dispatch({event: 'setScroll', y: 0})
   }
 
 
@@ -33,12 +33,10 @@ export default class App extends React.Component {
   }
 
   render() {
-    const {theme, intro} = this.props
-
     return (
       <div>
-        { this.state.mounted &&
-          <DSpace theme={theme} intro={intro} space={this.space} />
+        { this.state.mounted
+        && <DSpace space={this.space} />
         }
       </div>
     )

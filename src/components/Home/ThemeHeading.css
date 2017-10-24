@@ -1,0 +1,32 @@
+.root {
+  width: 800px;
+  margin-bottom: 80px;
+}
+
+.heading {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  z-index: 1;
+}
+
+.title {
+  border: 4px solid lime;
+  pointer-events: all;
+  color: lime;
+  font-size: 2em;
+  text-transform: uppercase;
+  padding: 0.5em;
+  
+  @nest &:hover {
+    background-color: color(lime a(20%));
+  }
+
+  @nest &:visited {
+    color: lime;
+  }
+}
+
+.link {
+  composes: title;
+}

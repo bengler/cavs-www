@@ -1,0 +1,13 @@
+
+.header {
+  font-size: 40px;
+  width: 1200px;
+  pointer-events: auto;
+  top: -100px;
+}
+
+.introduction {
+  font-size: 40px;
+  width: 1000px;
+}
+

@@ -1,17 +1,17 @@
 import React from 'react'
-import styles from './App.css'
 
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
+
+import s from './ThemeHeading.css'
 
 import {themeShape} from '../../themes'
 import Link from '../Link/Link'
 import Item from './Item'
 
-export default class ThemeHeading extends React.PureComponent {
+
+class ThemeHeading extends React.PureComponent {
   static propTypes = {
-    active: PropTypes.bool,
     theme: themeShape.isRequired
   }
 
@@ -24,20 +24,20 @@ export default class ThemeHeading extends React.PureComponent {
     super(props)
   }
 
-  handleClick = e => {
-  }
-
   render() {
+    const {theme} = this.props
+    const {type, key, title} = theme
 
     return (
-      <div style={{ width: '800px' }}>
-        <img
-          src="projects/blur-building/cloud22.jpg"
-          onClick={this.handleClick}
-          style={{ height: `${this.state.height}px` }}
-        />
-        <div className={styles.someText}>{this.state.text}</div>
-      </div>
+      <section className={s.root}>
+        <h2 className={s.heading}>
+          <Link className={s.link} to={`/explore/${type}/${key}`}>
+              {title}
+          </Link>
+        </h2>
+      </section>
     )
   }
 }
+
+export default withStyles(s)(ThemeHeading)

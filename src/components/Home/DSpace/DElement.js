@@ -1,5 +1,4 @@
 import React from 'react'
-import { Space } from './Space'
 import bus from './bus'
 import style from '../App.css'
 
