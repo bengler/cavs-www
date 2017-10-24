@@ -1,0 +1,6 @@
+
+.header {
+  width: 80%;
+  pointer-events: auto;
+  transform: translate(10vw, -15vh);
+}
