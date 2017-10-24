@@ -15,7 +15,7 @@ export default {
         _type,
         name,
         title,
-        imageAssets[] {
+        imageAssets[0...1] {
           _key,
           asset -> {url}
         },
