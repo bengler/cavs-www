@@ -1,0 +1,47 @@
+.root {
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.loadingImage {
+  composes: image;
+  z-index: -1;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  composes: loader from '../../routes/search/Search.css';
+  overflow: hidden;
+  filter: blur(50px);
+}
+
+.padder {
+  position: relative;
+}
+
+.next {
+  position: absolute;
+  top: 50vh;
+  right: 1rem;
+  z-index: 2;
+}
+
+.prev {
+  position: absolute;
+  top: 50vh;
+  left: 1rem;
+  z-index: 2;
+}
