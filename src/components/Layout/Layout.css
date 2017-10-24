@@ -64,6 +64,7 @@ a {
 
 .content {
   display: block;
+  min-height: calc(100vh - 15rem);
 }
 
 .inverted {
