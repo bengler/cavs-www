@@ -69,7 +69,7 @@ export default {
             name,
             portraits[] {
               _key,
-              asset -> {url}
+              asset -> {url, metadata {dimensions}}
             }
           }
           [0..5000]

@@ -57,8 +57,6 @@ class ReferencesGrid extends React.Component {
       'newsClipping'
     ]
 
-    console.log('groupedReferences', groupedReferences)
-
     workTypes.forEach(key => {
       if (groupedReferences[key]) {
         if (groupedReferences[key]) {

@@ -45,7 +45,7 @@ class Persons extends React.Component {
     }
 
     return (
-      <ul className={s.list}>
+      <ul className={s.portraitList}>
         {
           people.map(item => {
             const id = item._id
@@ -53,10 +53,18 @@ class Persons extends React.Component {
             if (!src) {
               return false
             }
+            const aspectRatio = get(item, 'portraits[0].asset.metadata.dimensions.aspectRatio') || 1
+
             return (
               <li key={item._id} className={s.portraitItem}>
-                <Link to={`/person/${id}`}>
-                  <img src={`${src}?w=300&fit=max`} />
+                <Link to={`/person/${id}`} className={s.portraitLink}>
+                  <span className={s.portraitImageWrapper}>
+                    <span
+                      className={s.padder}
+                      style={{paddingTop: `${100 / aspectRatio}%`}}
+                    />
+                    <img src={`${src}?w=300&fit=max`} className={s.portraitImage} />
+                  </span>
                   <span className={s.portraitTitle}>
                     {item.name || 'No name…'}
                   </span>

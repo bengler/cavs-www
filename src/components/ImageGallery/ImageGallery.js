@@ -34,9 +34,19 @@ class ImageGallery extends React.Component {
             if (excludeFirst && i === 0) {
               return false
             }
+            const width = get(image, 'asset.metadata.dimensions.width')
+            const height = get(image, 'asset.metadata.dimensions.height')
+            const aspectRatio = get(image, 'asset.metadata.dimensions.aspectRatio')
             return (
               <div className={s.item} key={image._key}>
-                <img className={s.image} src={`${url}?w=300`} alt="" />
+                <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+                <img
+                  width={width}
+                  height={height}
+                  className={s.image}
+                  src={`${url}?w=300`}
+                  alt=""
+                />
               </div>
             )
           })

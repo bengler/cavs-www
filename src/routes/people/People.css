@@ -53,33 +53,37 @@
   composes: fontMedium from '../../components/typography.css';
 }
 
+.portraitList {
+  composes: list;
+}
+
 .portraitItem {
   composes: item;
   margin-bottom: 3rem;
   break-inside: avoid;
+}
 
-  @nest & > a {
-    display: block;
-    color: black;
-  }
+.portraitLink {
+  display: block;
+  color: black;
+}
 
-  @nest & img {
-    width: 100%;
-    height: auto;
-  }
+.portraitImageWrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.padder {
+  display: block;
+  position: relative;
+}
+
+.portraitImage {
+  composes: image from '../../components/ImageGallery/ImageGallery.css';
 }
 
 .portraitTitle {
   display: block;
   padding-top: 0.35em;
-}
-
-.imagePlaceholder {
-  border: 2px solid black;
-  width: 100%;
-  box-sizing: border-box;
-
-  @nest & div {
-    padding-top: 100%;
-  }
 }

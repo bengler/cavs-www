@@ -4,6 +4,7 @@
   composes: container from '../common.css';
   display: flex;
   margin-top: 3rem;
+  margin-bottom: 2rem;
   padding-top: 3rem;
   border-top: 2px solid black;
   justify-content: space-between;
@@ -11,12 +12,12 @@
 }
 
 .mit {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size--base);
   max-width: 20em;
 }
 
 .contact {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size--base);
 }
 
 .actLogo {
