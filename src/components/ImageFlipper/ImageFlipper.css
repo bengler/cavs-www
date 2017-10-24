@@ -32,16 +32,40 @@
   position: relative;
 }
 
-.next {
+.button {
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
   position: absolute;
   top: 50vh;
-  right: 1rem;
   z-index: 2;
+  background-color: color(#ccc a(0%));
+
+  @nest &:hover {
+    background-color: color(#ccc a(30%));
+  }
+
+  @nest & svg {
+    position: absolute;
+    top: 0;
+    transform: scale(0.5);
+  }
+}
+
+.next {
+  composes: button;
+  right: 1rem;
+
+  @nest & svg {
+    right: 20%;
+  }
 }
 
 .prev {
-  position: absolute;
-  top: 50vh;
+  composes: button;
   left: 1rem;
-  z-index: 2;
+
+  @nest & svg {
+    left: 15%;
+  }
 }

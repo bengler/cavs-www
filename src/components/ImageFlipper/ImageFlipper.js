@@ -42,8 +42,13 @@ class ImageFlipper extends React.Component {
       <div className={s.root}>
         {
           prevImage && (
-            <Link to={`?image=${prevImage._key}`} className={s.prev}>
-              Prev
+            <Link to={`?image=${prevImage._key}`} className={s.prev} title="Previous">
+              <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
+                <g transform="rotate(-180 25,50) ">
+                  <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
+                  <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
+                </g>
+              </svg>
             </Link>
           )
         }
@@ -77,8 +82,13 @@ class ImageFlipper extends React.Component {
         </div>
         {
           nextImage && (
-            <Link to={`?image=${nextImage._key}`} className={s.next}>
-              Next
+            <Link to={`?image=${nextImage._key}`} className={s.next} title="Next">
+              <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                  <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
+                  <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
+                </g>
+              </svg>
             </Link>
           )
         }
