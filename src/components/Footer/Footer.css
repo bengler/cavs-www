@@ -1,25 +1,24 @@
 @import '../variables.css';
 
 .root {
-  background: #333;
-  color: #fff;
+  composes: container from '../common.css';
+  display: flex;
   margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 2px solid black;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.container {
-  display: none;
-  bottom: 0;
-  margin: 0 auto;
-  padding: 20px 15px;
-  max-width: var(--max-content-width);
-  text-align: center;
+.mit {
+  font-size: var(--font-size-base);
+  max-width: 20em;
 }
 
-.text {
-  color: rgba(255, 255, 255, 0.5);
+.contact {
+  font-size: var(--font-size-base);
 }
 
-.text {
-  padding: 2px 5px;
-  font-size: 1em;
+.actLogo {
+  flex-basis: 10rem;
 }
