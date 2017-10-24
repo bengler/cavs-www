@@ -32,7 +32,7 @@ class ImageFlipper extends React.Component {
 
     const prevImage = currentIndex > 0 && images[currentIndex - 1]
     const currentImage = images[currentIndex] || images[0]
-    const nextImage = currentIndex < images.length && images[currentIndex + 1]
+    const nextImage = images.length > 1 && currentIndex < images.length && images[currentIndex + 1]
 
     const width = get(currentImage, 'asset.metadata.dimensions.width')
     const height = get(currentImage, 'asset.metadata.dimensions.height')

@@ -26,6 +26,10 @@
   }
 }
 
+.creator {
+  display: inline;
+}
+
 .image {
   display: none;
   width: auto;

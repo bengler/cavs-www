@@ -60,11 +60,17 @@ a {
   @nest &:visited {
     color: #c0c;
   }
+
+  @nest &:active {
+    color: #c0c;
+  }
 }
 
 .content {
   display: block;
   min-height: calc(100vh - 15rem);
+  clear: both;
+  margin-bottom: 2rem;
 }
 
 .inverted {

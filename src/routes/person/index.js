@@ -14,6 +14,7 @@ export default {
         name,
         shortBio,
         portraits[0...1] {
+          _key,
           asset -> {url, metadata {dimensions}}
         },
         deceased,

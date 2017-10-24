@@ -30,10 +30,12 @@ export default {
           name,
           creators[] -> {
             name,
+            _type,
             _id
           },
           "references": *[references(^._id)] {
             name,
+            _type,
             title,
             _key,
             imageAssets[] {
@@ -44,6 +46,7 @@ export default {
         },
         creators[] -> {
           name,
+          _type,
           _id
         }
       }

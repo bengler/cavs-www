@@ -106,7 +106,9 @@ class Item extends React.Component {
           }
 
         </div>
-        <Locations locations={locations} />
+        <div className={s.locations}>
+          <Locations locations={locations} />
+        </div>
       </div>
     )
   }

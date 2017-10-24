@@ -16,6 +16,10 @@
     border-color: blue;
   }
 
+  @nest & :global(.leaflet-left .leaflet-control) {
+    margin-left: 1rem;
+  }
+
   @nest & :global(.leaflet-popup-tip-container) {
     display: none;
   }
