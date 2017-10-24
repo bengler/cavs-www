@@ -1,0 +1,76 @@
+.mainMenu {
+  position: fixed;
+  transform-origin: 0% 0%;
+  top: 6px;
+  left: 40px;
+  transform: rotate(90deg);
+  z-index: 100;
+  font-weight: regular;
+  transition: color 300ms linear;
+  /*font-feature-settings: "salt";*/
+}
+
+.widerGutter .mainMenu {
+  left: 50px;
+  top: 20px;
+}
+
+.dark .mainMenu {
+  color: white;
+}
+
+.logoFullyCompact {
+  font-feature-settings: "salt";
+}
+
+.mainMenu span {
+  cursor: pointer;
+}
+
+
+.mainMenu svg {
+  display: inline;
+  height: 1ex;
+}
+
+.mainMenuLinks {
+  margin-left: 20px;
+}
+
+.link {
+  margin-right: 18px;
+}
+
+.link:hover {
+  /*text-decoration: underline;*/
+  color: #ff4b00;
+}
+
+.figure {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.logoFullyCompact .plus {
+  margin: 0;
+}
+
+.plus {
+  /*color: #ff4b00;*/
+  margin: 0;
+  margin-right: -0.35em;
+  margin-left: -0.35em;
+}
+
+
+.magnifier svg {
+  width: 30px;
+}
+
+.magnifier {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 22px;
+  z-index: 100;
+}

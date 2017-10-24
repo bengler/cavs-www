@@ -1,0 +1,18 @@
+.root {
+  break-inside: avoid;
+  pointer-events: none;
+}
+
+.link {
+  display: inline-block;
+  pointer-events: auto;
+  border: 2px solid transparent;
+
+  @nest & img {
+    display: inline-block;
+  }
+
+  @nest &:hover {
+    border-color: white;
+  }
+}

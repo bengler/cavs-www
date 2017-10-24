@@ -3,10 +3,7 @@ import styles from './App.css'
 import DSpace from './DSpace'
 import { Space } from './Space'
 import bus from './bus'
-import sanity from './sanity'
-import materializer from './materializer'
 // import Feature from './Feature'
-import content from './content.json'
 
 
 export default class App extends React.Component {
@@ -51,10 +48,12 @@ export default class App extends React.Component {
   }
 
   render() {
+    const {theme, intro} = this.props
+
     return (
       <div>
         { this.state.mounted &&
-          <DSpace theme={this.props.theme} intro={this.props.intro} space={this.space} />
+          <DSpace theme={theme} intro={intro} space={this.space} />
         }
       </div>
     )

@@ -2,56 +2,16 @@ import React from 'react'
 import THREE from 'three-js/three'
 import { Space } from './Space'
 import { Column, Barrel } from './layout'
-import Topic from './Topic'
+import ThemeHeading from './ThemeHeading'
+import Item from './Item'
 import bus from './bus'
 import { Navigator } from './Navigator'
 import Header from '../Header'
 import s from './AppNew.css'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
-function epsilon(value) {
-  return Math.abs(value) < 1e-10 ? 0 : value
-}
+import Blocks from '@sanity/block-content-to-react'
 
-function getCameraCSSMatrix(matrix) {
-  const elements = matrix.elements
-
-  return (
-    'matrix3d(' +
-    epsilon(elements[0]) +
-    ',' +
-    epsilon(-elements[1]) +
-    ',' +
-    epsilon(elements[2]) +
-    ',' +
-    epsilon(elements[3]) +
-    ',' +
-    epsilon(elements[4]) +
-    ',' +
-    epsilon(-elements[5]) +
-    ',' +
-    epsilon(elements[6]) +
-    ',' +
-    epsilon(elements[7]) +
-    ',' +
-    epsilon(elements[8]) +
-    ',' +
-    epsilon(-elements[9]) +
-    ',' +
-    epsilon(elements[10]) +
-    ',' +
-    epsilon(elements[11]) +
-    ',' +
-    epsilon(elements[12]) +
-    ',' +
-    epsilon(-elements[13]) +
-    ',' +
-    epsilon(elements[14]) +
-    ',' +
-    epsilon(elements[15]) +
-    ')'
-  )
-}
 
 class DSpace extends React.PureComponent {
   static childContextTypes = {
@@ -85,8 +45,7 @@ class DSpace extends React.PureComponent {
 
     if (true) {
 
-
-      const components = [0, 1, 2, 3, 4, 5, 6].map(() => <Topic />)
+      const components = [0, 1, 2, 3, 4, 5, 6].map(() => <ThemeHeading />)
 
       const barrelComponents = [
         'blur-building/Sections.jpg',
@@ -98,7 +57,7 @@ class DSpace extends React.PureComponent {
       ].map(src => <img src={'projects/' + src} style={{ width: '800px' }} />)
 
       barrelComponents[4] = new Column({
-        components: [0, 1, 2, 3].map(() => <Topic />)
+        components: [0, 1, 2, 3].map(() => <ThemeHeading />)
       })
 
       const barrel = new Barrel({
@@ -112,8 +71,6 @@ class DSpace extends React.PureComponent {
       )
 
       components[2] = barrel
-
-      console.info(components)
 
       this.column = new Column({
         components
@@ -191,9 +148,34 @@ class DSpace extends React.PureComponent {
     }
   }
 
+  buildIntro(intro) {
+    console.info(intro)
+    const introColumn = new Column({
+      components: [
+        <Blocks blocks={intro.body} />
+      ]
+    })
+
+    this.column.children[1] = introColumn
+    this.space.reindex()
+    console.info('built')
+  }
+
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.intro) {
+      this.buildIntro(nextProps.intro)
+    }
+  }
+
   componentDidMount() {
     this.startAnimation()
     window.addEventListener('resize', this.handleResize)
+
+    if(this.props.intro) {
+      this.buildIntro(this.props.intro)
+    }
+
   }
 
   componentWillUnmount() {
@@ -314,3 +296,47 @@ class DSpace extends React.PureComponent {
   }
 }
 export default withStyles(s)(DSpace)
+
+function epsilon(value) {
+  return Math.abs(value) < 1e-10 ? 0 : value
+}
+
+function getCameraCSSMatrix(matrix) {
+  const elements = matrix.elements
+
+  return (
+    'matrix3d(' +
+    epsilon(elements[0]) +
+    ',' +
+    epsilon(-elements[1]) +
+    ',' +
+    epsilon(elements[2]) +
+    ',' +
+    epsilon(elements[3]) +
+    ',' +
+    epsilon(elements[4]) +
+    ',' +
+    epsilon(-elements[5]) +
+    ',' +
+    epsilon(elements[6]) +
+    ',' +
+    epsilon(elements[7]) +
+    ',' +
+    epsilon(elements[8]) +
+    ',' +
+    epsilon(-elements[9]) +
+    ',' +
+    epsilon(elements[10]) +
+    ',' +
+    epsilon(elements[11]) +
+    ',' +
+    epsilon(elements[12]) +
+    ',' +
+    epsilon(-elements[13]) +
+    ',' +
+    epsilon(elements[14]) +
+    ',' +
+    epsilon(elements[15]) +
+    ')'
+  )
+}
