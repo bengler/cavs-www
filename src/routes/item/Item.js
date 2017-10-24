@@ -13,11 +13,12 @@ import Creators from '../../components/Creators/Creators'
 import Formats from '../../components/Formats/Formats'
 import Rights from '../../components/Rights/Rights'
 import ResolveType from '../../components/ResolveType'
-
+import ImageFlipper from '../../components/ImageFlipper/ImageFlipper'
 
 class Item extends React.PureComponent {
 
   static propTypes = {
+    currentImageKey: PropTypes.string,
     item: PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
@@ -61,7 +62,7 @@ class Item extends React.PureComponent {
   }
 
   render() {
-    const {item} = this.props
+    const {item, currentImageKey} = this.props
     const {
       _type,
       title,
@@ -73,7 +74,7 @@ class Item extends React.PureComponent {
       creators = [],
       subjects = [],
       partOf = [],
-      videoUrl,
+      videoUrl
     } = item
 
     if (!item) {
@@ -83,13 +84,14 @@ class Item extends React.PureComponent {
     return (
       <div className={s.root}>
         {
-          imageAssets && imageAssets[0]
+          imageAssets && imageAssets.length > 0
           && (
-            <img
-              className={s.mainImage}
-              src={`${imageAssets[0].asset.url}?w=1200&fit=max`}
-              alt=""
-            />
+            <div className={s.mainImage}>
+              <ImageFlipper
+                currentImageKey={currentImageKey}
+                images={imageAssets}
+              />
+            </div>
           )
         }
         <div className={s.container}>
