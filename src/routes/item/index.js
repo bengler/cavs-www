@@ -32,7 +32,14 @@ export default {
             name,
             _id
           },
-          "references": *[references(^._id)] {name, title, imageAssets[] {asset -> {url}}},
+          "references": *[references(^._id)] {
+            name,
+            title,
+            _key,
+            imageAssets[] {
+              asset -> {url, metadata {dimensions}}
+            }
+          },
           ...
         },
         creators[] -> {

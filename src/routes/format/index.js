@@ -15,6 +15,7 @@ export default {
         name,
         title,
         imageAssets[0...1] {
+          _key,
           asset -> {url, metadata {dimensions}}
         },
         "references": *[references(^._id)]{

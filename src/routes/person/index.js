@@ -14,7 +14,7 @@ export default {
         name,
         shortBio,
         portraits[0...1] {
-          asset -> {url}
+          asset -> {url, metadata {dimensions}}
         },
         deceased,
         dob,
@@ -32,7 +32,7 @@ export default {
           rights,
           imageAssets[0...1] {
             _key,
-            asset -> {url}
+            asset -> {url, metadata {dimensions}}
           },
           "references": *[references(^._id)] {
             _id,
@@ -47,7 +47,7 @@ export default {
             rights,
             imageAssets[0...1] {
               _key,
-              asset -> {url}
+              asset -> {url, metadata {dimensions}}
             }
           }
         } | order(date.date.utc asc)

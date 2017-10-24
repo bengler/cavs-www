@@ -18,11 +18,11 @@ function createQuery(query) {
     identifier,
     portraits[0...1] {
       _key,
-      asset -> {url}
+      asset -> {url, metadata {dimensions}}
     },
     imageAssets[0...1] {
       _key,
-      asset -> {metadata, url}
+      asset -> {url, metadata {dimensions}}
     },
     "references": *[references(^._id)][0..10] {
       _id,
@@ -36,7 +36,7 @@ function createQuery(query) {
       },
       imageAssets[0...1] {
         _key,
-        asset -> {url}
+        asset -> {url, metadata {dimensions}}
       },
       "references": *[references(^._id)][0...1] {
         _id,
@@ -46,11 +46,11 @@ function createQuery(query) {
         identifier,
         portraits[0...1] {
           _key,
-          asset -> {url}
+          asset -> {url, metadata {dimensions}}
         },
         imageAssets[0...1] {
           _key,
-          asset -> {url}
+          asset -> {url, metadata {dimensions}}
         },
       }
     }
