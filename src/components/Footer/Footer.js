@@ -23,17 +23,17 @@ class Footer extends React.PureComponent {
         </div>
         <div className={s.contact}>
           <a href="http://act.mit.edu/about-act/contact-and-locations/" rel="noopener noreferrer" target="_blank">
-            Contact
-          </a>,
+            Contact{', '}
+          </a>
           <a href="http://act.mit.edu/about-act/about-the-site/" rel="noopener noreferrer" target="_blank">
-            About the site
-          </a>,
+            About&nbsp;the&nbsp;site
+          </a>{', '}
           <a href="http://act.mit.edu/about-act/giving/" rel="noopener noreferrer" target="_blank">
             Giving
-          </a>,
+          </a>{', '}
           <a href="https://www.facebook.com/pages/MIT-Program-in-Art-Cultureand-Technology/270059363032046" rel="noopener noreferrer" target="_blank">
           Facebook
-          </a>,
+          </a>{', '}
           <a href="http://twitter.com/actmit" rel="noopener noreferrer" target="_blank">
             Twitter
           </a>
