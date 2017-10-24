@@ -25,9 +25,12 @@
 .title {
   composes: fontMedium from '../../components/typography.css';
   padding: 0;
-  font-style: italic;
   margin: 0;
   max-width: var(--item-meta-max-width);
+}
+
+.titleWork {
+  font-style: italic;
 }
 
 .partOf {
@@ -39,6 +42,7 @@
   max-width: var(--item-meta-max-width);
   display: block;
   clear: both;
+  margin-bottom: 1rem;
 }
 
 .container {
@@ -51,6 +55,14 @@
   padding: 0;
   margin-bottom: 0.5em;
   max-width: var(--item-meta-max-width);
+}
+
+.itemGallery {
+  clear: both;
+}
+
+.rights {
+  margin-bottom: 1rem;
 }
 
 .video {

@@ -4,7 +4,7 @@
 
 .grid {
   composes: root;
-  /*composes: columns from '../common.css';*/
+  composes: columns from '../common.css';
 }
 
 .grid .item {
@@ -14,6 +14,7 @@
 .item {
   position: relative;
   width: 100%;
+  break-inside: avoid;
 }
 
 .padder {

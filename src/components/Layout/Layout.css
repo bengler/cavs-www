@@ -28,7 +28,7 @@
     url('/fonts/Unica77LLWeb-BoldItalic.eot?#iefix') format('embedded-opentype'),
     url('/fonts/Unica77LLWeb-BoldItalic.woff2') format('woff2'),
     url('/fonts/Unica77LLWeb-BoldItalic.woff') format('woff');
-  font-weight: normal;
+  font-weight: 600;
   font-style: italic;
 }
 

@@ -47,7 +47,9 @@ class PartOf extends React.Component {
                 <img className={s.image} src={`${image.asset.url}?w=100`} alt={part.name || part.title} />
               )
             }
-            <LinkResolver item={part} />
+            <span className={s.workTitle}>
+              <LinkResolver item={part} />
+            </span>
             {
               part.creators && part.creators.length > 0 && (
                 <span>
@@ -59,9 +61,9 @@ class PartOf extends React.Component {
                         seperator = ' and '
                       }
                       return (
-                        <span className={s.creator}>
+                        <span className={s.creator} key={person._id} >
                           {i > 0 && seperator}
-                          <LinkResolver key={person._id} item={person}>{person.name}</LinkResolver>
+                          <LinkResolver item={person}>{person.name}</LinkResolver>
                         </span>
                       )
                     })

@@ -25,7 +25,7 @@ class Rights extends React.Component {
             <li className={s.item}>Holding Institution: {rights.holdingInstitution}</li>
           )
         }
-
+        &emsp;
         {
           rights.copyrightHolders && rights.copyrightHolders.length && (
             <li className={s.item}>

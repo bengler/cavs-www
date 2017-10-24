@@ -104,7 +104,7 @@ class Item extends React.PureComponent {
           }
 
           <h1 className={s.title}>
-            {title}, {this.getYear(date)}
+            <span className={s.titleWork}>{title}</span>, {this.getYear(date)}
             {
               creators && creators.length > 0 && (
                 <span>,&nbsp;
@@ -124,7 +124,9 @@ class Item extends React.PureComponent {
             <Subjects subjects={subjects} />&ensp;
             <Formats formats={format} />
           </div>
-          <Rights rights={rights} />
+          <div className={s.rights}>
+            <Rights rights={rights} />
+          </div>
           {
             _type === 'movingImage' && videoUrl && (
               <div
@@ -135,7 +137,9 @@ class Item extends React.PureComponent {
               />
             )
           }
-          <ImageGallery images={imageAssets} excludeFirst />
+          <div className={s.imageGallery}>
+            <ImageGallery images={imageAssets} excludeFirst />
+          </div>
         </div>
       </div>
     )
