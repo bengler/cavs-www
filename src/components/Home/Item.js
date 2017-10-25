@@ -18,7 +18,7 @@ class Item extends React.Component {
     this.state = {linkLatch: false}
   }
 
-  handleClick = event =>  {
+  handleClick = event => {
     bus.dispatch({event: 'clearLinkLatches'})
     this.setState({linkLatch: true})
   }
@@ -50,7 +50,17 @@ class Item extends React.Component {
           LINK
           </Link>
         }
-        <img onClick={this.handleClick} src={`${item.url}?w=600`} alt="" />
+        <img
+          onClick={this.handleClick}
+          src={`${item.url}?w=600`}
+          width="600"
+          sizes="50vw"
+          srcSet={`
+            ${item.url}?w=300 300w,
+            ${item.url}?w=600 600w
+          `}
+          style={{display: 'block'}}
+        />
       </div>
     )
   }
