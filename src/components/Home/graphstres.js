@@ -155,7 +155,6 @@ export async function initGraphData(fetch) {
 export function randomTopic() {
 
   const rnd = Math.random() * 10
-  console.info(rnd)
   if (rnd < 2) {
     const {randomKey, items} = selectRandomFromDict(itemsByCreators, selectedCreators)
     return {
