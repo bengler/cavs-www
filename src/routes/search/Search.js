@@ -146,7 +146,7 @@ class Search extends React.PureComponent {
 
     return (
       <div className={s.root}>
-        <form method="get" action="/search">
+        <form method="get" action="/cavs/search">
           <input
             type="search"
             tabIndex="0"
