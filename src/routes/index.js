@@ -9,7 +9,6 @@ export default {
   children: [
     require('./about').default,
     require('./home').default,
-    require('./explore').default,
     require('./person').default,
     require('./people').default,
     require('./item').default,

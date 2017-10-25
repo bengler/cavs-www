@@ -27,7 +27,7 @@ const config = {
 
   output: {
     path: path.resolve(__dirname, '../build/public/assets'),
-    publicPath: '/assets/',
+    publicPath: '/cavs/assets/',
     pathinfo: isVerbose,
   },
 

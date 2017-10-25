@@ -1,25 +1,57 @@
 @import '../variables.css';
 
 .root {
-  background: #333;
-  color: #fff;
+  clear: both;
+  composes: container from '../common.css';
   margin-top: 3rem;
+  padding-top: 2rem;
+  overflow: hidden;
+  border-top: 2px solid black;
 }
 
-.container {
-  display: none;
-  bottom: 0;
-  margin: 0 auto;
-  padding: 20px 15px;
-  max-width: var(--max-content-width);
-  text-align: center;
+.content {
+  max-width: 50vw;
+
+  @media (--screen-xs-min) {
+    max-width: 50rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 }
 
-.text {
-  color: rgba(255, 255, 255, 0.5);
+.mit {
+  font-size: var(--font-size--small);
+  max-width: 20em;
+  margin-bottom: 2rem;
+  padding-right: 1em;
 }
 
-.text {
-  padding: 2px 5px;
-  font-size: 1em;
+.contact {
+  font-size: var(--font-size--small);
+  white-space: normal;
+  margin-bottom: 2rem;
+
+  @nest & a {
+    color: black;
+    text-decoration: none;
+    white-space: nowrap;
+
+    @nest &:not(:first-child) {
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+}
+
+.actLogoLink {
+  display: block;
+  flex-basis: 7rem;
+  margin-bottom: 2rem;
+  padding-right: 2em;
+}
+
+.actLogo {
+  width: 100%;
+  height: auto;
 }

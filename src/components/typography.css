@@ -5,8 +5,12 @@
 }
 
 .fontMedium {
-  font-size: var(--font-size--medium);
   line-height: 1.2em;
+  font-size: calc(var(--font-size--medium) * 0.75);
+
+  @media (--screen-sm-min) {
+    font-size: var(--font-size--medium);
+  }
 }
 
 .fontLarge {
@@ -15,7 +19,10 @@
 
 .title {
   font-size: var(--font-size--title);
+  letter-spacing: -0.03em;
   line-height: 1em;
   margin: 0;
   padding: 0;
+  margin-top: 0.5em;
+  margin-bottom: 2rem;
 }

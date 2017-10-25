@@ -1,0 +1,110 @@
+.root {
+  display: block;
+}
+
+.map {
+  width: 100%;
+  height: calc(100vh - 14rem);
+}
+
+.popupTitle {
+  line-height: 2rem;
+}
+
+.map {
+  @nest & :global(.leaflet-control-zoom.leaflet-bar) {
+    border-color: blue;
+  }
+
+  @nest & :global(.leaflet-left .leaflet-control) {
+    margin-left: 1rem;
+  }
+
+  @nest & :global(.leaflet-popup-tip-container) {
+    display: none;
+  }
+
+  @nest & :global(.leaflet-control-zoom-in) {
+    color: blue;
+    padding: 0.5em;
+
+    @nest &:hover {
+      background-color: blue;
+    }
+  }
+
+  @nest & :global(.leaflet-control-zoom-out) {
+    padding: 0.5em;
+    color: transparent;
+    position: relative;
+
+    @nest &::after {
+      display: block;
+      line-height: 2em;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      color: blue;
+      content: '−';
+      text-align: center;
+    }
+
+    @nest &:hover {
+      background-color: blue;
+      color: transparent;
+
+      @nest &::after {
+        color: white;
+      }
+    }
+  }
+
+  @nest & :global(.marker-cluster) {
+    background-color: blue;
+    color: white;
+    box-sizing: border-box;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    transform: translateY(50%);
+  }
+
+  @nest & :global(.marker-cluster-medium) {
+    display: block;
+  }
+
+  @nest & :global(.leaflet-popup-close-button) {
+    font-size: 1.5rem;
+    margin-right: 0.25em;
+  }
+
+  @nest & :global(.leaflet-popup-content) {
+    padding: 0 2rem;
+    margin: 0;
+    padding-top: 0 !important;
+
+    @nest & span {
+      display: block;
+      line-height: 3em;
+    }
+  }
+
+  @nest & :global(.leaflet-popup) {
+    border: 1px solid black;
+    padding: 0;
+    background: white;
+    width: 300px;
+
+    @nest & a {
+      color: black;
+    }
+
+    @nest & img {
+      margin-top: 2rem;
+      width: 100%;
+      height: auto;
+    }
+  }
+}

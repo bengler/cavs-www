@@ -1,12 +1,16 @@
 FROM eu.gcr.io/sanity-cloud/node:7.6
 
+ARG NPMRC
+
 # Set up environment
 WORKDIR /srv/cavs-www
 RUN useradd --home /srv/cavs-www --shell /bin/false nodejs
 
 # Install app dependencies (pre-source copy in order to cache dependencies)
 COPY package.json .
-RUN yarn install --no-progress
+RUN echo "$NPMRC" > ~/.npmrc && \
+  npm install && \
+  rm ~/.npmrc
 
 # Prepare app
 COPY . .

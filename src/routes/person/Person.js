@@ -4,7 +4,8 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './Person.css'
 import ImageGallery from '../../components/ImageGallery/ImageGallery'
 import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
-
+import approximationDate from '../../components/ApproximationDate/ApproximationDate'
+import AffiliationsPeriods from '../../components/AffiliationsPeriods/AffiliationsPeriods'
 class Persons extends React.Component {
 
   static propTypes = {
@@ -21,14 +22,36 @@ class Persons extends React.Component {
     },
   }
 
+  renderDates = (deceased, dob) => {
+    if (dob && deceased) {
+      return (
+        <span
+          title={`Born:${approximationDate(dob)} Deceased ${approximationDate(deceased)}`}
+        >
+          {approximationDate(dob)}&#8202;–&#8202;{approximationDate(deceased)}
+        </span>)
+    }
+    if (dob) {
+      return <span>Born {approximationDate(dob)}</span>
+    }
+    if (deceased) {
+      return <span titile={`Deceased ${approximationDate(deceased)}`}>†{approximationDate(deceased)}</span>
+    }
+    return ''
+  }
+
   render() {
     const {person} = this.props
-    const {name, portraits, shortBio, references = []} = person
+    const {name, portraits, shortBio, deceased, dob, affiliationsPeriods, references = []} = person
     return (
       <div>
         <div className={s.container}>
           <h1 className={s.title}>{name}</h1>
           <p className={s.shortBio}>{shortBio}</p>
+          <div className={s.meta}>
+            <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
+            {this.renderDates(deceased, dob)}
+          </div>
           {
             portraits && portraits[0]
             && (
@@ -39,11 +62,6 @@ class Persons extends React.Component {
             )
           }
           <ImageGallery images={portraits} excludeFirst />
-          {
-            references && references.length > 0 && (
-              <h2>Related work:</h2>
-            )
-          }
           <ReferenceGrid references={references} />
         </div>
       </div>

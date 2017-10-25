@@ -1,0 +1,58 @@
+@import '../variables.css';
+
+.root {
+  /*overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100vw;*/
+}
+
+.grid {
+  position: relative;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100vw;
+}
+
+.lane {
+  display: block;
+  font-weight: 200;
+}
+
+.period {
+  color: #fff;
+  background-color: #000;
+  position: absolute;
+  border: 4px solid white;
+  box-sizing: border-box;
+  padding: 0.5em;
+
+  @nest &:hover {
+    background-color: var(--brand-color);
+  }
+}
+
+.periodName {
+  color: #fff;
+}
+
+.periodYear {
+  color: #fff;
+}
+
+.periodContent {
+  display: block;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.periodRole {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

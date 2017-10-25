@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {get} from 'lodash'
-import PeopleGrid from '../../components/PeopleGrid/PeopleGrid'
+import PeopleTimeline from '../../components/PeopleTimeline/PeopleTimeline'
+import Menu from './Menu'
 
 import s from './People.css'
 import Link from '../../components/Link'
@@ -44,21 +45,29 @@ class Persons extends React.Component {
     }
 
     return (
-      <ul className={s.list}>
+      <ul className={s.portraitList}>
         {
           people.map(item => {
             const id = item._id
             const src = get(item, 'portraits[0].asset.url')
+            if (!src) {
+              return false
+            }
+            const aspectRatio = get(item, 'portraits[0].asset.metadata.dimensions.aspectRatio') || 1
+
             return (
               <li key={item._id} className={s.portraitItem}>
-                <Link to={`/person/${id}`}>
-                  {
-                    src && <img src={`${src}?w=300&fit=max`} />
-                  }
-                  {
-                    !src && <div className={s.imagePlaceholder}><div /></div>
-                  }
-                  {item.name || 'No name…'}
+                <Link to={`/person/${id}`} className={s.portraitLink}>
+                  <span className={s.portraitImageWrapper}>
+                    <span
+                      className={s.padder}
+                      style={{paddingTop: `${100 / aspectRatio}%`}}
+                    />
+                    <img src={`${src}?w=300&fit=max`} className={s.portraitImage} />
+                  </span>
+                  <span className={s.portraitTitle}>
+                    {item.name || 'No name…'}
+                  </span>
                 </Link>
               </li>
             )
@@ -72,11 +81,7 @@ class Persons extends React.Component {
     const {people, chunks, view} = this.props
     return (
       <div>
-        <ul className={s.menu}>
-          <li><Link to="/people/alphabetical">Alphabetical</Link></li>
-          <li><Link to="/people">Portraits</Link></li>
-          <li><Link to="/people/timeline">Timeline</Link></li>
-        </ul>
+        <Menu />
 
         <div className={s.container}>
           <div className={s.grid}>
@@ -101,7 +106,7 @@ class Persons extends React.Component {
           </div>
         </div>
         {
-          view === 'timeline' && people && <PeopleGrid people={people} />
+          view === 'timeline' && people && <PeopleTimeline people={people} />
         }
       </div>
     )

@@ -1,5 +1,7 @@
 .title {
-  composes: title from '../../components/common.css';
+  composes: title from '../../components/typography.css';
+  text-transform: capitalize;
+  margin-bottom: 2rem;
 }
 
 .container {

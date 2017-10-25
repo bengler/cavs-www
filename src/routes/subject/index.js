@@ -8,21 +8,22 @@ export default {
 
   async action({fetch, params}) {
     const resp = await fetch(`
-      *["${params.subject}" in subjects] {
+      *["${params.subject}" in subjects]
+       {
         _id,
         identifier,
         _type,
         name,
         title,
-        imageAssets[] {
+        imageAssets[0...1] {
           _key,
-          asset -> {url}
+          asset -> {url, metadata {dimensions}}
         },
         "references": *[references(^._id)]{
           _id,
-          imageAssets[] {
+          imageAssets[0...1] {
             _key,
-            asset -> {url}
+            asset -> {url, metadata {dimensions}}
           }
         }
       }

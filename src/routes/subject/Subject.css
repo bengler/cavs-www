@@ -1,5 +1,5 @@
 .title {
-  composes: title from '../../components/common.css';
+  composes: title from '../../components/typography.css';
 }
 
 .container {

@@ -3,12 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import url from 'url'
-import {get} from 'lodash'
+import {get, sortBy, debounce} from 'lodash'
 import history from '../../history'
 import LinkResolver from '../../components/Link/Resolver'
+import Spinner from '../../components/Spinner/Spinner'
 
 import s from './Search.css'
-
 
 class Search extends React.PureComponent {
 
@@ -36,45 +36,127 @@ class Search extends React.PureComponent {
   }
 
   handleInputChange = event => {
+    const query = event.target.value
     this.setState({
-      query: event.target.value,
+      query: query,
       isSearching: true
     })
-    const currentUrl = url.parse(document.location.href, true)
-    currentUrl.query.q = event.target.value
-    delete currentUrl.search
-    history.push(url.parse(url.format(currentUrl)).path)
+    this.doSearch(query)
   }
 
+  handleSubmit = event => {
+    // No need to search when we do it on handleInputChange
+    event.preventDefault()
+  }
+
+  doSearch = debounce(query => {
+    const currentUrl = url.parse(document.location.href, true)
+    currentUrl.query.q = query
+    delete currentUrl.search
+    history.push(url.parse(url.format(currentUrl)).path)
+  }, 300)
+
   renderItem = item => {
-    const portrait = get(item, 'portraits[0].asset.url')
-    const image = get(item, 'imageAssets[0].asset.url')
-    const src = portrait || image
+    const aspectRatio = get(item, 'asset.metadata.dimensions.aspectRatio') || 1
 
     return (
-      <li key={item._id} className={item._type == 'person' ? s.itemPerson : s.item}>
-        <div className={s.type}>{item._type}</div>
+      <li
+        key={item._id}
+        className={`
+          ${item._type == 'person' ? s.itemPerson : s.item}
+          ${aspectRatio < 1 ? s.aspectPortrait : s.aspectLandscape}
+        `}
+      >
         <LinkResolver item={item} className={s.link}>
-          {
-            src && (
-              <img src={`${src}?w=500`} className={s.image} />
-            )
-          }
+          <div className={s.imageContainer}>
+            <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+            {
+              item.asset && (
+                <img src={`${item.asset.url}?w=500`} className={s.image} />
+              )
+            }
+            {
+              !item.asset && (
+                <div className={s.noImage} />
+              )
+            }
+          </div>
           <h3 className={s.itemTitle}>
-            {item.title || item.name || 'Untitled…'}
+            {item.title || item.name || 'Untitled…'}
           </h3>
         </LinkResolver>
       </li>
     )
   }
 
+  checkItemForImage = item => {
+    let asset
+      = get(item, 'portraits[0].asset')
+      || get(item, 'imageAssets[0].asset')
+      || get(item, 'references[0].imageAssets[0].asset')
+
+    if (item.references && item.references.length > 0) {
+      item.references.forEach(ref => {
+        const refAsset = get(ref, 'imageAssets[0].asset.url')
+        if (refAsset) {
+          asset = get(ref, 'imageAssets[0].asset')
+        }
+      })
+    }
+    return asset
+  }
+
   render() {
     const {result} = this.props
     const {query, isSearching} = this.state
 
+    const itemsWithImage = []
+    const itemsWithoutImage = []
+
+    result.forEach(item => {
+      const asset = this.checkItemForImage(item)
+      if (asset) {
+        const itemWithImage = Object.assign(item, {})
+        itemWithImage.asset = asset
+        itemsWithImage.push(itemWithImage)
+      } else {
+        itemsWithoutImage.push(item)
+      }
+    })
+
+    // Also show references
+    result.forEach(item => {
+      if (item.references && item.references.length > 0) {
+        item.references.forEach(ref => {
+          const copies = itemsWithImage.find(i => {
+            const match = i._id === ref._id
+            return match
+          })
+          const copies2 = itemsWithoutImage.find(i => {
+            const match = i._id === ref._id
+            return match
+          })
+
+          // Not show if we have item in result
+          if (copies || copies2) {
+            return
+          }
+
+          const asset = this.checkItemForImage(ref)
+          if (asset) {
+            const itemWithImage = Object.assign(ref, {})
+            itemWithImage.asset = asset
+            itemsWithImage.push(itemWithImage)
+          } else {
+            itemsWithoutImage.push(ref)
+          }
+        })
+      }
+    })
+
     return (
       <div className={s.root}>
-        <form method="get" action="/search">
+        <form method="get" action="/cavs/search" onSubmit={this.handleSubmit}>
           <input
             type="search"
             tabIndex="0"
@@ -91,29 +173,36 @@ class Search extends React.PureComponent {
           />
           <button type="submit" className={s.submit}>Search</button>
         </form>
-        <ul className={s.result}>
-          {
-            result.map(item => {
-              return this.renderItem(item)
-            })
-          }
-          {
-            result.map(item => {
-              return (
-                item.references && item.references.map(ref => {
-                  return this.renderItem(ref)
+        {
+          isSearching && (
+            <div className={s.spinner}>
+              <Spinner>Loading</Spinner>
+            </div>
+          )
+        }
+        {
+          !isSearching && result && (
+            <ul className={s.result}>
+              {
+                sortBy(itemsWithImage, 'type').map(item => {
+                  return this.renderItem(item)
                 })
-              )
-            })
-          }
-          {
-            !isSearching && query && result && (result.length < 1) && (
-              <div className={s.noResult}>
-                No result for {query}
-              </div>
-            )
-          }
-        </ul>
+              }
+              {
+                itemsWithoutImage.map(item => {
+                  return this.renderItem(item)
+                })
+              }
+            </ul>
+          )
+        }
+        {
+          !isSearching && query && result && (result.length < 1) && (
+            <div className={s.noResult}>
+              No result for <span>{query}</span>
+            </div>
+          )
+        }
       </div>
     )
   }

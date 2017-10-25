@@ -28,7 +28,6 @@ class ReferenceList extends React.Component {
                 <h3>
                   <LinkResolver item={reference} />
                   &nbsp;{year && year.split('-')[0]}
-                  {/* (<ResolveType type={reference._type} />) */}
                 </h3>
                 <LinkResolver item={reference}>
                   {

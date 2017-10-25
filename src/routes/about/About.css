@@ -1,10 +1,12 @@
+@import '../../components/variables.css';
+
 .root {
-  display: block;
+  composes: container from '../../components/common.css';
 }
 
 .menu {
-  margin: 0 1rem;
-  padding: 0;
+  margin: 0;
+  padding: 1em 0;
   composes: fontMedium from '../../components/typography.css';
 }
 
@@ -18,10 +20,38 @@
   }
 
   @nest &:not(:last-child)::after {
-    content: ', ';
+    content: ',\00a0';
+  }
+
+  @nest & > a:visited {
+    color: blue;
   }
 }
 
 .content {
-  composes: container from '../../components/common.css';
+  composes: textContainer from '../../components/common.css';
+  composes: fontMedium from '../../components/typography.css';
+
+  @nest & h1 {
+    font-size: var(--font-size--large);
+  }
+
+  @nest & h2 {
+    font-size: var(--font-size--large);
+  }
+
+  @nest & h3 {
+    margin-top: 2em;
+    font-size: inherit;
+    text-transform: uppercase;
+  }
+
+  @nest & ul {
+    margin-left: 0;
+    padding-left: 1.5em;
+  }
+
+  @nest & li {
+    list-style-position: outside;
+  }
 }

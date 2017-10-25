@@ -1,3 +1,4 @@
+import opbeat from '@bengler/opbeat'
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
@@ -25,7 +26,13 @@ global.navigator.userAgent = global.navigator.userAgent || 'all'
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/robots.txt', async (req, res, next) => {
+  res.status(200)
+  res.send('ok')
+})
+
+app.use('/cavs', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
@@ -38,7 +45,7 @@ app.use(bodyParser.json())
 //   rootValue: { request: req },
 //   pretty: __DEV__,
 // })));
-
+opbeat.bengler.plugins.express(app)
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------

@@ -14,7 +14,17 @@ export default {
         _type,
         name,
         title,
-        imageAssets[] { asset -> {url}}
+        imageAssets[0...1] {
+          _key,
+          asset -> {url, metadata {dimensions}}
+        },
+        "references": *[references(^._id)]{
+          _id,
+          imageAssets[0...1] {
+            _key,
+            asset -> {url, metadata {dimensions}}
+          }
+        }
       }
     `, {})
 

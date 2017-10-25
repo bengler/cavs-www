@@ -1,3 +1,5 @@
+@import '../../components/variables.css';
+
 .root {
   composes: container from '../../components/common.css';
 }
@@ -12,6 +14,14 @@
   font-weight: bold;
   margin: 0;
   margin-bottom: 1em;
+  letter-spacing: -0.025em;
+  border-radius: 0;
+  appearance: none;
+  padding: 0;
+
+  @nest &::placeholder {
+    color: #ddd;
+  }
 }
 
 .submit {
@@ -21,17 +31,48 @@
 .result {
   padding: 0;
   margin: 0;
-  margin-top: 2rem;
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(3, 1fr);
+
+  @media (--screen-sm-min) {
+    margin-top: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (--screen-lg-min) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (--screen-xlg-min) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (--screen-xxlg-min) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (--screen-xxxlg-min) {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+.imageContainer {
+  display: block;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.padder {
+  position: relative;
+  display: block;
 }
 
 .image {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 1rem;
+  composes: image from '../../components/ImageGallery/ImageGallery.css';
+}
+
+.noImage {
+  composes: noImage from '../../components/ImageGallery/ImageGallery.css';
 }
 
 .item {
@@ -39,29 +80,50 @@
   margin: 0;
   padding: 0;
   break-inside: avoid;
+  margin-bottom: 1rem;
+
+  @media (--screen-sm-min) {
+    margin-bottom: 0;
+  }
 }
 
 .itemTitle {
+  composes: fontMedium from '../../components/typography.css';
   margin: 0;
   padding: 0;
-  composes: fontMedium from '../../components/typography.css';
+  line-height: 1em;
 }
 
 .link {
+  display: block;
   color: black;
 }
 
 .itemPerson {
   composes: item;
-  grid-column: span 2 / 3;
+  grid-column: span 2;
+}
+
+.aspectLandscape {
+  display: block;
+}
+
+.aspectPortrait {
+  grid-row: span 2;
+}
+
+.spinner {
+  opacity: 0.1;
 }
 
 .noResult {
+  composes: fontMedium from '../../components/typography.css';
   margin: 1em;
   text-align: center;
-}
+  display: block;
+  font-weight: 400;
 
-.type {
-  font-size: 0.5rem;
-  text-transform: uppercase;
+  @nest & > span {
+    font-weight: 700;
+  }
 }

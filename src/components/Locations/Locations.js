@@ -28,19 +28,14 @@ class Locations extends React.Component {
   componentDidMount() {
     const {locations} = this.props
     require('mapbox.js'); // eslint-disable-line
-    if (locations.length) {
+    if (locations.length && locations[0].location) {
       L.mapbox.accessToken = 'pk.eyJ1IjoiZXZlbndlc3R2YW5nIiwiYSI6ImFBYWt4blUifQ.QwErrY0yQBcC9ST5UWp4Rg'
-
-      this.map = L.mapbox.map(findDOMNode(this._mapElement), 'evenwestvang.792b3ceb', {attributionControl: true})
+      this.map = L.mapbox.map(this._mapElement, 'evenwestvang.792b3ceb', {attributionControl: true})
       this.map.scrollWheelZoom.disable()
-      this.popupEl = findDOMNode(this._popupElement)
-
       this.addAllMarkers()
-
-
-      const location = this.props.locations[0]
+      const location = locations[0]
       const latlon = location && location.location
-      this.map.setView([latlon.lat, latlon.lng], 13)
+      this.map.setView([latlon.lat, latlon.lng], 5)
     }
   }
 
@@ -59,8 +54,8 @@ class Locations extends React.Component {
 
   createMarkers() {
     const majorMarkerIcon = L.icon({
-      iconUrl: '/images/map-marker.png',
-      shadowUrl: '/images/map-marker-shadow.png',
+      iconUrl: '/cavs/images/map-marker.png',
+      shadowUrl: '/cavs/images/map-marker-shadow.png',
 
       iconSize: [14, 14], // size of the icon
       shadowSize: [18, 18], // size of the shadow
@@ -96,6 +91,7 @@ class Locations extends React.Component {
     if (!locations.length) {
       return false
     }
+
     return (
       <div className={s.root}>
         <div className={s.popup} ref={this.setPopupElement}>Popup</div>

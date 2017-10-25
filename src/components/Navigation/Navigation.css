@@ -1,18 +1,32 @@
 @import '../variables.css';
 
 .root {
-  font-size: var(--font-size--large);
+  line-height: 1em;
+  margin-top: 0.5em;
+
+  @media (--screen-xs-min) {
+    font-size: var(--font-size--medium--relative);
+  }
+
+  @media (--screen-sm-min) {
+    margin-top: 0;
+    font-size: var(--font-size--large--relative);
+  }
 }
 
 .link {
   display: inline-block;
   color: var(--brand-color);
 
-  @nest &:not(:first-child) {
-    padding-right: 0.25em;
+  @nest &:visited {
+    color: var(--brand-color);
   }
 
   @nest &:not(:last-child)::after {
     content: ',\00a0';
   }
+}
+
+.noBreak {
+  white-space: nowrap;
 }

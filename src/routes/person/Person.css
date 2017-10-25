@@ -1,6 +1,5 @@
 .title {
   composes: title from '../../components/typography.css';
-  margin-top: 1em;
 }
 
 .container {
@@ -9,6 +8,12 @@
 
 .shortBio {
   composes: fontMedium from '../../components/typography.css';
+  composes: textContainer from '../../components/common.css';
+  margin-bottom: 1rem;
+}
+
+.meta {
+  margin-bottom: 1rem;
 }
 
 .mainImage {
@@ -17,4 +22,5 @@
   height: auto;
   max-height: 80vh;
   object-fit: contain;
+  margin-bottom: 1rem;
 }

@@ -1,37 +1,17 @@
-.title {
-  composes: title from '../../components/common.css';
-  display: none;
-}
+@import '../../components/variables.css';
 
 .container {
   composes: container from '../../components/common.css';
 }
 
-.menu {
-  composes: fontMedium from '../../components/typography.css';
-  margin: 2rem 1rem;
-  margin-top: 0;
-  padding: 0;
-  display: block;
-
-  @nest & > li {
-    margin: 0;
-    padding: 0;
-    display: inline;
-
-    @nest &:not(:last-child)::after {
-      content: ', ';
-    }
-  }
-
-  @nest & > li > a {
-    display: inline;
-  }
+.title {
+  composes: title from '../../components/common.css';
+  display: none;
 }
 
 .grid {
-  columns: 3;
   column-gap: 4rem;
+  composes: columns from '../../components/common.css';
 }
 
 .list {
@@ -47,12 +27,15 @@
 
 .chunkTitle {
   composes: fontMedium from '../../components/typography.css';
+  padding-top: 0;
+  margin-top: 0;
   text-transform: uppercase;
 }
 
 .chunkInnerList {
   composes: list;
   composes: fontMedium from '../../components/typography.css';
+  margin-bottom: 2rem;
 }
 
 .link {
@@ -70,27 +53,37 @@
   composes: fontMedium from '../../components/typography.css';
 }
 
-.portraitItem {
-  composes: item;
-  margin-bottom: 2rem;
-
-  @nest & > a {
-    display: block;
-    color: black;
-  }
-
-  @nest & img {
-    width: 100%;
-    height: auto;
-  }
+.portraitList {
+  composes: list;
 }
 
-.imagePlaceholder {
-  border: 2px solid black;
-  width: 100%;
-  box-sizing: border-box;
+.portraitItem {
+  composes: item;
+  margin-bottom: 3rem;
+  break-inside: avoid;
+}
 
-  @nest & div {
-    padding-top: 100%;
-  }
+.portraitLink {
+  display: block;
+  color: black;
+}
+
+.portraitImageWrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.padder {
+  display: block;
+  position: relative;
+}
+
+.portraitImage {
+  composes: image from '../../components/ImageGallery/ImageGallery.css';
+}
+
+.portraitTitle {
+  display: block;
+  padding-top: 0.35em;
 }

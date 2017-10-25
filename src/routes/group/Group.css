@@ -2,6 +2,10 @@
   display: block;
 }
 
+.container {
+  composes: container from '../../components/common.css';
+}
+
 .type {
   composes: type from '../item/Item.css';
   display: none;
@@ -18,16 +22,19 @@
 
 .meta {
   display: block;
-}
-
-.container {
-  composes: container from '../../components/common.css';
+  margin-bottom: 2rem;
 }
 
 .description {
   composes: fontMedium from '../../components/typography.css';
+  composes: textContainer from '../../components/common.css';
+  margin-top: 0;
 }
 
 .documentation {
   padding-bottom: 2rem;
+}
+
+.locations {
+  clear: both;
 }

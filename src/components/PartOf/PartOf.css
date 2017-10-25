@@ -8,10 +8,8 @@
   padding: 0;
 }
 
-.item {
-  display: inline;
-  margin: 0;
-  padding: 0;
+.workTitle {
+  font-style: italic;
 }
 
 .inner {
@@ -21,6 +19,14 @@
 }
 
 .part {
+  display: inline;
+
+  @nest &:not(:last-child)::after {
+    content: ', ';
+  }
+}
+
+.creator {
   display: inline;
 }
 

@@ -1,19 +1,16 @@
 import React from 'react'
 import Layout from '../../components/Layout'
-import Explorer from '../../components/Explorer/Explorer'
-import {getRandomTheme} from '../../themes'
+import App from '../../components/Home/App'
 
 export default {
   path: '/',
 
-  async action({fetch, seed}) {
-    const theme = await getRandomTheme(fetch, seed)
-
+  action({fetch, seed}) {
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
-        <Layout>
-          <Explorer theme={theme} />
+        <Layout showHeader={false} showFooter={false} inverted>
+          <App fetch={fetch}/>
         </Layout>
       ),
     }

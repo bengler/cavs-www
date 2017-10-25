@@ -11,11 +11,9 @@
 }
 
 .link {
-  @nest &:first-child {
-    margin-left: 0.25rem;
-  }
-
+  margin-left: 0.15rem;
   @nest &:not(:last-child)::after {
+    color: black;
     content: ', ';
   }
 }

@@ -3,36 +3,58 @@ import Search from './Search'
 import Layout from '../../components/Layout'
 
 function createQuery(query) {
+  const q = query.split(' ').map(i => ` "${i}**"`).toString()
+
   return `
   *[
-    title match "${query}"
-    || name match "${query}"
-    || name match "${query}"
+    title match [${q}]
+    || name match [${q}]
   ]
   {
-    ...,
+    _id,
+    _type,
+    title,
+    name,
     identifier,
-    portraits[] {
+    portraits[0...1] {
       _key,
-      asset -> {url}
+      asset -> {url, metadata {dimensions}}
     },
-    imageAssets[] {
+    imageAssets[0...1] {
       _key,
-      asset -> {url}
+      asset -> {url, metadata {dimensions}}
     },
-    "references": *[references(^._id)] {
-      ...,
+    "references": *[references(^._id)][0..10] {
+      _id,
+      _type,
+      title,
+      name,
       identifier,
-      portraits[] {
+      portraits[0...1] {
         _key,
         asset -> {url}
       },
-      imageAssets[] {
+      imageAssets[0...1] {
         _key,
-        asset -> {url}
+        asset -> {url, metadata {dimensions}}
+      },
+      "references": *[references(^._id)][0...1] {
+        _id,
+        _type,
+        title,
+        name,
+        identifier,
+        portraits[0...1] {
+          _key,
+          asset -> {url, metadata {dimensions}}
+        },
+        imageAssets[0...1] {
+          _key,
+          asset -> {url, metadata {dimensions}}
+        },
       }
     }
-  }[0..100]
+  }[0..20]
 `
 }
 

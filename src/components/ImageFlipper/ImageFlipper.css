@@ -1,0 +1,77 @@
+.root {
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.loadingImage {
+  composes: image;
+  z-index: -1;
+  filter: blur(20px);
+}
+
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.1s ease-out;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0.3;
+  z-index: 500;
+}
+
+.padder {
+  position: relative;
+}
+
+.button {
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  position: absolute;
+  top: 50vh;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: color(#ccc a(0%));
+  transition: background-color 0.2s linear;
+
+  @nest &:hover {
+    background-color: color(#ccc a(30%));
+  }
+
+  @nest &:active {
+    background-color: color(white a(90%));
+    transition: background-color 0.5s linear;
+  }
+
+  @nest & svg {
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+.next {
+  composes: button;
+  right: 0;
+}
+
+.prev {
+  composes: button;
+  left: 0;
+}

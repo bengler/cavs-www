@@ -5,8 +5,8 @@ import Layout from '../../components/Layout'
 function createQuery(title) {
   return `
   {
-    "pages": *[_type == 'sitePage']{_id, title},
-    "current": *[_type == "sitePage" && title == "${title}"]
+    "pages": *[_type == 'sitePage' && title != "Introduction"]{_id, title},
+    "currentPage": *[_type == "sitePage" && title == "${title}"]
   }
   `
 }

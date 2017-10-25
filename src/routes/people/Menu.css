@@ -1,0 +1,26 @@
+.menu {
+  composes: fontMedium from '../../components/typography.css';
+  margin: 1em 1rem;
+  padding: 0;
+  display: block;
+  color: blue;
+
+  @nest & > li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+
+    @nest &:not(:last-child)::after {
+      content: ', ';
+    }
+  }
+
+  @nest & > li > a {
+    color: inherit;
+    display: inline;
+
+    @nest &:visited {
+      color: inherit;
+    }
+  }
+}

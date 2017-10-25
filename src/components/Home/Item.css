@@ -1,0 +1,12 @@
+.root {
+  break-inside: avoid;
+}
+
+.link {
+  display: block;
+  pointer-events: auto;
+  font-size: 100px;
+  position: fixed;
+  left: 30%;
+  top: 30%;
+}

@@ -12,6 +12,56 @@
   height: 20rem;
   font-size: 10px;
   margin-bottom: -3rem;
+  border-top: 1px solid #ddd;
+
+  @nest & :global(.leaflet-control-zoom.leaflet-bar) {
+    border-color: blue;
+  }
+
+  @nest & :global(.leaflet-left .leaflet-control) {
+    margin-left: 1rem;
+  }
+
+  @nest & :global(.leaflet-popup-tip-container) {
+    display: none;
+  }
+
+  @nest & :global(.leaflet-control-zoom-in) {
+    color: blue;
+    padding: 0.5em;
+
+    @nest &:hover {
+      background-color: blue;
+    }
+  }
+
+  @nest & :global(.leaflet-control-zoom-out) {
+    padding: 0.5em;
+    color: transparent;
+    position: relative;
+
+    @nest &::after {
+      display: block;
+      line-height: 2em;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      color: blue;
+      content: '−';
+      text-align: center;
+    }
+
+    @nest &:hover {
+      background-color: blue;
+      color: transparent;
+
+      @nest &::after {
+        color: white;
+      }
+    }
+  }
 
   @nest & a {
     color: #000;

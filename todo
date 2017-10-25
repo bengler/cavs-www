@@ -1,0 +1,27 @@
+
+Items med flere sider har lavoppløste bilder for sidene etter den første.
+
+Personsider
+X Mangler fortsatt hvilke perioder folk var ved CAVS på person-sider
+X Vanskelig å forstå 'related work' – virker som om det er arbeidet som bare er 'relatert', mens det faktisk er arbeid
+
+- Vi må ha med når de døde, om de er døde
+- data is missing
+- load indicator (M in MIT logo)
+
+Lista over formater /format/proposals:
+– Veldig lavoppløse bilder f.eks http://localhost:3001/format/proposals
+
+Dokumentasjonssider:
+X Vanskelig å forstå at man er inne på et verk. Kunne vi hatt "PART OF:" over tittelen? Det er nesten viktigere.
+X Kunne vi hatt navnene på de som lagde verket på dokumentasjonssidene?
+
+Subjects:
+– Det ser ikke ut som vi ikke viser groups på denne siden, bare items? Burde vært motsatt?
+
+Annet:
+X Total faceplant her: http://localhost:3001/group/Zy2wQAJhvq9Xno04o1AOTC
+X Her er det også nåt på tok: http://localhost:3001/group/HJnSDM2wKppNLBdPGhvgs2
+
+
+- Lage footer

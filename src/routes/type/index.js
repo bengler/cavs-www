@@ -11,7 +11,7 @@ export default {
       *[_type == "${params.type}"] {
         imageAssets[] {
           _key,
-          asset -> {url}
+          asset -> {url, metadata {dimensions}}
         },
         identifier,
         _id,
@@ -22,7 +22,7 @@ export default {
           _id,
           imageAssets[] {
             _key,
-            asset -> {url}
+            asset -> {url, metadata {dimensions}}
           }
         }
       }

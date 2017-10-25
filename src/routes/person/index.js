@@ -9,12 +9,17 @@ export default {
   async action({fetch, params}) {
     const query = `
       *[_id=="${params.id}"] {
+        _id,
+        _type,
         name,
         shortBio,
-        portraits[] {
-          ...,
-          asset -> {url}
+        portraits[0...1] {
+          _key,
+          asset -> {url, metadata {dimensions}}
         },
+        deceased,
+        dob,
+        affiliationsPeriods[],
         "references": *[references(^._id)]{
           _id,
           _type,
@@ -26,9 +31,25 @@ export default {
           subjects,
           format,
           rights,
-          imageAssets[] {
+          imageAssets[0...1] {
             _key,
-            asset -> {url}
+            asset -> {url, metadata {dimensions}}
+          },
+          "references": *[references(^._id)] {
+            _id,
+            _type,
+            title,
+            name,
+            description,
+            identifier,
+            date,
+            subjects,
+            format,
+            rights,
+            imageAssets[0...1] {
+              _key,
+              asset -> {url, metadata {dimensions}}
+            }
           }
         } | order(date.date.utc asc)
       }

@@ -1,0 +1,4 @@
+img {
+  transition: height 0.1s;
+  mix-blend-mode: darken;
+}
