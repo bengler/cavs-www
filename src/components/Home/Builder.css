@@ -1,9 +1,18 @@
+@import '../variables.css';
 
 .header {
-  font-size: 32px;
   width: 1200px;
   pointer-events: auto;
   top: -100px;
+  font-size: 100px;
+
+  @media (--screen-xs-min) {
+    font-size: 48px;
+  }
+
+  @media (--screen-md-min) {
+    font-size: 32px;
+  }
 }
 
 .introduction {
