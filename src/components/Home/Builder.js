@@ -95,10 +95,6 @@ class Builder extends THREE.Object3D {
 
   async initGraph() {
     await initGraphData(this.fetch)
-    console.info('**** ',randomTopic())
-    console.info('**** ',randomTopic())
-    console.info('**** ',randomTopic())
-    console.info('**** ',randomTopic())
   }
 
 
