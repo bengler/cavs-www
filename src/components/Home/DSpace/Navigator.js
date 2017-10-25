@@ -56,7 +56,7 @@ export class NavPath {
             .getWorldPosition()
             .distanceTo(current.getWorldPosition())
         }
-        cb({ from: prev, to: current, distance })
+        cb({from: prev, to: current, distance})
       }
     }
   }
@@ -64,11 +64,15 @@ export class NavPath {
   // Computes the progress that would center the camera on the provided vantage
   computeProgressCenteredOn(vantage) {
     let cumulative = 0
-    if (vantage === this.vantages[0]) return 0
+    if (vantage === this.vantages[0]) {
+      return 0
+    }
     let result = null
-    this.eachPair(({ to, distance }) => {
+    this.eachPair(({to, distance}) => {
       cumulative += distance
-      if (to === vantage) result = cumulative
+      if (to === vantage) {
+        result = cumulative
+      }
     })
     return result
   }
@@ -76,13 +80,16 @@ export class NavPath {
   findPair(progress) {
     const len = this.vantages.length
 
-    if (len === 0) return null
-    if (len === 1)
+    if (len === 0) {
+      return null
+    }
+    if (len === 1) {
       return {
         from: this.vantages[0],
         to: this.vantages[0],
         interpolation: 0
       }
+    }
 
     let prev = null
     let current = null
@@ -112,7 +119,9 @@ export class NavPath {
             .distanceTo(current.getWorldPosition())
         }
         // distance = prev.parent.height / 2 + current.parent.height / 2
-        if (distance > remaining || i === len - 1) break
+        if (distance > remaining || i === len - 1) {
+          break
+        }
         remaining -= distance
       }
     }
@@ -135,7 +144,7 @@ export class NavPath {
     target.position.copy(pos)
     target.setRotationFromQuaternion(quat)
     target.updateMatrix()
-    return { closest, pair }
+    return {closest, pair}
   }
 }
 
@@ -166,13 +175,15 @@ export class NavStops {
 
   getNextPrev(vantage) {
     const index = this.vantages.indexOf(vantage)
-    console.log(this.vantages.map(v => v.id), vantage.id)
+    // console.log(this.vantages.map(v => v.id), vantage.id)
 
-    if (index === -1) return null
+    if (index === -1) {
+      return null
+    }
     // TODO: Implement non-cyclic stops
     const prevIndex = index === 0 ? this.vantages.length - 1 : index - 1
     const nextIndex = index === this.vantages.length - 1 ? 0 : index + 1
-    console.log({ prevIndex, nextIndex })
+    // console.log({ prevIndex, nextIndex })
     return {
       next: this.vantages[nextIndex],
       previous: this.vantages[prevIndex]
@@ -196,7 +207,9 @@ export class Navigator {
   }
 
   vantageObjectForPath(pathname) {
-    if (pathname.length < 2) return null
+    if (pathname.length < 2) {
+      return null
+    }
     const name = window.location.pathname.slice(1)
     const obj = this.space.findByName(name)
     if (obj && obj.vantages) {
@@ -230,10 +243,10 @@ export class Navigator {
       }
     }
     if (msg.event === 'clickedComponent') {
-      console.log('CLICKA')
+      // console.log('CLICKA')
       // Handle navigating to clicked components
       const obj = this.space.findByName(msg.name)
-      console.log('clicked', obj)
+      // console.log('clicked', obj)
       // TODO: Maybe not all objects takes clicks like this?
       if (obj && obj.vantages) {
         this.flyTo(obj.vantages[0])
@@ -241,7 +254,7 @@ export class Navigator {
     }
     if (msg.event === 'resetToComponent') {
       const obj = this.space.findByName(msg.name)
-      console.log('Obj:', obj)
+      // console.log('Obj:', obj)
       if (obj && obj.vantages) {
         this.resetTo(obj.vantages[0])
       }
@@ -249,7 +262,7 @@ export class Navigator {
     if (msg.event === 'setRawNavMode') {
       this.focus = null
       this.resolveNavs()
-      console.log('Navigator in raw mode')
+      // console.log('Navigator in raw mode')
       this.rawMode = msg
     }
   }
@@ -279,16 +292,16 @@ export class Navigator {
     this.resolveNavs()
     if (!this.popping) {
       // Don't mess with history when popping
-      console.log(
-        oldMainNav,
-        this.currentMainNav(),
-        oldMainNav !== this.currentMainNav()
-      )
+      // console.log(
+      //   oldMainNav,
+      //   this.currentMainNav(),
+      //   oldMainNav !== this.currentMainNav()
+      // )
       if (oldMainNav !== this.currentMainNav()) {
-        console.log('pushState')
+        // console.log('pushState')
         // history.pushState({}, 'DS+R', `c${this.focus.parent.id}`)
       } else {
-        console.log('replaceState')
+        // console.log('replaceState')
         // history.replaceState({}, 'DS+R', `c${this.focus.parent.id}`)
       }
     }
@@ -301,7 +314,7 @@ export class Navigator {
       // Delay scroll controller a beat to allow scroll box and scroll Y to catch up
       this.delayScrollControl = 20
     }
-    console.log('focus', `c${this.focus.parent.id}`)
+    // console.log('focus', `c${this.focus.parent.id}`)
   }
 
   flyTo(vantage) {
@@ -312,7 +325,9 @@ export class Navigator {
 
   update() {
     const delta = window.scrollY - this.lastScrollY
-    if (!this.focus) return
+    if (!this.focus) {
+      return
+    }
     const target = new THREE.Object3D()
     if (this.delayScrollControl > 0) {
       this.delayScrollControl--
@@ -346,14 +361,14 @@ export class Navigator {
     }
     const distance = this.camera.position.distanceTo(target.position)
     if (
-      this.scrollLock ||
-      distance < 0.05 ||
-      Number.isNaN(this.camera.position.x)
+      this.scrollLock
+      || distance < 0.05
+      || Number.isNaN(this.camera.position.x)
     ) {
       this.camera.position.copy(target.position)
       this.camera.setRotationFromQuaternion(target.quaternion)
       if (!this.scrollLock) {
-        console.log('Scroll lock')
+        //console.log('Scroll lock')
       }
       this.scrollLock = true
     } else {
@@ -375,13 +390,15 @@ export class Navigator {
     }
     this.scrollNav = this.focus.navs.find(nav => nav.getScrollHeight() > 0)
     this.stopsNav = this.focus.navs.find(nav => !!nav.getNextPrev)
-    console.log('scrollNav=', this.scrollNav, 'stopsNav=', this.stopsNav)
+    //console.log('scrollNav=', this.scrollNav, 'stopsNav=', this.stopsNav)
   }
 
   navigateStop(destination) {
-    if (!this.stopsNav) return
+    if (!this.stopsNav) {
+      return
+    }
     const nextPrev = this.stopsNav.getNextPrev(this.focus)
-    console.log(nextPrev)
+    //console.log(nextPrev)
     this.flyTo(nextPrev[destination])
   }
 }
