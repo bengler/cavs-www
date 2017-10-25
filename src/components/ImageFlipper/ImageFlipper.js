@@ -93,11 +93,14 @@ class ImageFlipper extends React.PureComponent {
     if (Math.abs(this.deltaX) < 250) {
       return
     }
-    if (this.direction === 'left' && this._nextElement) {
-      history.replace(this._nextElement.props.to)
+    const {url} = this.props
+    const {nextImage, prevImage} = this.state
+
+    if (this.direction === 'left' && prevImage) {
+      history.replace(`/cavs${url}?image=${prevImage._key}`)
     }
-    if (this.direction === 'right' && this._prevElement) {
-      history.replace(this._prevElement.props.to)
+    if (this.direction === 'right' && nextImage) {
+      history.replace(`/cavs${url}?image=${nextImage._key}`)
     }
     this.setState({
       loading: true
