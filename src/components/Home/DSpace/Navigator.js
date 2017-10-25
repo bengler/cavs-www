@@ -1,21 +1,31 @@
 import THREE from 'three-js/three'
 import bus from './bus'
 
-// The navigational affordances of the site is structored as "navs". This class
+// The navigational affordances of the site is structured as "navs". This class
 // manages the user progression through the navs
 
 export class NavPath {
-  constructor(objects) {
+  constructor(objects, options) {
     this.vantages = []
+    this.addObjects(objects)
+    if (options) {
+      this.prev = options.prev
+    }
+  }
+
+  addObjects(objects) {
+    let newVantages = []
     objects.forEach(o => {
-      this.vantages = this.vantages.concat(o.vantages || [])
+      newVantages = newVantages.concat(o.vantages || [])
     })
-    this.vantages.forEach(vantage => {
+    newVantages.forEach(vantage => {
       vantage.addNav(this)
     })
+    this.vantages = this.vantages.concat(newVantages)
   }
+
   getScrollHeight() {
-    return 8000
+    return 80000
   }
 
   eachPair(cb) {
@@ -85,7 +95,7 @@ export class NavPath {
         const up = new THREE.Vector3()
           .copy(current.up)
           .applyQuaternion(current.getWorldQuaternion())
-        if (false && up) {
+        if (up) {
           // If an up vector is provided, use the dot product so that scrolling always
           // produces the same amount of travel along the vertical direction of the
           // screen
@@ -125,7 +135,7 @@ export class NavPath {
     target.position.copy(pos)
     target.setRotationFromQuaternion(quat)
     target.updateMatrix()
-    return { closest }
+    return { closest, pair }
   }
 }
 
@@ -176,6 +186,7 @@ export class Navigator {
     this.camera = camera
     this.scrollNav = null
     this.scrollTop = 0
+    this.lastScrollY = 0
     // Set to non zero to disable scroll controller for a number of frames
     this.delayScrollControl = 0
     // True while handling pop-state
@@ -300,6 +311,7 @@ export class Navigator {
   }
 
   update() {
+    const delta = window.scrollY - this.lastScrollY
     if (!this.focus) return
     const target = new THREE.Object3D()
     if (this.delayScrollControl > 0) {
@@ -309,6 +321,21 @@ export class Navigator {
       const report = this.scrollNav.applyVantage(target, window.scrollY || 0)
       if (report.closest != this.focus) {
         this.setFocus(report.closest)
+      }
+
+      if (window.scrollY == 0 && delta < 0 && this.scrollNav.prev) {
+        this.flyTo(this.scrollNav.prev.vantages[0])
+      }
+
+      if (report.pair.t < 1) {
+        this.scrollBeyondFired = false
+      }
+      if (report.pair.t > 1 && !this.scrollBeyondFired) {
+        this.scrollBeyondFired = true
+        bus.dispatch({
+          event: 'scrollBeyond',
+          closest: report.closest
+        })
       }
     } else {
       target.position.copy(this.focus.getWorldPosition())
@@ -328,12 +355,13 @@ export class Navigator {
       this.scrollLock = true
     } else {
       this.camera.position.copy(
-        this.camera.position.lerp(target.position, 0.15)
+        this.camera.position.lerp(target.position, 0.1)
       )
       this.camera.setRotationFromQuaternion(
-        this.camera.quaternion.slerp(target.quaternion, 0.15)
+        this.camera.quaternion.slerp(target.quaternion, 0.1)
       )
     }
+    this.lastScrollY = window.scrollY
   }
 
   resolveNavs() {

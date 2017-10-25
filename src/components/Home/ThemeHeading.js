@@ -31,9 +31,9 @@ class ThemeHeading extends React.PureComponent {
     return (
       <section className={s.root}>
         <h2 className={s.heading}>
-          <Link className={s.link} to={`/explore/${type}/${key}`}>
-              {title}
-          </Link>
+          <span className={s.title}>
+            {title}
+          </span>
         </h2>
       </section>
     )

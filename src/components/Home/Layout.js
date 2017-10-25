@@ -7,7 +7,7 @@ import { NavPath, NavStops } from './DSpace/Navigator'
 function ensureBasicVantagePoint(obj, distance) {
   // Only set if no current vantage point
   if (obj.vantages) return
-  const vantage = new Vantage()
+  const vantage = new Vantage(obj)
   vantage.position.z = distance || 800
   obj.add(vantage)
   obj.vantages = [vantage]
@@ -86,11 +86,15 @@ export class Theme extends THREE.Object3D {
       return Math.random()
     })
 
-    this.nav = new NavPath(objs)
+    // this.nav = new NavPath(objs)
     this.vantages = [objs[0].vantages[0]]
     this.width = 0
     this.height = 0
     this.t = 0
+
+    this.xCurl = Math.random() * 0.8 - 0.4
+    this.yCurl = Math.random() * 0.8 - 0.4
+    this.zDisplacement = Math.random() * 40 - 20
   }
 
   update() {
@@ -105,14 +109,30 @@ export class Theme extends THREE.Object3D {
       obj = this.children[i]
       if (prev) {
         if (prev.height === null || obj.height == null) break
-        obj.position.y = prev.position.y - prev.height / 2 - obj.height / 3
 
-        obj.position.x = (this.randoms[i] - 0.5) * 1000
-        obj.position.z = (this.randoms[i] - 0.5) * 100
+        obj.position.copy(prev.position)
+        obj.quaternion.copy(prev.quaternion)
+        const displacement = new THREE.Vector3(0, - prev.height / 2 - obj.height / 2 - 100, this.zDisplacement)
+        displacement.applyQuaternion(prev.quaternion)
+        obj.position.addVectors(obj.position, displacement)
+
+        obj.rotation.x += this.xCurl
+        obj.rotation.y += this.yCurl
+        // obj.quaternion.multiply(prev.quaternion)
+
+
+        // obj.position.x = (this.randoms[i] - 0.5) * 1000
+
+        // obj.position.z = (this.randoms[i] - 0.5) * 100
+
         // obj.position.x = obj.width
         // obj.rotation.y = i * Math.sin(this.t / 100) * 0.2
-        obj.rotation.y = i * (this.randoms[i] - 0.5) * 0.05
-        obj.rotation.x = i * -0.05
+
+
+        // obj.rotation.y = i * (this.randoms[i] - 0.5) * 0.05
+        // obj.rotation.x = i * -0.05
+
+
         // if (i == 4) obj.position.z = 100
         // obj.position.z = i * 200
         if (obj.width > this.width) {

@@ -29,7 +29,7 @@ function ensureBasicVantagePoint(obj, distance) {
     return
   }
 
-  const vantage = new Vantage()
+  const vantage = new Vantage(obj)
   vantage.position.z = distance || 800
   obj.add(vantage)
   obj.vantages = [vantage]
@@ -41,16 +41,16 @@ function ensureScrollyNav(obj, distance, height) {
     return
   }
 
-  const topVantage = new Vantage()
+  const topVantage = new Vantage(obj)
   topVantage.position.z = distance || 800
   topVantage.position.y = height / 2
-  const bottomVantage = new Vantage()
+  const bottomVantage = new Vantage(obj)
   bottomVantage.position.z = distance || 800
+  // bottomVantage.rotation.x = 0.2
   bottomVantage.position.y = -height / 2
   obj.add(topVantage, bottomVantage)
   obj.vantages = [topVantage, bottomVantage]
 }
-
 
 class Builder extends THREE.Object3D {
 
@@ -63,10 +63,20 @@ class Builder extends THREE.Object3D {
     setTimeout(() => {
       this.stub()
       this.addIntro()
-      this.addTheme()
       this.initGraph()
     }, 50)
+    bus.subscribe(this.handleBusMessage)
+    this.components = []
+  }
 
+  handleBusMessage = msg => {
+    switch (msg.event) {
+      case 'scrollBeyond':
+        this.addTheme(msg.closest.obj)
+        break
+      default:
+        break
+    }
   }
 
   async initGraph() {
@@ -80,6 +90,67 @@ class Builder extends THREE.Object3D {
 
   async addTheme() {
 
+  async addTheme(after) {
+    const layout = await this.generateTheme()
+    // layout.position.copy(after.position)
+    if (after) {
+      after.localToWorld(layout.position)
+      after.getWorldQuaternion(layout.quaternion)
+      const offset = new THREE.Vector3(0, -after.height / 2 - 400, 0)
+      offset.applyQuaternion(layout.quaternion)
+      layout.position.add(offset)
+      // layout.rotation.y = Math.random() * 0.6 - 0.3
+      // layout.rotation.x = Math.random() * 0.6 - 0.3
+      after.vantages[0].navs[0].addObjects(layout.objs)
+    } else {
+      // Position of first theme
+      layout.position.z = 400
+      layout.position.y = -1500
+      layout.rotation.x = -0.3
+      layout.rotation.y = 0.3
+      this.mainNav.addObjects(layout.objs)
+    }
+
+    if (layout.objs[2]) {
+      await this.addAssociation(layout.objs[2], Math.random() - 0.5)
+    }
+
+    this.space.add(layout)
+
+    this.components.push(layout)
+
+    this.pruneComponents()
+
+    this.space.reindex()
+  }
+
+  pruneComponents() {
+    while (this.components.length > 10) {
+      const toRemove = this.components.shift()
+      this.space.remove(toRemove)
+    }
+
+  }
+
+  async addAssociation(obj, direction) {
+    const layout = await this.generateTheme()
+    if (direction > 0) {
+      layout.rotation.z = Math.PI / 2
+      layout.rotation.x = Math.random() * 0.6 - 0.3
+      layout.rotation.y = Math.random() * 0.6 - 0.3
+      layout.position.x = 500
+    } else {
+      layout.rotation.z = -Math.PI / 2
+      layout.rotation.x = Math.random() * 0.6 - 0.3
+      layout.rotation.y = Math.random() * 0.6 - 0.3
+      layout.position.x = -500
+    }
+    new NavPath(layout.objs, {prev: obj})
+    obj.add(layout)
+    this.space.reindex()
+  }
+
+  async generateTheme() {
     const theme = await getRandomTheme(this.fetch)
 
     const components = []
@@ -90,13 +161,7 @@ class Builder extends THREE.Object3D {
       components.push(<Item item={item} />)
     })
 
-    this.mainColumn = new Theme({components})
-
-    new NavPath([this.introComponent, this.mainColumn])
-
-    this.space.add(this.mainColumn)
-    this.space.reindex()
-
+    return new Theme({components})
   }
 
   async addIntro() {
@@ -108,7 +173,7 @@ class Builder extends THREE.Object3D {
 
     this.space.add(this.introComponent)
 
-    new NavPath([this.heading, this.introComponent])
+    this.mainNav = new NavPath([this.heading, this.introComponent])
 
     bus.dispatch({
       event: 'resetToComponent',
@@ -116,6 +181,10 @@ class Builder extends THREE.Object3D {
     })
 
     this.space.reindex()
+
+    const handle = new THREE.Object3D()
+    handle.position.copy(this.introComponent.position)
+    this.addTheme(null)
   }
 
   update() {
@@ -123,9 +192,9 @@ class Builder extends THREE.Object3D {
       this.introComponent.position.y = this.heading.position.y - this.heading.height / 2 - this.introComponent.height / 2
     }
 
-    if (this.introComponent && this.mainColumn) {
-      this.mainColumn.position.y = this.introComponent.position.y - this.introComponent.height / 2 - this.mainColumn.height / 2
-    }
+    // if (this.introComponent && this.mainColumn) {
+    //   this.mainColumn.position.y = this.introComponent.position.y - this.introComponent.height / 2 - this.mainColumn.height / 2
+    // }
 
   }
 
