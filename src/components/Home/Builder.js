@@ -15,6 +15,7 @@ import ThemeHeading from './ThemeHeading'
 import Item from './Item'
 
 import s from './Builder.css'
+import {initGraphData, randomTopic} from './graphstres'
 
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 
@@ -57,13 +58,25 @@ class Builder extends THREE.Object3D {
     super()
     this.space = space
     this.fetch = fetch
+
+
     setTimeout(() => {
       this.stub()
       this.addIntro()
       this.addTheme()
+      this.initGraph()
     }, 50)
 
   }
+
+  async initGraph() {
+    await initGraphData(this.fetch)
+    console.info('**** ',randomTopic())
+    console.info('**** ',randomTopic())
+    console.info('**** ',randomTopic())
+    console.info('**** ',randomTopic())
+  }
+
 
   async addTheme() {
 
