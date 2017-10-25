@@ -26,6 +26,12 @@ global.navigator.userAgent = global.navigator.userAgent || 'all'
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
+
+app.get('/robots.txt', async (req, res, next) => {
+  res.status(200)
+  res.send('ok')
+})
+
 app.use('/cavs', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
