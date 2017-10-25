@@ -36,6 +36,7 @@
 .partOf {
   max-width: var(--item-meta-max-width);
   padding: 0;
+  margin-bottom: 1rem;
 }
 
 .meta {
