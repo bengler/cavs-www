@@ -71,6 +71,10 @@
   composes: image from '../../components/ImageGallery/ImageGallery.css';
 }
 
+.noImage {
+  composes: noImage from '../../components/ImageGallery/ImageGallery.css';
+}
+
 .item {
   display: block;
   margin: 0;

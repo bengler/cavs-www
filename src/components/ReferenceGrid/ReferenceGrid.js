@@ -119,6 +119,12 @@ class ReferencesGrid extends React.Component {
                   )
                 }
 
+                {
+                  !imageAssets || imageAssets.length < 1 && (
+                    <div className={s.noImage}><div className={s.padder} /></div>
+                  )
+                }
+
                 <div className={`${reference.imageAssets && reference.imageAssets.length ? s.itemTitle : s.itemTitleLarge}`}>
                   <span className={s.itemType}>
                     <ResolveType type={reference._type} />

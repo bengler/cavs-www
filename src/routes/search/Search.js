@@ -52,7 +52,7 @@ class Search extends React.PureComponent {
   }, 300)
 
   renderItem = item => {
-    const aspectRatio = get(item, 'asset.metadata.dimensions.aspectRatio') || 1.4
+    const aspectRatio = get(item, 'asset.metadata.dimensions.aspectRatio') || 1
 
     return (
       <li
@@ -63,14 +63,19 @@ class Search extends React.PureComponent {
         `}
       >
         <LinkResolver item={item} className={s.link}>
-          {
-            item.asset && (
-              <div className={s.imageContainer}>
-                <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+          <div className={s.imageContainer}>
+            <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+            {
+              item.asset && (
                 <img src={`${item.asset.url}?w=500`} className={s.image} />
-              </div>
-            )
-          }
+              )
+            }
+            {
+              !item.asset && (
+                <div className={s.noImage} />
+              )
+            }
+          </div>
           <h3 className={s.itemTitle}>
             {item.title || item.name || 'Untitled…'}
           </h3>
