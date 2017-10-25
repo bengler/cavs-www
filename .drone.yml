@@ -8,6 +8,7 @@ aliases:
   - "/root/.docker:/root/.docker"
   - "/root/.kube:/root/.kube"
   - "/var/run/docker.sock:/var/run/docker.sock"
+  - "/root/.npmrc:/root/.npmrc"
 
 cache:
   mount:
@@ -20,7 +21,7 @@ build:
     auth_config: *dockerauth
     volumes: *volumes
     commands:
-    - docker build --pull -t eu.gcr.io/sanity-cloud/cavs-www:$$COMMIT .
+    - docker build --build-arg NPMRC="$(cat ~/.npmrc)" --pull -t eu.gcr.io/sanity-cloud/cavs-www:$$COMMIT .
 
   publish:
     image: eu.gcr.io/sanity-cloud/ci
