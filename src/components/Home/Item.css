@@ -1,20 +1,16 @@
 .root {
   break-inside: avoid;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .link {
-  display: inline-block;
+  /* display: inline-block; */
+  display: block;
   pointer-events: auto;
-  border: 2px solid transparent;
+  /* border: 2px solid transparent; */
   font-size: 100px;
+  position: fixed;
+  left: 30%;
+  top: 30%;
 
-  @nest & img {
-    width: 600px;
-    display: inline-block;
-  }
-
-  @nest &:hover {
-    border-color: white;
-  }
 }

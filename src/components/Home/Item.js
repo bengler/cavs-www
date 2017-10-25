@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import Link from '../Link/Link'
+import bus from './DSpace/bus'
 
 import s from './Item.css'
 
@@ -14,33 +15,42 @@ class Item extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {isToggleOn: true}
-
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this)
+    this.state = {linkLatch: false}
   }
 
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }))
+  handleClick = event =>  {
+    bus.dispatch({event: 'clearLinkLatches'})
+    this.setState({linkLatch: true})
   }
 
-  shouldComponentUpdate(prevProps) {
-    return prevProps.item._id !== this.props.item._id
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.item.url !== this.props.item.url || this.state.linkLatch != nextState.linkLatch
+  }
+
+  handleMessage = msg => {
+    if (msg.event == 'clearLinkLatches') {
+      this.setState({linkLatch: false})
+    }
+  }
+
+  componentDidMount() {
+    bus.subscribe(this.handleMessage)
+  }
+
+  componentWillUnmount() {
+    bus.unsubscribe(this.handleMessage)
   }
 
   render() {
     const {item} = this.props
-
     return (
-      <div onClick={this.handleClick} className={s.root}>
-        { this.state.isToggleOn
+      <div className={s.root}>
+        { this.state.linkLatch
           && <Link to={`/item/${item.identifier}`} className={s.link}>
-          >>
+          LINK
           </Link>
         }
-        <img src={`${item.url}?w=600`} alt="" />
+        <img onClick={this.handleClick} src={`${item.url}?w=600`} alt="" />
       </div>
     )
   }

@@ -172,6 +172,7 @@ class Builder extends THREE.Object3D {
   async generateTheme() {
     // const theme = await getRandomTheme(this.fetch)
     const theme = randomTopic()
+    console.log(theme)
     theme.key = `${Math.random()}`
 
     const components = []

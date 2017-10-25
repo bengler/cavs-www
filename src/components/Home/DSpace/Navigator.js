@@ -40,7 +40,7 @@ export class NavPath {
         const up = new THREE.Vector3()
           .copy(current.up)
           .applyQuaternion(current.getWorldQuaternion())
-        if (up) {
+        if (false && up) {
           // If an up vector is provided, use the dot product so that scrolling always
           // produces the same amount of travel along the vertical direction of the
           // screen
@@ -95,7 +95,7 @@ export class NavPath {
         const up = new THREE.Vector3()
           .copy(current.up)
           .applyQuaternion(current.getWorldQuaternion())
-        if (up) {
+        if (false && up) {
           // If an up vector is provided, use the dot product so that scrolling always
           // produces the same amount of travel along the vertical direction of the
           // screen
