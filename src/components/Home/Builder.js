@@ -108,11 +108,11 @@ class Builder extends THREE.Object3D {
     if (after) {
       after.localToWorld(layout.position)
       after.getWorldQuaternion(layout.quaternion)
-      const offset = new THREE.Vector3(0, -after.height / 2 - 400, 0)
+      const offset = new THREE.Vector3(0, -after.height / 2 - 400, Math.random() * 2000 - 1000)
       offset.applyQuaternion(layout.quaternion)
       layout.position.add(offset)
-      // layout.rotation.y = Math.random() * 0.6 - 0.3
-      // layout.rotation.x = Math.random() * 0.6 - 0.3
+      layout.rotation.y += Math.random() * 1.2 - 0.6
+      layout.rotation.x += Math.random() * 1.2 - 0.6
       after.vantages[0].navs[0].addObjects(layout.objs)
     } else {
       // Position of first theme
@@ -155,13 +155,13 @@ class Builder extends THREE.Object3D {
     const layout = await this.generateTheme()
     if (direction > 0) {
       layout.rotation.z = Math.PI / 2
-      layout.rotation.x = Math.random() * 0.6 - 0.3
-      layout.rotation.y = Math.random() * 0.6 - 0.3
+      layout.rotation.x = Math.random() * 1.0 - 0.5
+      layout.rotation.y = Math.random() * 1.0 - 0.5
       layout.position.x = 500
     } else {
       layout.rotation.z = -Math.PI / 2
-      layout.rotation.x = Math.random() * 0.6 - 0.3
-      layout.rotation.y = Math.random() * 0.6 - 0.3
+      layout.rotation.x = Math.random() * 1.0 - 0.5
+      layout.rotation.y = Math.random() * 1.0 - 0.5
       layout.position.x = -500
     }
     new NavPath(layout.objs, {prev: `c${obj.id}`})
