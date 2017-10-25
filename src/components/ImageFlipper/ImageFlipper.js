@@ -74,18 +74,20 @@ class ImageFlipper extends React.PureComponent {
 
   handleSwiping = (e, deltaX) => {
     const {nextImage, prevImage} = this.state
-    if (nextImage || prevImage) {
-      if (Math.abs(deltaX) < 300) {
-        this.deltaX = deltaX
-        if (!nextImage && deltaX > 0) {
-          return
-        }
-        if (!prevImage && deltaX < 0) {
-          return
-        }
-        const move = -deltaX
-        this._imageWrapperElement.style.transform = `translateX(${move}px)`
+    if (!nextImage && !prevImage) {
+      return
+    }
+
+    if (Math.abs(deltaX) < 300) {
+      this.deltaX = deltaX
+      if (!nextImage && deltaX > 0) {
+        return
       }
+      if (!prevImage && deltaX < 0) {
+        return
+      }
+      const move = -deltaX
+      this._imageWrapperElement.style.transform = `translateX(${move}px)`
     }
   }
 
