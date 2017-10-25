@@ -28,6 +28,7 @@
 .description {
   composes: fontMedium from '../../components/typography.css';
   composes: textContainer from '../../components/common.css';
+  margin-top: 0;
 }
 
 .documentation {

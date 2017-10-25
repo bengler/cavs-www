@@ -1,13 +1,4 @@
-
-
-.header {
-  width: 100%;
-  pointer-events: auto;
-  height: 40vh;
-}
-
 img {
   transition: height 0.1s;
   mix-blend-mode: darken;
 }
-

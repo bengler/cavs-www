@@ -89,7 +89,7 @@ class DSpace extends React.PureComponent {
     bus.subscribe(this.handleBusMessage)
   }
 
-  state = { elapsed: 0 }
+  state = {elapsed: 0}
 
   getChildContext() {
     return {
@@ -98,10 +98,10 @@ class DSpace extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.intro) {
+    if (nextProps.intro) {
       this.buildIntro(nextProps.intro)
     }
-    if(nextProps.intro) {
+    if (nextProps.intro) {
       this.buildIntro(nextProps.intro)
     }
   }
@@ -110,7 +110,7 @@ class DSpace extends React.PureComponent {
     this.startAnimation()
     window.addEventListener('resize', this.handleResize)
 
-    if(this.props.intro) {
+    if (this.props.intro) {
       this.buildIntro(this.props.intro)
     }
   }
@@ -128,7 +128,7 @@ class DSpace extends React.PureComponent {
         global.requestAnimationFrame(animate)
         this.space.update()
         this.navigator.update()
-        this.setState({ elapsed })
+        this.setState({elapsed})
       }
     }
     animate()
@@ -144,10 +144,10 @@ class DSpace extends React.PureComponent {
     this.camera.aspect = this.width / this.height
     const nominalDistance = 800
     const nominalWidth = 1200
-    this.camera.fov =
-      2 *
-      Math.atan(nominalWidth / this.camera.aspect / (2 * nominalDistance)) *
-      (180 / Math.PI)
+    this.camera.fov
+      = 2
+      * Math.atan(nominalWidth / this.camera.aspect / (2 * nominalDistance))
+      * (180 / Math.PI)
     this.camera.updateProjectionMatrix()
     // this.renderer3D.setSize(this.width, this.height)
     // this.renderer3D.setPixelRatio(2)
@@ -165,12 +165,12 @@ class DSpace extends React.PureComponent {
   componentDidUpdate() {
     // this.renderer3D.render(this.space.scene, this.camera)
     if (this.nextScrollY !== null) {
-      console.log(
-        'scrolling to ',
-        this.nextScrollY,
-        'scroll height',
-        document.body.scrollHeight
-      )
+      // console.log(
+      //   'scrolling to ',
+      //   this.nextScrollY,
+      //   'scroll height',
+      //   document.body.scrollHeight
+      // )
       window.scrollTo(0, this.nextScrollY)
       this.nextScrollY = null
     }
@@ -196,22 +196,22 @@ class DSpace extends React.PureComponent {
 
   render() {
     if (!this.animationShouldRun) {
-      return (<div/>)
+      return (<div />)
     }
-    const fov =
-      0.5 /
-      Math.tan(THREE.Math.degToRad(this.camera.getEffectiveFOV() * 0.5)) *
-      this.height
+    const fov
+      = 0.5
+      / Math.tan(THREE.Math.degToRad(this.camera.getEffectiveFOV() * 0.5))
+      * this.height
     this.space.scene.updateMatrixWorld()
     this.camera.updateMatrixWorld()
     this.camera.matrixWorldInverse.getInverse(this.camera.matrixWorld)
-    const cameraCSSTransform =
-      `translateZ(${fov.toFixed(3)}px)` +
-      getCameraCSSMatrix(this.camera.matrixWorldInverse) +
-      `translate(${this.width / 2}px,${this.height / 2}px)`
+    const cameraCSSTransform
+      = `translateZ(${fov.toFixed(3)}px)${
+       getCameraCSSMatrix(this.camera.matrixWorldInverse)
+       }translate(${this.width / 2}px,${this.height / 2}px)`
     return (
       <div>
-        <div style={{ position: 'fixed', color: '#fff' }} onClick={this.handleBackdropClick}>
+        <div style={{position: 'fixed', color: '#fff'}} onClick={this.handleBackdropClick}>
           <div
             style={{
               backgroundColor: '#000',
@@ -233,7 +233,7 @@ class DSpace extends React.PureComponent {
           </div>
           <canvas ref={this.setRendererCanvas} />
         </div>
-        <div style={{ height: `${this.navigator.getScrollHeight()}px` }} />
+        <div style={{height: `${this.navigator.getScrollHeight()}px`}} />
       </div>
     )
   }
@@ -248,38 +248,38 @@ function getCameraCSSMatrix(matrix) {
   const elements = matrix.elements
 
   return (
-    'matrix3d(' +
-    epsilon(elements[0]) +
-    ',' +
-    epsilon(-elements[1]) +
-    ',' +
-    epsilon(elements[2]) +
-    ',' +
-    epsilon(elements[3]) +
-    ',' +
-    epsilon(elements[4]) +
-    ',' +
-    epsilon(-elements[5]) +
-    ',' +
-    epsilon(elements[6]) +
-    ',' +
-    epsilon(elements[7]) +
-    ',' +
-    epsilon(elements[8]) +
-    ',' +
-    epsilon(-elements[9]) +
-    ',' +
-    epsilon(elements[10]) +
-    ',' +
-    epsilon(elements[11]) +
-    ',' +
-    epsilon(elements[12]) +
-    ',' +
-    epsilon(-elements[13]) +
-    ',' +
-    epsilon(elements[14]) +
-    ',' +
-    epsilon(elements[15]) +
-    ')'
+    `matrix3d(${
+    epsilon(elements[0])
+    },${
+    epsilon(-elements[1])
+    },${
+    epsilon(elements[2])
+    },${
+    epsilon(elements[3])
+    },${
+    epsilon(elements[4])
+    },${
+    epsilon(-elements[5])
+    },${
+    epsilon(elements[6])
+    },${
+    epsilon(elements[7])
+    },${
+    epsilon(elements[8])
+    },${
+    epsilon(-elements[9])
+    },${
+    epsilon(elements[10])
+    },${
+    epsilon(elements[11])
+    },${
+    epsilon(elements[12])
+    },${
+    epsilon(-elements[13])
+    },${
+    epsilon(elements[14])
+    },${
+    epsilon(elements[15])
+    })`
   )
 }

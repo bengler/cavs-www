@@ -6,9 +6,6 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import s from './ThemeHeading.css'
 
 import {themeShape} from '../../themes'
-import Link from '../Link/Link'
-import Item from './Item'
-
 
 class ThemeHeading extends React.PureComponent {
   static propTypes = {

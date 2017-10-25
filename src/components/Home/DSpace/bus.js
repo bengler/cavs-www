@@ -15,7 +15,7 @@ class Bus {
   }
 
   dispatch(message) {
-    console.log('bus', JSON.stringify(message))
+    //console.log('bus', JSON.stringify(message))
     this.handlers.forEach(handler => handler(message))
   }
 }

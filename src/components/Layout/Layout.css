@@ -52,6 +52,8 @@ body {
   margin: 0;
   padding: 0;
   font-weight: 600;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 a {

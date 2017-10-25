@@ -1,16 +1,19 @@
 @import '../variables.css';
 
 .root {
+  clear: both;
   composes: container from '../common.css';
   margin-top: 3rem;
-  margin-bottom: 2rem;
-  padding-top: 3rem;
-  max-width: 50vw;
+  padding-top: 2rem;
   overflow: hidden;
   border-top: 2px solid black;
+}
+
+.content {
+  max-width: 50vw;
 
   @media (--screen-xs-min) {
-    max-width: 100vw;
+    max-width: 50rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -18,15 +21,16 @@
 }
 
 .mit {
-  font-size: var(--font-size--base);
+  font-size: var(--font-size--small);
   max-width: 20em;
   margin-bottom: 2rem;
   padding-right: 1em;
 }
 
 .contact {
-  font-size: var(--font-size--base);
+  font-size: var(--font-size--small);
   white-space: normal;
+  margin-bottom: 2rem;
 
   @nest & a {
     color: black;
@@ -42,7 +46,7 @@
 
 .actLogoLink {
   display: block;
-  flex-basis: 10rem;
+  flex-basis: 7rem;
   margin-bottom: 2rem;
   padding-right: 2em;
 }

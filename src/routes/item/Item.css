@@ -36,13 +36,17 @@
 .partOf {
   max-width: var(--item-meta-max-width);
   padding: 0;
+  margin-bottom: 1rem;
 }
 
 .meta {
   max-width: var(--item-meta-max-width);
   display: block;
   clear: both;
-  margin-bottom: 1rem;
+
+  @nest &:last-child {
+    margin-bottom: 1rem;
+  }
 }
 
 .container {

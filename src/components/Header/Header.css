@@ -62,7 +62,7 @@
   display: inline-block;
   right: 1rem;
   top: 1rem;
-  height: 2.5rem;
+  height: var(--font-size--base--relative);
   width: auto;
   text-align: right;
 
