@@ -88,8 +88,6 @@ class Builder extends THREE.Object3D {
   }
 
 
-  async addTheme() {
-
   async addTheme(after) {
     const layout = await this.generateTheme()
     // layout.position.copy(after.position)
