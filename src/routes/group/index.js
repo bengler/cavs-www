@@ -23,7 +23,10 @@ export default {
           title,
           body,
           identifier,
-          imageAssets[] {_key, asset -> {url}}
+          imageAssets[] {
+            _key,
+            asset -> {url, metadata {dimensions}}
+          }
         }
       }
     `

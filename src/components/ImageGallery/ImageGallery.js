@@ -27,15 +27,27 @@ class ImageGallery extends React.Component {
       return false
     }
     return (
-      <div className={s.root}>
+      <div className={images.length > 1 ? s.grid : s.root}>
         {
           images.map((image, i) => {
             const url = get(image, 'asset.url')
             if (excludeFirst && i === 0) {
               return false
             }
+            const width = get(image, 'asset.metadata.dimensions.width')
+            const height = get(image, 'asset.metadata.dimensions.height')
+            const aspectRatio = get(image, 'asset.metadata.dimensions.aspectRatio')
             return (
-              <img key={image._key} className={s.image} src={`${url}?w=300`} alt="" />
+              <div className={s.item} key={image._key}>
+                <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+                <img
+                  width={width}
+                  height={height}
+                  className={s.image}
+                  src={`${url}?w=300`}
+                  alt=""
+                />
+              </div>
             )
           })
         }

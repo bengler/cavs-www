@@ -6,8 +6,8 @@ export default {
 
   path: '/item/:identifier',
 
-  async action({fetch, params}) {
-    const query = `
+  async action({fetch, params, query}) {
+    const q = `
       *[identifier=="${params.identifier}"] {
         _id,
         _type,
@@ -20,8 +20,9 @@ export default {
         format,
         rights,
         imageAssets[] {
+          _id,
           _key,
-          asset -> {url}
+          asset -> {url, metadata {dimensions}}
         },
         partOf[] -> {
           _id,
@@ -29,27 +30,38 @@ export default {
           name,
           creators[] -> {
             name,
+            _type,
             _id
           },
-          "references": *[references(^._id)] {name, title, imageAssets[] {asset -> {url}}},
+          "references": *[references(^._id)] {
+            name,
+            _type,
+            title,
+            _key,
+            imageAssets[] {
+              asset -> {url, metadata {dimensions}}
+            }
+          },
           ...
         },
         creators[] -> {
           name,
+          _type,
           _id
         }
       }
     `
-    const result = await fetch(query, {})
+    const result = await fetch(q, {})
     if (!result || !result[0]) {
       return {
         title: 'Error',
         component: <Layout>Not found</Layout>,
       }
     }
+
     return {
       title: result[0].title,
-      component: <Layout><Item item={result[0]} /></Layout>,
+      component: <Layout><Item item={result[0]} currentImageKey={query.image} /></Layout>,
     }
   },
 }

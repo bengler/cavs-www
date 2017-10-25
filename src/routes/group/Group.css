@@ -33,3 +33,7 @@
 .documentation {
   padding-bottom: 2rem;
 }
+
+.locations {
+  border-bottom: 2px solid black;
+}

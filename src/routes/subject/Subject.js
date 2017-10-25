@@ -21,11 +21,9 @@ class Subject extends React.PureComponent {
   render() {
     const {items, subject} = this.props
     return (
-      <div>
-        <div className={s.container}>
-          <h1 className={s.title}>{subject}</h1>
-          <ReferenceGrid references={items} />
-        </div>
+      <div className={s.container}>
+        <h1 className={s.title}>{subject}</h1>
+        <ReferenceGrid references={items} />
       </div>
     )
   }

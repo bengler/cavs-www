@@ -35,7 +35,7 @@ class Locations extends React.Component {
       this.addAllMarkers()
       const location = locations[0]
       const latlon = location && location.location
-      this.map.setView([latlon.lat, latlon.lng], 13)
+      this.map.setView([latlon.lat, latlon.lng], 5)
     }
   }
 

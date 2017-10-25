@@ -57,8 +57,6 @@ class ReferencesGrid extends React.Component {
       'newsClipping'
     ]
 
-    console.log('groupedReferences', groupedReferences)
-
     workTypes.forEach(key => {
       if (groupedReferences[key]) {
         if (groupedReferences[key]) {
@@ -98,7 +96,7 @@ class ReferencesGrid extends React.Component {
                 used.push(ref._id)
               })
               if (isUsed) {
-                return <div />
+                return false
               }
             }
             if (reference.imageAssets && reference.imageAssets.length > 0) {

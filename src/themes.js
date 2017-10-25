@@ -42,7 +42,7 @@ function getItem(fetch, type, key) {
           identifier,
           imageAssets[] {
             _key,
-            asset -> {url}
+            asset -> {url, metadata{dimensions}}
           }
         }
         [0...20]
@@ -70,7 +70,7 @@ function getItem(fetch, type, key) {
           identifier,
           imageAssets[0...1] {
             _key,
-            asset -> {url}
+            asset -> {url, metadata{dimensions}}
           }
         }[0]
       `)

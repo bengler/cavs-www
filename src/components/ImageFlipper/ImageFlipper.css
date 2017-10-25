@@ -1,0 +1,71 @@
+.root {
+  display: block;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.loadingImage {
+  composes: image;
+  z-index: -1;
+}
+
+.imageWrapper {
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  composes: loader from '../../routes/search/Search.css';
+  overflow: hidden;
+  filter: blur(50px);
+}
+
+.padder {
+  position: relative;
+}
+
+.button {
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  position: absolute;
+  top: 50vh;
+  z-index: 2;
+  background-color: color(#ccc a(0%));
+
+  @nest &:hover {
+    background-color: color(#ccc a(30%));
+  }
+
+  @nest & svg {
+    position: absolute;
+    top: 0;
+    transform: scale(0.5);
+  }
+}
+
+.next {
+  composes: button;
+  right: 1rem;
+
+  @nest & svg {
+    right: 20%;
+  }
+}
+
+.prev {
+  composes: button;
+  left: 1rem;
+
+  @nest & svg {
+    left: 15%;
+  }
+}

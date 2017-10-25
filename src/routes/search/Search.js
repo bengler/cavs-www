@@ -51,21 +51,23 @@ class Search extends React.PureComponent {
   }, 300)
 
   renderItem = item => {
-
-    const aspect = get(item, 'imageAssets[0].asset.metadata.dimensions.aspectRatio')
+    const aspectRatio = get(item, 'asset.metadata.dimensions.aspectRatio') || 1.4
 
     return (
       <li
         key={item._id}
         className={`
           ${item._type == 'person' ? s.itemPerson : s.item}
-          ${aspect < 1 ? s.aspectPortrait : s.aspectLandscape}
+          ${aspectRatio < 1 ? s.aspectPortrait : s.aspectLandscape}
         `}
       >
         <LinkResolver item={item} className={s.link}>
           {
-            item.src && (
-              <img src={`${item.src}?w=500`} className={s.image} />
+            item.asset && (
+              <div className={s.imageContainer}>
+                <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+                <img src={`${item.asset.url}?w=500`} className={s.image} />
+              </div>
             )
           }
           <h3 className={s.itemTitle}>
@@ -77,19 +79,20 @@ class Search extends React.PureComponent {
   }
 
   checkItemForImage = item => {
-    const portrait = get(item, 'portraits[0].asset.url')
-    const image = get(item, 'imageAssets[0].asset.url')
-    let refImg = get(item, 'references[0].imageAssets[0].asset.url')
+    let asset
+      = get(item, 'portraits[0].asset')
+      || get(item, 'imageAssets[0].asset')
+      || get(item, 'references[0].imageAssets[0].asset')
 
     if (item.references && item.references.length > 0) {
       item.references.forEach(ref => {
-        const src = get(ref, 'imageAssets[0].asset.url')
-        if (src) {
-          refImg = src
+        const refAsset = get(ref, 'imageAssets[0].asset.url')
+        if (refAsset) {
+          asset = get(ref, 'imageAssets[0].asset')
         }
       })
     }
-    return portrait || image || refImg
+    return asset
   }
 
   render() {
@@ -100,10 +103,10 @@ class Search extends React.PureComponent {
     const itemsWithoutImage = []
 
     result.forEach(item => {
-      const src = this.checkItemForImage(item)
-      if (src) {
+      const asset = this.checkItemForImage(item)
+      if (asset) {
         const itemWithImage = Object.assign(item, {})
-        itemWithImage.src = src
+        itemWithImage.asset = asset
         itemsWithImage.push(itemWithImage)
       } else {
         itemsWithoutImage.push(item)
@@ -128,10 +131,10 @@ class Search extends React.PureComponent {
             return
           }
 
-          const refSrc = this.checkItemForImage(ref)
-          if (refSrc) {
+          const asset = this.checkItemForImage(ref)
+          if (asset) {
             const itemWithImage = Object.assign(ref, {})
-            itemWithImage.src = refSrc
+            itemWithImage.asset = asset
             itemsWithImage.push(itemWithImage)
           } else {
             itemsWithoutImage.push(ref)
