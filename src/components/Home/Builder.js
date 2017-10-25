@@ -7,7 +7,7 @@ import Component3D from './DSpace/Component3D'
 import Vantage from './DSpace/Vantage'
 import {NavPath} from './DSpace/Navigator'
 
-import {Theme} from './layout'
+import {Theme} from './Layout'
 import {getRandomTheme} from '../../themes'
 
 import Header from '../Header'

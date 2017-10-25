@@ -3,11 +3,9 @@ import THREE from 'three-js/three'
 
 
 import bus from './bus'
-import { Space } from './Space'
-import { Column, Barrel } from '../layout'
-import { Navigator } from './Navigator'
-
-
+import {Space} from './Space'
+import {Column, Barrel} from '../Layout'
+import {Navigator} from './Navigator'
 
 
 class DSpace extends React.PureComponent {
