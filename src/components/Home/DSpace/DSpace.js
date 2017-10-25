@@ -215,7 +215,12 @@ class DSpace extends React.PureComponent {
           style={{
             position: 'fixed',
             color: '#fff',
-            backgroundColor: '#000'
+            backgroundColor: '#000',
+            overflow: 'hidden',
+            width: '100vw',
+            height: '100vh',
+            boxSizing: 'border-box',
+            pointerEvents: 'none'
           }}
           onClick={this.handleBackdropClick}
         >
@@ -224,7 +229,8 @@ class DSpace extends React.PureComponent {
               backgroundColor: '#000',
               position: 'absolute',
               top: '0',
-              perspective: `${fov}px`
+              perspective: `${fov}px`,
+              overflow: 'hidden'
             }}
           >
             <div
