@@ -8,7 +8,9 @@ RUN useradd --home /srv/cavs-www --shell /bin/false nodejs
 
 # Install app dependencies (pre-source copy in order to cache dependencies)
 COPY package.json .
-RUN npm install
+RUN echo "$NPMRC" > ~/.npmrc && \
+  npm install && \
+  rm ~/.npmrc
 
 # Prepare app
 COPY . .
