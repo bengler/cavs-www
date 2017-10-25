@@ -142,7 +142,7 @@ export class Space {
     if (obj.element) {
       let result = {
         opacity: opacity,
-        backgroundColor: `rgba(255, 255, ${(defocus * 10).toFixed(0)}, 0.01)`, // Hack to trigger repaint when opacity changes
+        // backgroundColor: `rgba(255, 255, ${(defocus * 10).toFixed(0)}, 0.01)`, // Hack to trigger repaint when opacity changes
         position: 'absolute',
         padding: '0',
         transform: 'translate(-50%, -50%)' + getObjectCSSMatrix(obj.matrixWorld)
