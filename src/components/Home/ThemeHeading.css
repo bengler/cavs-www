@@ -14,7 +14,6 @@
 
 .title {
   display: block;
-  white-space: nowrap;
   border: 4px solid lime;
   pointer-events: all;
   color: lime;
