@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@bengler/opbeat@^1.0.11":
+  version "1.0.11"
+  resolved "https://npm.bengler.no/@bengler%2fopbeat/-/opbeat-1.0.11.tgz#dced5347984d42e99e4e1e364b9f4af25245a804"
+  dependencies:
+    opbeat "^4.16.0"
+
 "@sanity/block-content-to-react@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@sanity/block-content-to-react/-/block-content-to-react-1.0.3.tgz#de2f7fd9f251d0c9a17e3402b1e004a9cac6ff99"

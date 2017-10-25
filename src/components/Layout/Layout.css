@@ -12,22 +12,22 @@
 
 @font-face {
   font-family: 'Unica77LLWeb';
-  src: url('/fonts/Unica77LLWeb-Bold.eot');
+  src: url('/cavs/fonts/Unica77LLWeb-Bold.eot');
   src:
-    url('/fonts/Unica77LLWeb-Bold.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Unica77LLWeb-Bold.woff2') format('woff2'),
-    url('/fonts/Unica77LLWeb-Bold.woff') format('woff');
+    url('/cavs/fonts/Unica77LLWeb-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/cavs/fonts/Unica77LLWeb-Bold.woff2') format('woff2'),
+    url('/cavs/fonts/Unica77LLWeb-Bold.woff') format('woff');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Unica77LLWeb';
-  src: url('/fonts/Unica77LLWeb-BoldItalic.eot');
+  src: url('/cavs/fonts/Unica77LLWeb-BoldItalic.eot');
   src:
-    url('/fonts/Unica77LLWeb-BoldItalic.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Unica77LLWeb-BoldItalic.woff2') format('woff2'),
-    url('/fonts/Unica77LLWeb-BoldItalic.woff') format('woff');
+    url('/cavs/fonts/Unica77LLWeb-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('/cavs/fonts/Unica77LLWeb-BoldItalic.woff2') format('woff2'),
+    url('/cavs/fonts/Unica77LLWeb-BoldItalic.woff') format('woff');
   font-weight: 600;
   font-style: italic;
 }

@@ -20,15 +20,15 @@ class Header extends React.Component {
           {
             inverted && (
               <a href="http://act.mit.edu/" className={s.logoLink}>
-                <img src="/act_white_rgb_RZ.svg" className={s.actLogo} />
+                <img src="/cavs/act_white_rgb_RZ.svg" className={s.actLogo} />
               </a>
             )
           }
           <a href="http://web.mit.edu/" className={s.logoLink}>
             {
               inverted
-                ? <img src="/MIT-logo-white.svg" className={s.mitLogo} />
-                : <img src="/MIT-logo-black-gray.svg" className={s.mitLogo} />
+                ? <img src="/cavs/MIT-logo-white.svg" className={s.mitLogo} />
+                : <img src="/cavs/MIT-logo-black-gray.svg" className={s.mitLogo} />
             }
           </a>
         </div>

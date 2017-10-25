@@ -1,8 +1,4 @@
-const opbeat = require('opbeat').start({
-  appId: '950d503819',
-  organizationId: '6187cd126f54404d9c40e9185056f204',
-  secretToken: 'e0655073cfcac654720162b3b7c46c236ac80d64'
-})
+import opbeat from '@bengler/opbeat'
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
@@ -30,7 +26,7 @@ global.navigator.userAgent = global.navigator.userAgent || 'all'
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-app.use(express.static(path.join(__dirname, 'public')))
+app.use('/cavs', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
@@ -43,7 +39,7 @@ app.use(bodyParser.json())
 //   rootValue: { request: req },
 //   pretty: __DEV__,
 // })));
-app.use(opbeat.middleware.express())
+opbeat.bengler.plugins.express(app)
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
