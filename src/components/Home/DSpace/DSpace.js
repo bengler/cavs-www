@@ -125,13 +125,13 @@ class DSpace extends React.PureComponent {
   startAnimation() {
     this.animationShouldRun = true
     const animate = () => {
-      const elapsed = new Date() - this.start
       if (this.animationShouldRun) {
+        const elapsed = new Date() - this.start
         global.requestAnimationFrame(animate)
+        this.space.update()
+        this.navigator.update()
+        this.setState({ elapsed })
       }
-      this.space.update()
-      this.navigator.update()
-      this.setState({ elapsed })
     }
     animate()
   }
@@ -156,10 +156,12 @@ class DSpace extends React.PureComponent {
   }
 
   setRendererCanvas = element => {
-    console.log('Update renderer canvas', element)
-    this.renderer3D = new THREE.WebGLRenderer({ canvas: element })
-    this.renderer3D.setClearColor(new THREE.Color(0x000000))
-    this.handleResize()
+    if (this.animationShouldRun) {
+      console.log('Update renderer canvas', element)
+      this.renderer3D = new THREE.WebGLRenderer({ canvas: element })
+      this.renderer3D.setClearColor(new THREE.Color(0x000000))
+      this.handleResize()
+    }
   }
 
   componentDidUpdate() {
@@ -195,6 +197,9 @@ class DSpace extends React.PureComponent {
   }
 
   render() {
+    if (!this.animationShouldRun) {
+      return (<div/>)
+    }
     const fov =
       0.5 /
       Math.tan(THREE.Math.degToRad(this.camera.getEffectiveFOV() * 0.5)) *
