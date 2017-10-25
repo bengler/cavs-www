@@ -10,6 +10,10 @@
   letter-spacing: -0.05em;
 }
 
+.main {
+  display: flex;
+}
+
 .rootInverted {
   composes: root;
   color: #fff;
@@ -34,12 +38,10 @@
 
   @media (--screen-xs-min) {
     font-size: var(--font-size--medium--relative);
-    margin-right: 8rem;
   }
 
   @media (--screen-sm-min) {
     font-size: var(--font-size--large--relative);
-    margin-right: 12rem;
   }
 
   @nest &:visited {
@@ -47,21 +49,40 @@
   }
 }
 
+.logos {
+  float: right;
+  white-space: nowrap;
+}
+
+.logoLink {
+  display: inline-block;
+}
+
 .logo {
-  position: absolute;
-  display: block;
+  display: inline-block;
   right: 1rem;
   top: 1rem;
-  height: 1.5rem;
+  height: 2.5rem;
   width: auto;
+  text-align: right;
 
   @media (--screen-xs-min) {
     height: var(--font-size--medium--relative);
+    width: auto;
   }
 
   @media (--screen-sm-min) {
     height: var(--font-size--large--relative);
+    width: auto;
   }
+}
+
+.mitLogo {
+  composes: logo;
+}
+
+.actLogo {
+  composes: logo;
 }
 
 .noBreak {
