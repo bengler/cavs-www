@@ -135,7 +135,7 @@ class Builder extends THREE.Object3D {
   }
 
   pruneComponents() {
-    while (this.components.length > 10) {
+    while (this.components.length > 6) {
       const toRemove = this.components.shift()
       this.space.remove(toRemove)
     }
@@ -164,7 +164,7 @@ class Builder extends THREE.Object3D {
       layout.rotation.y = Math.random() * 0.6 - 0.3
       layout.position.x = -500
     }
-    new NavPath(layout.objs, {prev: obj})
+    new NavPath(layout.objs, {prev: `c${obj.id}`})
     obj.add(layout)
     this.space.reindex()
   }
@@ -192,18 +192,21 @@ class Builder extends THREE.Object3D {
 
   async addIntro() {
     const intro = await this.fetch('*[_type == "sitePage" && title == "Introduction"][0]{body}')
-    this.introComponent = new Component3D(
+    this.introComponent = new THREE.Object3D()
+    const introText = new Component3D(
       <BlocksWithStyles className={s.introduction} blocks={intro.body} />
     )
+    this.introComponent.introText = introText
+    this.introComponent.add(introText)
     ensureScrollyNav(this.introComponent, 800, 800)
 
     this.space.add(this.introComponent)
 
-    this.mainNav = new NavPath([this.heading, this.introComponent])
+    this.mainNav = new NavPath([this.introComponent])
 
     bus.dispatch({
       event: 'resetToComponent',
-      name: `c${this.heading.id}`
+      name: `c${this.introComponent.id}`
     })
 
     this.space.reindex()
@@ -213,9 +216,18 @@ class Builder extends THREE.Object3D {
   }
 
   update() {
-    if (this.introComponent && this.heading) {
-      this.introComponent.position.y = this.heading.position.y - this.heading.height / 2 - this.introComponent.height / 2
+    if (this.introComponent) {
+      this.introComponent.introText.position.y = -this.introComponent.introText.height / 4
     }
+
+    if (this.heading) {
+      this.heading.position.y = window.innerHeight - this.heading.height + window.scrollY * 2
+      this.heading.position.z = window.scrollY
+      this.heading.rotation.x = window.scrollY / 200
+    }
+    // if (this.introComponent && this.heading) {
+    //   this.introComponent.position.y = this.heading.position.y - this.heading.height / 2 - this.introComponent.height / 2
+    // }
 
     // if (this.introComponent && this.mainColumn) {
     //   this.mainColumn.position.y = this.introComponent.position.y - this.introComponent.height / 2 - this.mainColumn.height / 2

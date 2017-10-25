@@ -324,7 +324,10 @@ export class Navigator {
       }
 
       if (window.scrollY == 0 && delta < 0 && this.scrollNav.prev) {
-        this.flyTo(this.scrollNav.prev.vantages[0])
+        bus.dispatch({
+          event: 'clickedComponent',
+          name: this.scrollNav.prev
+        })
       }
 
       if (report.pair.t < 1) {
