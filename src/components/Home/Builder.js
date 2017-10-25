@@ -23,6 +23,19 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 const BlocksWithStyles = withStyles(s)(Blocks)
 const HeaderWithStyles = withStyles(s)(Header)
 
+/**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+function shuffle(a) {
+  var j, x, i;
+  for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = a[i];
+      a[i] = a[j];
+      a[j] = x;
+  }
+}
 function ensureBasicVantagePoint(obj, distance) {
   // Only set if no current vantage point
   if (obj.vantages) {
@@ -110,9 +123,16 @@ class Builder extends THREE.Object3D {
       this.mainNav.addObjects(layout.objs)
     }
 
-    if (layout.objs[2]) {
-      await this.addAssociation(layout.objs[2], Math.random() - 0.5)
-    }
+    // if (layout.objs[2]) {
+    //   await this.addAssociation(layout.objs[2], Math.random() - 0.5)
+    // }
+    let toNext = Math.floor(Math.random() * 2 + 1)
+    layout.objs.slice(1).forEach(obj => {
+      if (toNext-- <= 0) {
+        this.addAssociation(obj, Math.random() - 0.5)
+        toNext = Math.floor(Math.random() * 2 + 1)
+      }
+    })
 
     this.space.add(layout)
 
@@ -158,7 +178,12 @@ class Builder extends THREE.Object3D {
 
     components.push(<ThemeHeading theme={theme} />)
 
-    theme.items.forEach(item => {
+    // Shuffle and cap
+    let items = theme.items.slice()
+    shuffle(items)
+    items = items.slice(0, Math.ceil(Math.random() * 4 + 6))
+
+    items.forEach(item => {
       components.push(<Item item={item} />)
     })
 

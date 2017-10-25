@@ -355,10 +355,10 @@ export class Navigator {
       this.scrollLock = true
     } else {
       this.camera.position.copy(
-        this.camera.position.lerp(target.position, 0.1)
+        this.camera.position.lerp(target.position, 0.15)
       )
       this.camera.setRotationFromQuaternion(
-        this.camera.quaternion.slerp(target.quaternion, 0.1)
+        this.camera.quaternion.slerp(target.quaternion, 0.15)
       )
     }
     this.lastScrollY = window.scrollY
