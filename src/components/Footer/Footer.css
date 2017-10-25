@@ -1,6 +1,7 @@
 @import '../variables.css';
 
 .root {
+  clear: both;
   composes: container from '../common.css';
   margin-top: 3rem;
   padding-top: 2rem;
@@ -45,7 +46,7 @@
 
 .actLogoLink {
   display: block;
-  flex-basis: 8rem;
+  flex-basis: 7rem;
   margin-bottom: 2rem;
   padding-right: 2em;
 }
