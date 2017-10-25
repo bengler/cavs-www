@@ -56,7 +56,7 @@ function ensureScrollyNav(obj, distance, height) {
 
   const topVantage = new Vantage(obj)
   topVantage.position.z = distance || 800
-  topVantage.position.y = height / 2
+  topVantage.position.y = 0
   const bottomVantage = new Vantage(obj)
   bottomVantage.position.z = distance || 800
   // bottomVantage.rotation.x = 0.2
@@ -195,11 +195,12 @@ class Builder extends THREE.Object3D {
     )
     this.introComponent.introText = introText
     this.introComponent.add(introText)
-    ensureScrollyNav(this.introComponent, 800, 800)
+    ensureBasicVantagePoint(this.introComponent, 800, 800)
 
     this.space.add(this.introComponent)
 
     this.mainNav = new NavPath([this.introComponent])
+    this.firstNav = this.mainNav
 
     bus.dispatch({
       event: 'resetToComponent',
@@ -213,14 +214,24 @@ class Builder extends THREE.Object3D {
   }
 
   update() {
-    if (this.introComponent) {
-      this.introComponent.introText.position.y = -this.introComponent.introText.height / 4
-    }
+
 
     if (this.heading) {
-      this.heading.position.y = window.innerHeight - this.heading.height + window.scrollY * 2
-      this.heading.position.z = window.scrollY
-      this.heading.rotation.x = window.scrollY / 200
+      if (this.firstNav == this.space.navigator.scrollNav) {
+        const tan = Math.tan(this.space.camera.fov / 2 / 180 * Math.PI)
+        const z = 800
+        const headingTop = z * tan - this.heading.height / 2
+        this.heading.position.copy(new THREE.Vector3(0, headingTop + window.scrollY * 2, -z))
+        this.space.camera.localToWorld(this.heading.position)
+        this.space.camera.getWorldQuaternion(this.heading.quaternion)
+      }
+
+      if (this.introComponent) {
+        this.introComponent.introText.position.y =
+          -this.introComponent.introText.height / 2
+
+          // - this.heading.height / 2
+      }
     }
     // if (this.introComponent && this.heading) {
     //   this.introComponent.position.y = this.heading.position.y - this.heading.height / 2 - this.introComponent.height / 2
@@ -239,7 +250,7 @@ class Builder extends THREE.Object3D {
         <HeaderWithStyles inverted />
       </div>
     )
-    ensureBasicVantagePoint(this.heading)
+    ensureScrollyNav(this.heading)
 
     this.space.add(this.heading)
 
