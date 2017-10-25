@@ -15,7 +15,9 @@ class Footer extends React.PureComponent {
   render() {
     return (
       <div className={s.root}>
-        <img className={s.actLogo} src="/images/act_black_rgb_RZ.svg" />
+        <a href="http://act.mit.edu" className={s.actLogoLink}>
+          <img className={s.actLogo} src="/images/act_black_rgb_RZ.svg" />
+        </a>
         <div className={s.mit}>
           School of Architecture and Planning
           Massachusetts Institute of Technology

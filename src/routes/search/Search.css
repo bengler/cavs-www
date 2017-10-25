@@ -1,15 +1,5 @@
 @import '../../components/variables.css';
 
-@keyframes load {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 0 3em;
-  }
-}
-
 .root {
   composes: container from '../../components/common.css';
 }
@@ -110,6 +100,10 @@
   grid-row: span 2;
 }
 
+.spinner {
+  opacity: 0.1;
+}
+
 .noResult {
   composes: fontMedium from '../../components/typography.css';
   margin: 1em;
@@ -120,42 +114,4 @@
   @nest & > span {
     font-weight: 700;
   }
-}
-
-.loader,
-.loader::before,
-.loader::after {
-  width: 0.7em;
-  height: 3em;
-}
-
-.loader {
-  opacity: 0.1;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  text-indent: -9999em;
-  transform: translateZ(0);
-  animation: load 0.5s infinite linear;
-  animation-fill-mode: both;
-  animation-direction: normal;
-  background-size: 100% 700%;
-  background-image: linear-gradient(white 10%, white 10%, black 10.001%, black 100%);
-}
-
-.loader::before,
-.loader::after {
-  display: block;
-  content: '';
-  position: absolute;
-  top: 0;
-  background-color: black;
-}
-
-.loader::before {
-  left: calc(100% + 0.3em);
-}
-
-.loader::after {
-  left: calc(-100% - 0.3em);
 }

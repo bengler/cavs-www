@@ -39,8 +39,14 @@
   }
 }
 
-.actLogo {
+.actLogoLink {
+  display: block;
   flex-basis: 10rem;
   margin-bottom: 2rem;
   padding-right: 2em;
+}
+
+.actLogo {
+  width: 100%;
+  height: auto;
 }

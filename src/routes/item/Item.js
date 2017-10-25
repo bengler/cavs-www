@@ -88,6 +88,7 @@ class Item extends React.PureComponent {
           && (
             <div className={s.mainImage}>
               <ImageFlipper
+                url={`/item/${item.identifier}`}
                 currentImageKey={currentImageKey}
                 images={imageAssets}
               />

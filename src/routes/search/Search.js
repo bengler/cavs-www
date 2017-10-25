@@ -6,6 +6,7 @@ import url from 'url'
 import {get, sortBy, debounce} from 'lodash'
 import history from '../../history'
 import LinkResolver from '../../components/Link/Resolver'
+import Spinner from '../../components/Spinner/Spinner'
 
 import s from './Search.css'
 
@@ -164,7 +165,9 @@ class Search extends React.PureComponent {
         </form>
         {
           isSearching && (
-            <div className={s.loader}>Loading…</div>
+            <div className={s.spinner}>
+              <Spinner>Loading</Spinner>
+            </div>
           )
         }
         {

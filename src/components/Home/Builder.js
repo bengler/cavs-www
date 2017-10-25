@@ -28,12 +28,12 @@ const HeaderWithStyles = withStyles(s)(Header)
  * @param {Array} a items An array containing the items.
  */
 function shuffle(a) {
-  var j, x, i;
+  let j, x, i
   for (i = a.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = a[i];
-      a[i] = a[j];
-      a[j] = x;
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
   }
 }
 function ensureBasicVantagePoint(obj, distance) {
@@ -168,7 +168,7 @@ class Builder extends THREE.Object3D {
   async generateTheme() {
     // const theme = await getRandomTheme(this.fetch)
     const theme = randomTopic()
-    console.log(theme)
+    //console.log(theme)
     theme.key = `${Math.random()}`
 
     const components = []
@@ -227,8 +227,8 @@ class Builder extends THREE.Object3D {
       }
 
       if (this.introComponent) {
-        this.introComponent.introText.position.y =
-          -this.introComponent.introText.height / 2
+        this.introComponent.introText.position.y
+          = -this.introComponent.introText.height / 2
 
           // - this.heading.height / 2
       }

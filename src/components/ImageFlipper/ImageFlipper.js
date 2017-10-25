@@ -4,95 +4,211 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import {get} from 'lodash'
 import s from './ImageFlipper.css'
 import Link from '../Link/Link'
+import Swipeable from 'react-swipeable'
+import history from '../../history'
+import Spinner from '../Spinner/Spinner'
 
-class ImageFlipper extends React.Component {
+function findImageIndex(images, key) {
+  let currentIndex = 0
+  if (key) {
+    currentIndex = images.findIndex(i => i._key === key)
+  }
+  return currentIndex
+}
+
+function findCurrentImage(images, key) {
+  return images.find(i => i._key === key) || images[0]
+}
+
+function findPrevImage(images, key) {
+  const index = findImageIndex(images, key)
+  return index > 0 && images[index - 1]
+}
+function findNextImage(images, key) {
+  const index = findImageIndex(images, key)
+  return images.length > 1 && index < images.length && images[index + 1]
+}
+
+
+class ImageFlipper extends React.PureComponent {
   static propTypes = {
+    url: PropTypes.string,
     currentImageKey: PropTypes.string,
     images: PropTypes.arrayOf(PropTypes.shape({
       _key: PropTypes.string,
       asset: PropTypes.shape({
         url: PropTypes.string,
-      }),
-    })),
-  };
+      })
+    }))
+  }
 
   static defaultProps = {
     images: [{}],
+    url: ''
+  }
+  state = {
+    loading: true,
+    prevImage: findPrevImage(this.props.images, this.props.currentImageKey),
+    currentImage: findCurrentImage(this.props.images, this.props.currentImageKey),
+    nextImage: findNextImage(this.props.images, this.props.currentImageKey)
+  }
+  direction = undefined
+  deltaX = 0
 
+  componentWillReceiveProps(nextProps) {
+    const {images, currentImageKey} = nextProps
+
+    const prevImage = findPrevImage(images, currentImageKey)
+    const currentImage = findCurrentImage(images, currentImageKey)
+    const nextImage = findNextImage(images, currentImageKey)
+
+    if (nextProps.currentImageKey !== this.props.currentImageKey) {
+      this.setState({
+        loading: true,
+        prevImage,
+        currentImage,
+        nextImage
+      })
+    }
+  }
+
+  handleSwiping = (e, deltaX) => {
+    this.deltaX = deltaX
+    if (Math.abs(deltaX) < 300) {
+      const move = -deltaX
+      this._imageWrapperElement.style.transform = `translateX(${move}px)`
+    }
+  }
+
+  handleSwipingLeft = () => {
+    this.direction = 'left'
+  }
+
+  handleSwipingRight = () => {
+    this.direction = 'right'
+  }
+
+  handleSwiped = event => {
+    this._imageWrapperElement.style.transform = `translateX(${0})`
+    if (Math.abs(this.deltaX) < 250) {
+      return
+    }
+    if (this.direction === 'left' && this._nextElement) {
+      history.replace(this._nextElement.props.to)
+    }
+    if (this.direction === 'right' && this._prevElement) {
+      history.replace(this._prevElement.props.to)
+    }
+    this.setState({
+      loading: true
+    })
+  }
+
+  handleLoad = event => {
+    this.setState({
+      loading: false
+    })
+  }
+
+  setImageWrapperElement = element => {
+    this._imageWrapperElement = element
+  }
+
+  setPrevElement = element => {
+    this._prevElement = element
+  }
+
+  setNextElement = element => {
+    this._nextElement = element
   }
 
   render() {
-    const {images, currentImageKey} = this.props
+    const {images, url} = this.props
+    const {
+      loading,
+      prevImage,
+      currentImage,
+      nextImage,
+    } = this.state
 
     if (!images || images.length < 1) {
       return false
     }
-
-    const currentIndex = images.findIndex(i => i._key === currentImageKey) || 0
-
-    const prevImage = currentIndex > 0 && images[currentIndex - 1]
-    const currentImage = images[currentIndex] || images[0]
-    const nextImage = images.length > 1 && currentIndex < images.length && images[currentIndex + 1]
 
     const width = get(currentImage, 'asset.metadata.dimensions.width')
     const height = get(currentImage, 'asset.metadata.dimensions.height')
     const aspectRatio = get(currentImage, 'asset.metadata.dimensions.aspectRatio')
 
     return (
-      <div className={s.root}>
-        {
-          prevImage && (
-            <Link to={`?image=${prevImage._key}`} className={s.prev} title="Previous">
-              <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
-                <g transform="rotate(-180 25,50) ">
-                  <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
-                  <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
-                </g>
-              </svg>
-            </Link>
-          )
-        }
-        <div className={s.imageWrapper}>
-          <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
-          <div className={s.loader}>Loading…</div>
+      <Swipeable
+        onSwiping={this.handleSwiping}
+        onSwipingLeft={this.handleSwipingLeft}
+        onSwipingRight={this.handleSwipingRight}
+        onSwiped={this.handleSwiped}
+      >
+        <div className={s.root}>
           {
-            currentImage && (
-              <img
-                key={`loading${currentImage._key}`}
-                width={width}
-                height={height}
-                className={s.loadingImage}
-                src={`${currentImage.asset.url}?w=300`}
-                alt=""
-              />
+            prevImage && (
+              <Link replace to={`${url}?image=${prevImage._key}`} className={s.prev} title="Previous" ref={this.setPrevElement}>
+                <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="rotate(-180 25,50) ">
+                    <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
+                    <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
+                  </g>
+                </svg>
+              </Link>
             )
           }
           {
-            currentImage && (
-              <img
-                key={currentImage._key}
-                width={width}
-                height={height}
-                className={s.image}
-                src={`${currentImage.asset.url}?w=1200`}
-                alt=""
-              />
+            loading && (
+              <div className={s.loader}>
+                <Spinner />
+              </div>
             )
           }
+
+          <div className={s.imageWrapper} ref={this.setImageWrapperElement}>
+            <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+            {
+              currentImage && (
+                <img
+                  key={`loading${currentImage._key}`}
+                  width={width}
+                  height={height}
+                  className={s.loadingImage}
+                  src={`${currentImage.asset.url}?w=300`}
+                  alt=""
+                />
+              )
+            }
+            {
+              currentImage && (
+                <img
+                  key={currentImage._key}
+                  width={width}
+                  height={height}
+                  className={s.image}
+                  onLoad={this.handleLoad}
+                  src={`${currentImage.asset.url}?w=1200`}
+                  alt=""
+                />
+              )
+            }
+          </div>
+          {
+              nextImage && (
+                <Link replace to={`${url}?image=${nextImage._key}`} className={s.next} title="Next" ref={this.setNextElement}>
+                  <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                      <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
+                      <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
+                    </g>
+                  </svg>
+                </Link>
+              )
+            }
         </div>
-        {
-          nextImage && (
-            <Link to={`?image=${nextImage._key}`} className={s.next} title="Next">
-              <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
-                <g>
-                  <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
-                  <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
-                </g>
-              </svg>
-            </Link>
-          )
-        }
-      </div>
+      </Swipeable>
     )
   }
 }
