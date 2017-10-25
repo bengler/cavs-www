@@ -49,12 +49,8 @@ class Persons extends React.Component {
           <h1 className={s.title}>{name}</h1>
           <p className={s.shortBio}>{shortBio}</p>
           <div className={s.meta}>
-            <div>
-              <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
-            </div>
-            <div>
-              {this.renderDates(deceased, dob)}
-            </div>
+            <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
+            {this.renderDates(deceased, dob)}
           </div>
           {
             portraits && portraits[0]
