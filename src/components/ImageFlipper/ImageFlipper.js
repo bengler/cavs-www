@@ -47,7 +47,7 @@ class ImageFlipper extends React.PureComponent {
     url: ''
   }
   state = {
-    loading: true,
+    loading: false,
     prevImage: findPrevImage(this.props.images, this.props.currentImageKey),
     currentImage: findCurrentImage(this.props.images, this.props.currentImageKey),
     nextImage: findNextImage(this.props.images, this.props.currentImageKey)
@@ -74,9 +74,9 @@ class ImageFlipper extends React.PureComponent {
 
   handleSwiping = (e, deltaX) => {
     const {nextImage, prevImage} = this.state
-    this.deltaX = deltaX
     if (nextImage || prevImage) {
       if (Math.abs(deltaX) < 300) {
+        this.deltaX = deltaX
         if (!nextImage && deltaX > 0) {
           return
         }
@@ -90,11 +90,18 @@ class ImageFlipper extends React.PureComponent {
   }
 
   handleSwipingLeft = () => {
-    this.direction = 'left'
+    const {nextImage} = this.state
+    if (nextImage) {
+      this.direction = 'left'
+    }
   }
 
   handleSwipingRight = () => {
-    this.direction = 'right'
+    const {prevImage} = this.state
+
+    if (prevImage) {
+      this.direction = 'right'
+    }
   }
 
   handleSwiped = event => {
@@ -105,15 +112,18 @@ class ImageFlipper extends React.PureComponent {
     const {url} = this.props
     const {nextImage, prevImage} = this.state
 
-    if (this.direction === 'left' && prevImage) {
-      history.replace(`/cavs${url}?image=${prevImage._key}`)
-    }
-    if (this.direction === 'right' && nextImage) {
+    if (this.direction === 'left' && nextImage) {
+      this.setState({
+        loading: true
+      })
       history.replace(`/cavs${url}?image=${nextImage._key}`)
     }
-    this.setState({
-      loading: true
-    })
+    if (this.direction === 'right' && prevImage) {
+      this.setState({
+        loading: true
+      })
+      history.replace(`/cavs${url}?image=${prevImage._key}`)
+    }
   }
 
   handleLoad = event => {
