@@ -54,8 +54,8 @@ class Locations extends React.Component {
 
   createMarkers() {
     const majorMarkerIcon = L.icon({
-      iconUrl: '/images/map-marker.png',
-      shadowUrl: '/images/map-marker-shadow.png',
+      iconUrl: '/cavs/images/map-marker.png',
+      shadowUrl: '/cavs/images/map-marker-shadow.png',
 
       iconSize: [14, 14], // size of the icon
       shadowSize: [18, 18], // size of the shadow
