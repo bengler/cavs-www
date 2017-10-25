@@ -43,7 +43,7 @@ class Persons extends React.Component {
       const markers = new L.MarkerClusterGroup()
 
       const majorMarkerIcon = L.icon({
-        iconUrl: '/images/map-marker.png',
+        iconUrl: '/cavs/images/map-marker.png',
         iconSize: [24, 24], // size of the icon
         iconAnchor: [12, 24], // point of the icon which will correspond to marker's location
         popupAnchor: [-12, -18], // point from which the popup should open relative to the iconAnchor
