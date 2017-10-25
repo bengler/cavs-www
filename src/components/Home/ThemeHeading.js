@@ -28,10 +28,15 @@ class ThemeHeading extends React.PureComponent {
     const {theme} = this.props
     const {kind, key, title} = theme
 
+    const titleStyle = {
+      borderColor: theme.color,
+      color: theme.color
+    }
+
     return (
       <section className={s.root}>
         <h2 className={s.heading}>
-          <span className={s.title}>
+          <span style={titleStyle} className={s.title}>
             {title}
           </span>
         </h2>

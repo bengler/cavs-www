@@ -18,14 +18,11 @@
   font-size: 1.5em;
   text-transform: uppercase;
   padding: 0.5em;
-  
+
   @nest &:hover {
-    background-color: color(lime a(20%));
+    opacity: 0.9;
   }
 
-  @nest &:visited {
-    color: lime;
-  }
 }
 
 .link {

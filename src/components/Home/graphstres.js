@@ -179,7 +179,7 @@ export function randomTopic() {
     return {
       kind: 'decade',
       color: 'rgb(255,0,153)',
-      title: `${randomKey}s`,
+      title: `${randomKey} – ${+randomKey + 10}`,
       url: '',
       items: items
     }
