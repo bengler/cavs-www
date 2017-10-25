@@ -4424,6 +4424,10 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
+lodash@4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.6.1.tgz#df00c1164ad236b183cfc3887a5e8d38cc63cbbc"
+
 lodash@^2.4.1:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-2.4.2.tgz#fadd834b9683073da179b3eae6d9c0d15053f73e"
@@ -5328,7 +5332,7 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-performance-now@^0.2.0:
+performance-now@^0.2.0, performance-now@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
 
@@ -5971,6 +5975,12 @@ querystringify@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
+raf@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.2.0.tgz#2aba9a09bb70f8c2e9094dc60ace7c374fadec7e"
+  dependencies:
+    performance-now "~0.2.0"
+
 raf@^3.1.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.0.tgz#a28876881b4bc2ca9117d4138163ddb80f781575"
@@ -6057,6 +6067,26 @@ react-proxy@^3.0.0-alpha.0:
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
   dependencies:
     lodash "^4.6.1"
+
+react-swipeable@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-4.1.0.tgz#2796c903e810451058f3c69dfc35740d5857ec7c"
+  dependencies:
+    prop-types "^15.5.8"
+
+react-touch-events@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-touch-events/-/react-touch-events-2.1.0.tgz#e1c93a328996344cd919537538d67b5fbf2b2ddf"
+  dependencies:
+    prop-types "^15.5.8"
+
+react-touch@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/react-touch/-/react-touch-0.4.3.tgz#21e5ba059afbb1e12e8a2d76c5ee28a7a9eff1a8"
+  dependencies:
+    lodash "4.6.1"
+    prop-types "^15.5.7"
+    raf "3.2.0"
 
 react-transition-group@^2.2.1:
   version "2.2.1"
