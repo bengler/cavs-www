@@ -1,6 +1,7 @@
 .root {
   width: 800px;
   margin-bottom: 180px;
+  cursor: grab;
 }
 
 .heading {

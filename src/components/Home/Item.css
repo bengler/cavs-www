@@ -7,7 +7,8 @@
   display: inline-block;
   pointer-events: auto;
   border: 2px solid transparent;
-  
+  font-size: 100px;
+
   @nest & img {
     width: 600px;
     display: inline-block;

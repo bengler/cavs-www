@@ -12,6 +12,20 @@ class Item extends React.Component {
     }).isRequired
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {isToggleOn: true}
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }))
+  }
+
   shouldComponentUpdate(prevProps) {
     return prevProps.item._id !== this.props.item._id
   }
@@ -20,19 +34,13 @@ class Item extends React.Component {
     const {item} = this.props
 
     return (
-      <div className={s.root}>
-        {
-          item.link && (
-            <Link to="/" className={s.link}>
-              <img src={`${item.url}?w=600`} alt="" />
-            </Link>
-          )
+      <div onClick={this.handleClick} className={s.root}>
+        { this.state.isToggleOn
+          && <Link to={`/item/${item.identifier}`} className={s.link}>
+          >>
+          </Link>
         }
-        {
-          !item.link && (
-            <img src={`${item.url}?w=600`} alt="" />
-          )
-        }
+        <img src={`${item.url}?w=600`} alt="" />
       </div>
     )
   }
