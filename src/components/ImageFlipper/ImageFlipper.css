@@ -21,6 +21,8 @@
 .imageWrapper {
   position: relative;
   overflow: hidden;
+  transform: translateX(0);
+  transition: transform 0.1s ease-out;
 }
 
 .loader {
@@ -29,7 +31,6 @@
   left: 50%;
   opacity: 0.3;
   z-index: 500;
-  border: 1px solid red;
 }
 
 .padder {
