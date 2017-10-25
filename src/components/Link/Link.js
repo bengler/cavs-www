@@ -44,12 +44,12 @@ class Link extends React.Component {
     }
 
     event.preventDefault()
-    history.push(this.props.to)
+    history.push(`/cavs${this.props.to}`)
   };
 
   render() {
     const {to, children, ...props} = this.props
-    return <a href={to} {...props} onClick={this.handleClick}>{children}</a>
+    return <a href={`/cavs${to}`} {...props} onClick={this.handleClick}>{children}</a>
   }
 }
 
