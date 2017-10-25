@@ -210,12 +210,19 @@ class DSpace extends React.PureComponent {
        getCameraCSSMatrix(this.camera.matrixWorldInverse)
        }translate(${this.width / 2}px,${this.height / 2}px)`
     return (
-      <div>
-        <div style={{position: 'fixed', color: '#fff'}} onClick={this.handleBackdropClick}>
+      <div style={{backgroundColor: '#000'}}>
+        <div
+          style={{
+            position: 'fixed',
+            color: '#fff',
+            backgroundColor: '#000'
+          }}
+          onClick={this.handleBackdropClick}
+        >
           <div
             style={{
               backgroundColor: '#000',
-              position: 'fixed',
+              position: 'absolute',
               top: '0',
               perspective: `${fov}px`
             }}
