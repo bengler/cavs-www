@@ -13,15 +13,17 @@ class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     showHeader: PropTypes.bool,
+    showFooter: PropTypes.bool,
     inverted: PropTypes.bool
   };
 
   static defaultProps = {
-    showHeader: true
+    showHeader: true,
+    showFooter: true
   }
 
   render() {
-    const {showHeader, inverted} = this.props
+    const {showHeader, showFooter, inverted} = this.props
     return (
       <div className={inverted ? s.inverted : ''}>
         {
@@ -32,7 +34,10 @@ class Layout extends React.Component {
         <div className={s.content}>
           {this.props.children}
         </div>
-        <Footer />
+        {
+          showFooter &&
+          <Footer />
+        }
       </div>
     )
   }

@@ -9,7 +9,7 @@ export default {
     return {
       title: 'MIT Center for Advanced Visual Studies Special Collection',
       component: (
-        <Layout showHeader={false} inverted>
+        <Layout showHeader={false} showFooter={false} inverted>
           <App fetch={fetch}/>
         </Layout>
       ),
