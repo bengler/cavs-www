@@ -123,16 +123,7 @@ class Builder extends THREE.Object3D {
       this.mainNav.addObjects(layout.objs)
     }
 
-    // if (layout.objs[2]) {
-    //   await this.addAssociation(layout.objs[2], Math.random() - 0.5)
-    // }
-    let toNext = Math.floor(Math.random() * 2 + 1)
-    layout.objs.slice(1).forEach(obj => {
-      if (toNext-- <= 0) {
-        this.addAssociation(obj, Math.random() - 0.5)
-        toNext = Math.floor(Math.random() * 2 + 1)
-      }
-    })
+    this.applyAssociations(layout.objs)
 
     this.space.add(layout)
 
@@ -148,7 +139,16 @@ class Builder extends THREE.Object3D {
       const toRemove = this.components.shift()
       this.space.remove(toRemove)
     }
+  }
 
+  applyAssociations(objs) {
+    let toNext = Math.floor(Math.random() * 2 + 1)
+    objs.slice(1).forEach(obj => {
+      if (toNext-- <= 0) {
+        this.addAssociation(obj, Math.random() - 0.5)
+        toNext = Math.floor(Math.random() * 2 + 1)
+      }
+    })
   }
 
   async addAssociation(obj, direction) {
