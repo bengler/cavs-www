@@ -60,10 +60,11 @@ class Builder extends THREE.Object3D {
     this.fetch = fetch
 
 
-    setTimeout(() => {
+    setTimeout(async () => {
       this.stub()
       this.addIntro()
-      this.initGraph()
+      await this.initGraph()
+      this.addTheme(null)
     }, 50)
     bus.subscribe(this.handleBusMessage)
     this.components = []
@@ -149,7 +150,9 @@ class Builder extends THREE.Object3D {
   }
 
   async generateTheme() {
-    const theme = await getRandomTheme(this.fetch)
+    // const theme = await getRandomTheme(this.fetch)
+    const theme = randomTopic()
+    theme.key = `${Math.random()}`
 
     const components = []
 
@@ -182,7 +185,6 @@ class Builder extends THREE.Object3D {
 
     const handle = new THREE.Object3D()
     handle.position.copy(this.introComponent.position)
-    this.addTheme(null)
   }
 
   update() {

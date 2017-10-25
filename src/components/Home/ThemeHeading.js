@@ -26,7 +26,7 @@ class ThemeHeading extends React.PureComponent {
 
   render() {
     const {theme} = this.props
-    const {type, key, title} = theme
+    const {kind, key, title} = theme
 
     return (
       <section className={s.root}>

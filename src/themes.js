@@ -4,10 +4,9 @@ import PropTypes from 'prop-types'
 
 export const themeShape = PropTypes.shape({
   key: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  kind: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
-  related: PropTypes.array
 })
 
 // key here can be id, key or name

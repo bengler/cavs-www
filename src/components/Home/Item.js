@@ -1,16 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
-import LinkResolver from '../Link/Resolver'
+import Link from '../Link/Link'
 
 import s from './Item.css'
 
 class Item extends React.Component {
   static propTypes = {
     item: PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      _type: PropTypes.string.isRequired,
-      imageAssets: PropTypes.array
+      url: PropTypes.string.isRequired,
     }).isRequired
   }
 
@@ -25,14 +23,14 @@ class Item extends React.Component {
       <div className={s.root}>
         {
           item.link && (
-            <LinkResolver item={item.link} className={s.link}>
-              <img src={`${item.imageAssets[0].asset.url}?w=600`} alt="" />
-            </LinkResolver>
+            <Link to="/" className={s.link}>
+              <img src={`${item.url}?w=600`} alt="" />
+            </Link>
           )
         }
         {
           !item.link && (
-            <img src={`${item.imageAssets[0].asset.url}?w=600`} alt="" />
+            <img src={`${item.url}?w=600`} alt="" />
           )
         }
       </div>
