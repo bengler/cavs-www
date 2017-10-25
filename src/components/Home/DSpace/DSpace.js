@@ -214,6 +214,7 @@ class DSpace extends React.PureComponent {
         <div style={{ position: 'fixed', color: '#fff' }} onClick={this.handleBackdropClick}>
           <div
             style={{
+              backgroundColor: '#000',
               position: 'fixed',
               top: '0',
               perspective: `${fov}px`
