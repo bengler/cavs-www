@@ -35,8 +35,8 @@ class DSpace extends React.PureComponent {
     this.space.camera = this.camera
     this.camera.position.z = -200
     this.camera.position.y = 0
-    this.renderer3D = new THREE.WebGLRenderer()
-    this.renderer3D.setSize(this.width * 2, this.height * 2)
+    // this.renderer3D = new THREE.WebGLRenderer()
+    // this.renderer3D.setSize(this.width * 2, this.height * 2)
 
     if (false) {
       const components = [0, 1, 2, 3, 4, 5, 6].map(() => <ThemeHeading />)
@@ -149,21 +149,21 @@ class DSpace extends React.PureComponent {
       Math.atan(nominalWidth / this.camera.aspect / (2 * nominalDistance)) *
       (180 / Math.PI)
     this.camera.updateProjectionMatrix()
-    this.renderer3D.setSize(this.width, this.height)
-    this.renderer3D.setPixelRatio(2)
+    // this.renderer3D.setSize(this.width, this.height)
+    // this.renderer3D.setPixelRatio(2)
   }
 
-  setRendererCanvas = element => {
-    if (this.animationShouldRun) {
-      console.log('Update renderer canvas', element)
-      this.renderer3D = new THREE.WebGLRenderer({ canvas: element })
-      this.renderer3D.setClearColor(new THREE.Color(0x000000))
-      this.handleResize()
-    }
-  }
+  // setRendererCanvas = element => {
+  //   if (this.animationShouldRun) {
+  //     console.log('Update renderer canvas', element)
+  //     this.renderer3D = new THREE.WebGLRenderer({ canvas: element })
+  //     this.renderer3D.setClearColor(new THREE.Color(0x000000))
+  //     this.handleResize()
+  //   }
+  // }
 
   componentDidUpdate() {
-    this.renderer3D.render(this.space.scene, this.camera)
+    // this.renderer3D.render(this.space.scene, this.camera)
     if (this.nextScrollY !== null) {
       console.log(
         'scrolling to ',
