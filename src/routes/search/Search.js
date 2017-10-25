@@ -44,6 +44,11 @@ class Search extends React.PureComponent {
     this.doSearch(query)
   }
 
+  handleSubmit = event => {
+    // No need to search when we do it on handleInputChange
+    event.preventDefault()
+  }
+
   doSearch = debounce(query => {
     const currentUrl = url.parse(document.location.href, true)
     currentUrl.query.q = query
@@ -151,7 +156,7 @@ class Search extends React.PureComponent {
 
     return (
       <div className={s.root}>
-        <form method="get" action="/cavs/search">
+        <form method="get" action="/cavs/search" onSubmit={this.handleSubmit}>
           <input
             type="search"
             tabIndex="0"
