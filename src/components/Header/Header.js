@@ -33,7 +33,7 @@ class Header extends React.Component {
           </a>
         </div>
         <Link to="/" className={s.title}>
-          Center for Advanced Visual Studies Special&nbsp;Collection
+          Center for Advanced Visual&nbsp;Studies Special&nbsp;Collection
         </Link>
         <div className={s.navigation}>
           <Navigation />
