@@ -1,5 +1,9 @@
 @import '../variables.css';
 
+:root {
+  --logo-size-ratio: 0.8;
+}
+
 .root {
   position: relative;
   width: 100%;
@@ -34,7 +38,7 @@
   margin: 0;
   padding: 0;
   line-height: 1em;
-  margin-right: 5rem;
+  margin-right: 6rem;
 
   @media (--screen-xs-min) {
     font-size: var(--font-size--medium--relative);
@@ -51,28 +55,27 @@
 
 .logos {
   float: right;
-  white-space: nowrap;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-right: 1rem;
 }
 
 .logoLink {
-  display: inline-block;
+  display: block;
 }
 
 .logo {
-  display: inline-block;
-  right: 1rem;
-  top: 1rem;
-  height: var(--font-size--base--relative);
-  width: auto;
   text-align: right;
+  height: calc(var(--font-size--base--relative) * var(--logo-size-ratio));
+  width: auto;
 
   @media (--screen-xs-min) {
-    height: var(--font-size--medium--relative);
+    height: calc(var(--font-size--medium--relative) * var(--logo-size-ratio));
     width: auto;
   }
 
   @media (--screen-sm-min) {
-    height: var(--font-size--large--relative);
+    height: calc(var(--font-size--large--relative) * var(--logo-size-ratio));
     width: auto;
   }
 }
@@ -83,6 +86,25 @@
 
 .actLogo {
   composes: logo;
+  margin-top: 3rem;
+  width: 100%;
+  height: auto;
+
+  @media (--screen-xs-min) {
+    margin-top: 3rem;
+    height: auto;
+    width: auto;
+  }
+
+  @media (--screen-sm-min) {
+    margin-top: 3rem;
+    height: auto;
+    width: auto;
+  }
+
+  @media (--screen-lg-min) {
+    margin-top: 2rem;
+  }
 }
 
 .noBreak {

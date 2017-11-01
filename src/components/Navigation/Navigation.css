@@ -3,27 +3,25 @@
 .root {
   line-height: 1em;
   margin-top: 0.5em;
-
+  margin-top: 0;
+  padding: 0;
+  display: block;
+  color: var(--brand-color);
   @media (--screen-xs-min) {
     font-size: var(--font-size--medium--relative);
   }
 
   @media (--screen-sm-min) {
-    margin-top: 0;
     font-size: var(--font-size--large--relative);
   }
 }
 
 .link {
-  display: inline-block;
+  display: inline;
   color: var(--brand-color);
 
   @nest &:visited {
     color: var(--brand-color);
-  }
-
-  @nest &:not(:last-child)::after {
-    content: ',\00a0';
   }
 }
 

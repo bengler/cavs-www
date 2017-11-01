@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 21.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 78.7 56" enable-background="new 0 0 78.7 56" xml:space="preserve">
-<g id="background" display="none">
-	<rect x="-11" y="-59.1" display="inline" fill="#E6DCD8" width="693" height="379.6"/>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 72 38" style="enable-background:new 0 0 72 38;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;fill:#E6DCD8;}
+	.st2{fill:#FFFFFF;}
+</style>
+<g id="background" class="st0">
+	<rect x="-14.3" y="-68.1" class="st1" width="693" height="379.6"/>
 </g>
 <g id="MIT_logo_sprites">
 	<g>
-		<rect x="56" y="8" fill="#FFFFFF" width="20" height="8"/>
-		<rect x="17" y="8" fill="#FFFFFF" width="8" height="26"/>
-		<rect x="30" y="8" fill="#FFFFFF" width="8" height="38"/>
-		<rect x="4" y="8" fill="#FFFFFF" width="8" height="38"/>
-		<rect x="56" y="21" fill="#FFFFFF" width="8" height="25"/>
-		<rect x="43" y="8" fill="#FFFFFF" width="8" height="8"/>
-		<rect x="43" y="21" fill="#FFFFFF" width="8" height="25"/>
+		<rect x="52" class="st2" width="20" height="8"/>
+		<rect x="13" class="st2" width="8" height="26"/>
+		<rect x="26" class="st2" width="8" height="38"/>
+		<rect class="st2" width="8" height="38"/>
+		<rect x="52" y="13" class="st2" width="8" height="25"/>
+		<rect x="39" class="st2" width="8" height="8"/>
+		<rect x="39" y="13" class="st2" width="8" height="25"/>
 	</g>
 </g>
 <g id="color_guide">
