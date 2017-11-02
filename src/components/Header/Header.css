@@ -1,7 +1,7 @@
 @import '../variables.css';
 
 :root {
-  --logo-size-ratio: 0.8;
+  --logo-size-ratio: 0.75;
 }
 
 .root {
@@ -58,6 +58,7 @@
   display: flex;
   flex-direction: column-reverse;
   margin-right: 1rem;
+  margin-left: 5rem;
 }
 
 .logoLink {
@@ -82,6 +83,7 @@
 
 .mitLogo {
   composes: logo;
+  padding-top: 0.1rem;
 }
 
 .actLogo {
