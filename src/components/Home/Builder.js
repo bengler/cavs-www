@@ -227,7 +227,7 @@ class Builder extends THREE.Object3D {
 
       if (this.introComponent) {
         this.introComponent.introText.position.y
-          = - this.heading.height + window.innerHeight - 1000
+          = -this.introComponent.introText.height / 2
           // - this.heading.height / 2
       }
     }
