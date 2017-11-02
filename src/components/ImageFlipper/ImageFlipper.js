@@ -175,10 +175,13 @@ class ImageFlipper extends React.PureComponent {
             prevImage && (
               <Link replace to={`${url}?image=${prevImage._key}`} className={s.prev} title="Previous" ref={this.setPrevElement}>
                 <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
-                  <g transform="rotate(-180 25,50) ">
-                    <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
-                    <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
-                  </g>
+                  <path
+                    transform="rotate(-180 23.253814697265625,49.9273796081543)"
+                    stroke="currentColor"
+                    d="m5.1585,5.11386l36.19593,44.75554l-36.20123,44.8715"
+                    strokeWidth="10"
+                    fill="none"
+                  />
                 </svg>
               </Link>
             )
@@ -224,8 +227,12 @@ class ImageFlipper extends React.PureComponent {
                 <Link replace to={`${url}?image=${nextImage._key}`} className={s.next} title="Next" ref={this.setNextElement}>
                   <svg width="50" height="100" xmlns="http://www.w3.org/2000/svg">
                     <g>
-                      <line y2="50" x2="50" y1="0" x1="0" strokeWidth="1" stroke="#000" />
-                      <line y2="50" x2="50" y1="100" x1="0" strokeWidth="1" stroke="#000" />
+                      <path
+                        stroke="currentColor"
+                        d="m5.1585,5.11386l36.19593,44.75554l-36.20123,44.8715"
+                        strokeWidth="10"
+                        fill="none"
+                      />
                     </g>
                   </svg>
                 </Link>
