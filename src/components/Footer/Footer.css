@@ -10,27 +10,37 @@
 }
 
 .content {
-  max-width: 50vw;
 
   @media (--screen-xs-min) {
-    max-width: 50rem;
+    max-width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
   }
 }
 
 .mit {
+  display: block;
+  color: inherit;
   font-size: var(--font-size--small);
   max-width: 20em;
   margin-bottom: 2rem;
-  padding-right: 1em;
+  padding-right: 2em;
+
+  @nest &:visited {
+    color: inherit;
+  }
+
+  @media (--screen-xs-min) {
+    padding-left: 3rem;
+  }
 }
 
 .contact {
   font-size: var(--font-size--small);
   white-space: normal;
   margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: 1.5rem;
 
   @nest & a {
     color: black;
@@ -54,4 +64,9 @@
 .actLogo {
   width: 100%;
   height: auto;
+  max-width: 8rem;
+
+  @media (--screen-xs-min) {
+    padding: 0 1.5rem;
+  }
 }

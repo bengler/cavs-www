@@ -19,11 +19,11 @@ class Footer extends React.PureComponent {
           <a href="http://act.mit.edu" className={s.actLogoLink}>
             <img className={s.actLogo} src="/cavs/images/act_black_rgb_RZ.svg" />
           </a>
-          <div className={s.mit}>
+          <a className={s.mit} href="http://sap.mit.edu">
             School of Architecture and Planning
             Massachusetts Institute of Technology
             Cambridge, Massachusetts
-          </div>
+          </a>
           <div className={s.contact}>
             <a href="http://act.mit.edu/about-act/contact-and-locations/" rel="noopener noreferrer" target="_blank">
               Contact{', '}
