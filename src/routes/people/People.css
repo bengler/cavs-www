@@ -35,7 +35,7 @@
 .chunkInnerList {
   composes: list;
   composes: fontMedium from '../../components/typography.css';
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 .link {
@@ -59,7 +59,7 @@
 
 .portraitItem {
   composes: item;
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
   break-inside: avoid;
 }
 

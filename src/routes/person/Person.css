@@ -20,7 +20,7 @@
   width: 100%;
   display: block;
   height: auto;
-  max-height: 80vh;
+  max-height: 150vh;
   object-fit: contain;
   margin-bottom: 1rem;
 }

@@ -6,7 +6,7 @@
 
 .item {
   display: block;
-  margin-bottom: 4rem;
+  padding-bottom: 4rem;
   break-inside: avoid;
 }
 
