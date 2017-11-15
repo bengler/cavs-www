@@ -15,7 +15,7 @@
   "dependencies": {
     "@bengler/opbeat": "^1.0.11",
     "@sanity/block-content-to-react": "^1.0.3",
-    "@sanity/client": "^0.115.2",
+    "@sanity/client": "^0.121.0",
     "babel-polyfill": "^6.23.0",
     "body-parser": "^1.17.1",
     "classnames": "^2.2.5",
