@@ -5,6 +5,20 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import LinkResolver from '../Link/Resolver'
 import s from './PartOf.css'
 
+function abbr(text) {
+  if (text === 'Center for Advanced Visual Studies') {
+    return <abbr title={text}>CAVS</abbr>
+  }
+  if (text === 'Massachusetts Institute of Technology') {
+    return <abbr title={text}>MIT</abbr>
+  }
+
+  if (text === 'Center for Advanced Visual Studies, Massachusetts Institute of Technology') {
+    return <abbr title={text}>CAVS, MIT</abbr>
+  }
+  return text
+}
+
 class PartOf extends React.Component {
   static propTypes = {
     partOf: PropTypes.arrayOf(PropTypes.shape({
@@ -63,7 +77,7 @@ class PartOf extends React.Component {
                       return (
                         <span className={s.creator} key={person._id} >
                           {i > 0 && seperator}
-                          <LinkResolver item={person}>{person.name}</LinkResolver>
+                          <LinkResolver item={person}>{abbr(person.name)}</LinkResolver>
                         </span>
                       )
                     })

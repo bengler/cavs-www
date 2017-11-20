@@ -71,8 +71,9 @@
 
 .video {
   width: 100%;
+  margin-bottom: 1rem;
 
-  @nest & iframe {
+  & iframe {
     width: 100%;
     height: calc((100vw - 2rem) / (1280 / 720));
   }

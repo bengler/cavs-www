@@ -5,6 +5,20 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import Link from '../Link/Link'
 import s from './Creators.css'
 
+function abbr(text) {
+  if (text === 'Center for Advanced Visual Studies') {
+    return <abbr title={text}>CAVS</abbr>
+  }
+  if (text === 'Massachusetts Institute of Technology') {
+    return <abbr title={text}>MIT</abbr>
+  }
+
+  if (text === 'Center for Advanced Visual Studies, Massachusetts Institute of Technology') {
+    return <abbr title={text}>CAVS, MIT</abbr>
+  }
+  return text
+}
+
 class Creators extends React.Component {
   static propTypes = {
     creators: PropTypes.arrayOf(PropTypes.shape({
@@ -30,7 +44,7 @@ class Creators extends React.Component {
           {
             creators.map(creator => (
               <li key={creator._id} className={s.item}>
-                <Link to={`/person/${creator._id}`}>{creator.name}</Link>
+                <Link to={`/person/${creator._id}`}>{abbr(creator.name)}</Link>
               </li>
               ))
           }

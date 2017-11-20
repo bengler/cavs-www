@@ -86,6 +86,16 @@ class Item extends React.PureComponent {
     return (
       <div className={s.root}>
         {
+          _type === 'movingImage' && videoUrl && (
+            <div
+              className={s.video}
+              dangerouslySetInnerHTML={{
+                __html: embed(videoUrl, {image: 'thumbnail_large'}),
+              }}
+            />
+          )
+        }
+        {
           imageAssets && imageAssets.length > 0
           && (
             <div className={s.mainImage}>
@@ -134,16 +144,6 @@ class Item extends React.PureComponent {
           <div className={s.rights}>
             <Rights rights={rights} />
           </div>
-          {
-            _type === 'movingImage' && videoUrl && (
-              <div
-                className={s.video}
-                dangerouslySetInnerHTML={{
-                  __html: embed(videoUrl, {image: 'thumbnail_large'}),
-                }}
-              />
-            )
-          }
           <div className={s.imageGallery}>
             <ImageGallery images={imageAssets} excludeFirst />
           </div>
