@@ -8,7 +8,6 @@
   margin: 0;
   padding: 0;
   display: block;
-  margin-top: 2rem;
 
   @media (--screen-sm-min) {
     columns: 2;

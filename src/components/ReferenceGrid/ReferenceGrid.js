@@ -114,14 +114,16 @@ class ReferencesGrid extends React.Component {
                 {
                   imageAssets && imageAssets.length > 0 && (
                     <LinkResolver item={reference} className={s.image}>
-                      <ImageGallery images={imageAssets} />
+                      <ImageGallery images={imageAssets} onlyOne />
                     </LinkResolver>
                   )
                 }
 
                 {
                   !imageAssets || imageAssets.length < 1 && (
-                    <div className={s.noImage}><div className={s.padder} /></div>
+                    <LinkResolver item={reference} className={s.link}>
+                      <div className={s.noImage}><div className={s.padder} /></div>
+                    </LinkResolver>
                   )
                 }
 

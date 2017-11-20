@@ -27,17 +27,20 @@ export default {
         partOf[] -> {
           _id,
           _type,
-          name,
+          title,
+          identifier,
           creators[] -> {
             name,
             _type,
             _id
           },
           "references": *[references(^._id)] {
+            _id,
             name,
             _type,
             title,
             _key,
+            identifier,
             imageAssets[] {
               asset -> {url, metadata {dimensions}}
             }

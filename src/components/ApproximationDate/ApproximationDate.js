@@ -13,10 +13,10 @@ export default function approximationDate(data) {
     case 'month':
       return dateFns.format(date.utc, 'MMMM YYYY')
     case 'day':
-      return dateFns.format(date.utc, 'MMMM D YYYY')
+      return dateFns.format(date.utc, 'D MMMM YYYY')
     case 'circaYear':
       return dateFns.format(date.utc, 'YYYY')
     default:
-      return dateFns.format(date.utc, 'MMMM D YYYY')
+      return dateFns.format(date.utc, 'D MMMM YYYY')
   }
 }

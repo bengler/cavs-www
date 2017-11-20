@@ -29,10 +29,10 @@ class Rights extends React.Component {
         {
           rights.copyrightHolders && rights.copyrightHolders.length && (
             <li className={s.item}>
-                Copyright Holders:&nbsp;
-                {
-                  rights.copyrightHolders.map(holder => <span key={holder} className={s.item}>{holder}</span>)
-                }
+              Copyright Holders:&nbsp;
+              {
+                rights.copyrightHolders.map(holder => <span key={holder} className={s.item}>{holder}</span>)
+              }
             </li>
           )
         }

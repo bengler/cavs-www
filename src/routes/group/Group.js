@@ -76,9 +76,9 @@ class Item extends React.Component {
           <div className={s.meta}>
             {
                (_type === 'work3d' || _type === 'work2d') && (
-                 <span>
+                 <div>
                    <Extents extents={group.extents} type={group._type} />
-                 </span>
+                 </div>
                )
             }
             <Subjects subjects={subjects} />

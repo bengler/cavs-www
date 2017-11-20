@@ -19,9 +19,9 @@ class Persons extends React.Component {
   createPopUp = person => {
     const src = get(person, 'portraits[0].asset.url')
     return `
-      <a href="/person/${person._id}">
-        ${src ? `<img src="${src}?w=300&fit=max" />` : ''}
-        <span clasa="${s.popupTitle}">${person.name}</span>
+      <a href="/cavs/person/${person._id}" class="${s.mapLink}">
+        ${src ? `<img src="${src}?w=300&fit=max" class="${s.mapImage}" />` : ''}
+        <span class="${s.popupTitle}">${person.name}</span>
       </a>
     `
   }

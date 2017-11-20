@@ -20,7 +20,7 @@
   padding: 0;
 
   @nest &::placeholder {
-    color: #ddd;
+    color: #000;
   }
 }
 

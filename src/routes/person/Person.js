@@ -28,14 +28,14 @@ class Persons extends React.Component {
         <span
           title={`Born:${approximationDate(dob)} Deceased ${approximationDate(deceased)}`}
         >
-          {approximationDate(dob)}&#8202;–&#8202;{approximationDate(deceased)}
+          {approximationDate(dob)}&#8202;–&#8202;{approximationDate(deceased)}.
         </span>)
     }
     if (dob) {
-      return <span>Born {approximationDate(dob)}</span>
+      return <span>Born {approximationDate(dob)}.</span>
     }
     if (deceased) {
-      return <span titile={`Deceased ${approximationDate(deceased)}`}>†{approximationDate(deceased)}</span>
+      return <span titile={`Deceased ${approximationDate(deceased)}`}>†{approximationDate(deceased)}.</span>
     }
     return ''
   }
@@ -50,6 +50,7 @@ class Persons extends React.Component {
           <p className={s.shortBio}>{shortBio}</p>
           <div className={s.meta}>
             <AffiliationsPeriods affiliationsPeriods={affiliationsPeriods} />
+            {affiliationsPeriods && affiliationsPeriods.length > 0 && <span>.&nbsp;</span>}
             {this.renderDates(deceased, dob)}
           </div>
           {

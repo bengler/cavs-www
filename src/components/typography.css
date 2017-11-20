@@ -18,11 +18,15 @@
 }
 
 .title {
-  font-size: var(--font-size--title);
   letter-spacing: -0.03em;
   line-height: 1em;
   margin: 0;
   padding: 0;
   margin-top: 0.5em;
   margin-bottom: 2rem;
+  font-size: 2em;
+
+  @media (--screen-sm-min) {
+    font-size: var(--font-size--title);
+  }
 }

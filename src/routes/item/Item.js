@@ -3,17 +3,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withStyles from 'isomorphic-style-loader/lib/withStyles'
 import dateFns from 'date-fns'
-import {get} from 'lodash'
+import {get, compact} from 'lodash'
 import embed from 'embed-video'
 import s from './Item.css'
 import ImageGallery from '../../components/ImageGallery/ImageGallery'
 import PartOf from '../../components/PartOf/PartOf'
+import LinkResolver from '../../components/Link/Resolver'
 import Subjects from '../../components/Subjects/Subjects'
 import Creators from '../../components/Creators/Creators'
 import Formats from '../../components/Formats/Formats'
 import Rights from '../../components/Rights/Rights'
 import ResolveType from '../../components/ResolveType'
 import ImageFlipper from '../../components/ImageFlipper/ImageFlipper'
+import ReferenceGrid from '../../components/ReferenceGrid/ReferenceGrid'
 
 class Item extends React.PureComponent {
 
@@ -112,7 +114,7 @@ class Item extends React.PureComponent {
                   <span className={s.creatorsType}>
                     <ResolveType type={_type} />
                   </span>
-                  &nbsp; by <Creators creators={creators} />
+                  &nbsp;by <Creators creators={creators} />
                 </span>
               )
             }
@@ -122,7 +124,11 @@ class Item extends React.PureComponent {
           </p>
 
           <div className={s.meta}>
-            <Subjects subjects={subjects} />&ensp;
+            {
+              subjects && compact(subjects).length > 0 && (
+                <span><Subjects subjects={compact(subjects)} />&emsp;</span>
+              )
+            }
             <Formats formats={format} />
           </div>
           <div className={s.rights}>
@@ -141,6 +147,29 @@ class Item extends React.PureComponent {
           <div className={s.imageGallery}>
             <ImageGallery images={imageAssets} excludeFirst />
           </div>
+
+          {
+            partOf && partOf.length > 0 && (
+              <div className={s.references}>
+                {
+                  partOf.map(part => {
+                    if (!part.references || part.references.length === 0) {
+                      return false
+                    }
+                    if (part.references.length === 1 && part.references[0]._id === item._id) {
+                      return false
+                    }
+                    return (
+                      <div key={part._id}>
+                        <h2>Also from <LinkResolver item={part}>{part.name}</LinkResolver></h2>
+                        <ReferenceGrid references={part.references.filter(i => i._id != item._id)} />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            )
+          }
         </div>
       </div>
     )

@@ -32,6 +32,11 @@
   composes: textContainer from '../../components/common.css';
   composes: fontMedium from '../../components/typography.css';
 
+  & p:first-child {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
   @nest & h1 {
     font-size: var(--font-size--large);
   }

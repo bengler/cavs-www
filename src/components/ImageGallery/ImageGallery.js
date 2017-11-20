@@ -7,6 +7,7 @@ import s from './ImageGallery.css'
 class ImageGallery extends React.Component {
   static propTypes = {
     excludeFirst: PropTypes.bool,
+    onlyOne: PropTypes.bool,
     images: PropTypes.arrayOf(PropTypes.shape({
       _key: PropTypes.string.isRequired,
       asset: PropTypes.shape({
@@ -21,11 +22,13 @@ class ImageGallery extends React.Component {
   }
 
   render() {
-    const {images, excludeFirst} = this.props
+    const {images, excludeFirst, onlyOne} = this.props
 
     if (!images.length || (images.length === 1 && excludeFirst)) {
       return false
     }
+
+    let foundImage = false
     return (
       <div className={images.length > 1 ? s.grid : s.root}>
         {
@@ -37,18 +40,24 @@ class ImageGallery extends React.Component {
             const width = get(image, 'asset.metadata.dimensions.width')
             const height = get(image, 'asset.metadata.dimensions.height')
             const aspectRatio = get(image, 'asset.metadata.dimensions.aspectRatio')
-            return (
-              <div className={s.item} key={image._key}>
-                <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
-                <img
-                  width={width}
-                  height={height}
-                  className={s.image}
-                  src={`${url}?w=300`}
-                  alt=""
-                />
-              </div>
-            )
+
+            if (!foundImage) {
+              if (url && onlyOne) {
+                foundImage = true
+              }
+              return (
+                <div className={s.item} key={image._key}>
+                  <div className={s.padder} style={{paddingTop: `${100 / aspectRatio}%`}} />
+                  <img
+                    width={width}
+                    height={height}
+                    className={s.image}
+                    src={`${url}?w=300`}
+                    alt=""
+                  />
+                </div>
+              )
+            }
           })
         }
       </div>
