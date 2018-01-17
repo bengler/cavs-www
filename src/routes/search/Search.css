@@ -113,13 +113,11 @@
 }
 
 .spinner {
-  opacity: 0.1;
+  opacity: 1;
 }
 
 .noResult {
-  composes: fontMedium from '../../components/typography.css';
-  margin: 1em;
-  text-align: center;
+  composes: fontLarge from '../../components/typography.css';
   display: block;
   font-weight: 400;
 

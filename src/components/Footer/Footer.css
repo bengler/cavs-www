@@ -10,7 +10,6 @@
 }
 
 .content {
-
   @media (--screen-xs-min) {
     max-width: 100%;
     display: flex;

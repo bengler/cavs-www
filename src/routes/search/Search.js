@@ -199,7 +199,7 @@ class Search extends React.PureComponent {
         {
           !isSearching && query && result && (result.length < 1) && (
             <div className={s.noResult}>
-              No result for <span>{query}</span>
+              No result for <span>&ldquo;{query}&rdquo;</span>
             </div>
           )
         }

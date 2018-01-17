@@ -5,7 +5,11 @@ import s from './Spinner.css'
 class Spinner extends React.Component {
   render() {
     return (
-      <div className={s.loader} />
+      <div className={s.loader}>
+        <span />
+        <span />
+        <span />
+      </div>
     )
   }
 }

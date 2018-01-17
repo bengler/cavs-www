@@ -2,47 +2,51 @@
 
 @keyframes load {
   0% {
-    background-position: 0 0;
+    transform: translateY(-4em);
+  }
+
+  40%,
+  60% {
+    transform: translateY(0);
   }
 
   100% {
-    background-position: 0 3em;
+    transform: translateY(4em);
   }
 }
 
-.loader,
-.loader::before,
-.loader::after {
-  width: 0.7em;
-  height: 3em;
-}
-
 .loader {
+  font-size: 1rem;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translateZ(0);
-  animation: load 0.5s infinite linear;
+  z-index: 500;
+  width: 3.2em;
+  height: 3em;
+  overflow: hidden;
+  transform: translate(-50%, -50%, 0);
+  display: flex;
+  justify-content: space-between;
+}
+
+.loader span {
+  transform: translateY(-4em);
+  background-color: black;
+  width: 0.7em;
+  height: 3em;
+  animation: load 1.25s infinite linear;
   animation-fill-mode: both;
   animation-direction: normal;
-  background-size: 100% 700%;
-  background-image: linear-gradient(transparent 10%, transparent 10%, black 10.001%, black 100%);
-  z-index: 500;
 }
 
-.loader::before,
-.loader::after {
-  display: block;
-  content: '';
-  position: absolute;
-  top: 0;
-  background-color: black;
+.loader span:nth-child(1) {
+  animation-delay: 0.2s;
 }
 
-.loader::before {
-  left: calc(100% + 0.3em);
+.loader span:nth-child(3) {
+  animation-delay: 0.3s;
 }
 
-.loader::after {
-  left: calc(-100% - 0.3em);
+.loader span:nth-child(2) {
+  height: 2em;
 }
