@@ -55,6 +55,7 @@
 
 .portraitList {
   composes: list;
+  composes: columns from '../../components/common.css';
 }
 
 .portraitItem {
