@@ -66,6 +66,7 @@ class Item extends React.PureComponent {
   render() {
     const {item, currentImageKey} = this.props
     const {
+      _id,
       _type,
       title,
       description,
@@ -83,6 +84,8 @@ class Item extends React.PureComponent {
       return <div>Nothing here</div>
     }
 
+    console.log('imageAssets', imageAssets)
+
     return (
       <div className={s.root}>
         {
@@ -98,7 +101,7 @@ class Item extends React.PureComponent {
         {
           imageAssets && imageAssets.length > 0
           && (
-            <div className={s.mainImage}>
+            <div className={s.mainImage} key={_id}>
               <ImageFlipper
                 url={`/item/${item.identifier}`}
                 currentImageKey={currentImageKey}
@@ -144,9 +147,13 @@ class Item extends React.PureComponent {
           <div className={s.rights}>
             <Rights rights={rights} />
           </div>
-          <div className={s.imageGallery}>
-            <ImageGallery images={imageAssets} excludeFirst />
-          </div>
+          {
+            imageAssets && imageAssets > 1 && (
+              <div className={s.imageGallery}>
+                <ImageGallery images={imageAssets} excludeFirst />
+              </div>
+            )
+          }
 
           {
             partOf && partOf.length > 0 && (
