@@ -84,21 +84,20 @@ class Persons extends React.Component {
         <Menu />
 
         <div className={s.container}>
-          
-          {
-            view === 'alphabetical' && chunks && chunks.length && chunks.map(chunk => {
-              return (
-                <div className={s.grid}>
+          <div className={s.grid}>
+            {
+              view === 'alphabetical' && chunks && chunks.length && chunks.map(chunk => {
+                return (
                   <div key={chunk.title} className={s.chunk}>
                     <h2 className={s.chunkTitle}>{chunk.title}</h2>
                     <ul className={s.chunkInnerList}>
                       {this.renderItems(chunk.items)}
                     </ul>
                   </div>
-                </div>
-              )
-            })
-          }
+                )
+              })
+            }
+          </div>
 
           {
             view === 'portraits' && people && this.renderPortraits(people)
