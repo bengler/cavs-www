@@ -6,20 +6,22 @@ export default class Component3D extends THREE.Object3D {
     this.component = component
     this.element = null
     this.vantages = null
+    this.lastWidth = null
+    this.lastHeight = null
   }
 
   get width() {
     if (this.element) {
-      return this.element.offsetWidth
+      this.lastWidth = this.element.offsetWidth
     }
-    return null
+    return this.lastWidth
   }
 
   get height() {
     if (this.element) {
-      return this.element.offsetHeight
+      this.lastHeight = this.element.offsetHeight
     }
-    return null
+    return this.lastHeight
   }
 
   setElement(value) {

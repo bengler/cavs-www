@@ -110,6 +110,7 @@ export class Theme extends THREE.Object3D {
       if (prev) {
         if (prev.height === null || obj.height == null) break
 
+        const oldPos = obj.position.clone()
         obj.position.copy(prev.position)
         obj.quaternion.copy(prev.quaternion)
         const displacement = new THREE.Vector3(0, - prev.height / 2 - obj.height / 2 - 100, this.zDisplacement)

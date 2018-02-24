@@ -173,8 +173,12 @@ export class Space {
     this.updaters.forEach(obj => obj.update())
   }
 
-  renderComponents() {
-    return this.component3Ds.filter(obj => !obj.hidden).map(obj => {
+  renderComponents(filter) {
+    let components = this.component3Ds.slice()
+    if (filter) {
+      components = components.filter(filter)
+    }
+    return components.filter(obj => !obj.hidden).map(obj => {
       const name = nameForObj(obj)
       return (
         <DElement key={name} name={name} space={this}>{obj.component}</DElement>

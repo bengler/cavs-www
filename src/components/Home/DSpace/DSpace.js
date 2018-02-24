@@ -199,12 +199,12 @@ class DSpace extends React.PureComponent {
       return (<div />)
     }
     const fov
-      = 0.5
-      / Math.tan(THREE.Math.degToRad(this.camera.getEffectiveFOV() * 0.5))
+      = 0.5 / Math.tan(THREE.Math.degToRad(this.camera.getEffectiveFOV() * 0.5))
       * this.height
     this.space.scene.updateMatrixWorld()
     this.camera.updateMatrixWorld()
     this.camera.matrixWorldInverse.getInverse(this.camera.matrixWorld)
+
     const cameraCSSTransform
       = `translateZ(${fov.toFixed(3)}px)${
        getCameraCSSMatrix(this.camera.matrixWorldInverse)
@@ -241,7 +241,23 @@ class DSpace extends React.PureComponent {
                 height: `${this.height}px`
               }}
             >
-              {this.space.renderComponents()}
+              {this.space.renderComponents(obj => {
+                // This code performs culling eliminating components outside the screen
+                // Compute position in screen space
+                const pos = obj.getWorldPosition()
+                pos.applyMatrix4(this.props.space.camera.matrixWorldInverse)
+                // Culling: Check if object is roughly inside the screen area (using width and height of viewport without dividing by two
+                // basically buffers our area by 100%, which is hopefully enough)
+                const buffer = 3
+                return (obj.width === null) || (
+                  (pos.x > -this.width * buffer) &&
+                  (pos.x < this.width * buffer) &&
+                  (pos.y > -this.height * buffer) &&
+                  (pos.y < this.height * buffer) &&
+                  (pos.z < 500) &&
+                  (pos.z > -3000)
+                )
+              })}
             </div>
           </div>
           <canvas ref={this.setRendererCanvas} />
