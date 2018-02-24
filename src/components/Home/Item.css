@@ -5,8 +5,14 @@
 .link {
   display: block;
   pointer-events: auto;
-  font-size: 100px;
+  text-align: center;
+  font-size: 40px;
+  width: 90%;
+  left: 5%;
   position: fixed;
-  left: 30%;
   top: 30%;
+}
+
+.link:hover {
+  text-decoration: underline;
 }

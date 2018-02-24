@@ -1,5 +1,6 @@
 
 import {flatten, uniqWith, isEqual} from 'lodash'
+import moment from 'moment'
 
 async function fetchData(fetch) {
   return fetch(`
@@ -7,8 +8,14 @@ async function fetchData(fetch) {
       identifier,
       _id,
       _type,
+      title,
+      "date": date.date.utc,
 
-      "url": imageAssets[0].asset->url,
+      "asset": imageAssets[0].asset->{
+        url,
+        "width": metadata.dimensions.width,
+        "height": metadata.dimensions.height
+      },
       format,
       "creators": creators[]->{
         _id,
@@ -58,7 +65,12 @@ function itemCreators(item) {
 function canonicalItem(item) {
   return {
     _id: item._id,
-    url: item.url,
+    url: item.asset.url,
+    width: item.asset.width,
+    height: item.asset.height,
+    aspect: item.asset.width / item.asset.height,
+    title: item.title,
+    year: moment(item.date).format("YYYY"),
     identifier: item.identifier
   }
 }

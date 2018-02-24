@@ -48,6 +48,22 @@ function ensureBasicVantagePoint(obj, distance) {
   obj.vantages = [vantage]
 }
 
+function ensureVerticalScrollableVantagePointSet(obj, distance) {
+  // Only set if no current vantage point
+  if (obj.vantages) {
+    return
+  }
+
+  const vantage1 = new Vantage(obj)
+  vantage1.position.z = distance || 800
+  const vantage2 = new Vantage(obj)
+  vantage2.position.z = distance || 800
+  vantage2.position.y = -100
+  obj.add(vantage1)
+  obj.add(vantage2)
+  obj.vantages = [vantage1, vantage2]
+}
+
 function ensureScrollyNav(obj, distance, height) {
   // Only set if no current vantage point
   if (obj.vantages) {
@@ -75,9 +91,9 @@ class Builder extends THREE.Object3D {
 
     setTimeout(async () => {
       this.stub()
-      this.addIntro()
+      await this.addIntro()
       await this.initGraph()
-      this.addTheme(null)
+      await this.addTheme(null)
     }, 50)
     bus.subscribe(this.handleBusMessage)
     this.components = []
@@ -175,7 +191,7 @@ class Builder extends THREE.Object3D {
     components.push(<ThemeHeading theme={theme} />)
 
     // Shuffle and cap
-    let items = theme.items.slice()
+    let items = (theme.items || []).slice()
     shuffle(items)
     items = items.slice(0, Math.ceil(Math.random() * 4 + 6))
 
@@ -194,19 +210,19 @@ class Builder extends THREE.Object3D {
     )
     this.introComponent.introText = introText
     this.introComponent.add(introText)
-    ensureBasicVantagePoint(this.introComponent, 800, 800)
+    ensureVerticalScrollableVantagePointSet(this.introComponent, 800, 800)
 
     this.space.add(this.introComponent)
 
     this.mainNav = new NavPath([this.introComponent])
     this.firstNav = this.mainNav
 
+    this.space.reindex()
+
     bus.dispatch({
       event: 'resetToComponent',
       name: `c${this.introComponent.id}`
     })
-
-    this.space.reindex()
 
     const handle = new THREE.Object3D()
     handle.position.copy(this.introComponent.position)

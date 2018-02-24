@@ -285,7 +285,7 @@ export class Navigator {
     this.scrollLock = true
   }
 
-  setFocus(vantage) {
+  setFocus(vantage, flyTo) {
     const oldMainNav = this.currentMainNav()
     const oldScrollNav = this.scrollNav
     this.focus = vantage
@@ -305,7 +305,7 @@ export class Navigator {
         // history.replaceState({}, 'DS+R', `c${this.focus.parent.id}`)
       }
     }
-    if (this.scrollNav && this.scrollNav != oldScrollNav) {
+    if (this.scrollNav && (flyTo || this.scrollNav != oldScrollNav)) {
       const top = this.scrollNav.computeProgressCenteredOn(this.focus)
       bus.dispatch({
         event: 'setScroll',
@@ -318,7 +318,7 @@ export class Navigator {
   }
 
   flyTo(vantage) {
-    this.setFocus(vantage)
+    this.setFocus(vantage, true)
     this.scrollLock = false
     this.rawMode = null
   }

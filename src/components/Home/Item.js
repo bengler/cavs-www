@@ -47,7 +47,7 @@ class Item extends React.Component {
       <div className={s.root}>
         { this.state.linkLatch
           && <Link to={`/item/${item.identifier}`} className={s.link}>
-          LINK
+          {item.title}
           </Link>
         }
         <img
