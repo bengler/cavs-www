@@ -3,14 +3,16 @@
 }
 
 .link {
+  position: absolute;
   display: block;
   pointer-events: auto;
   text-align: center;
   font-size: 40px;
   width: 90%;
   left: 5%;
-  position: fixed;
-  top: 30%;
+  top: 50%;
+  transform: translateY(-50%);
+  line-height: 1.2em;
 }
 
 .link:hover {
