@@ -19,7 +19,7 @@ module.exports = {
 
   // Web analytics
   analytics: {
-    googleTrackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
+    googleTrackingId: "UA-129279-48",
   },
 
 }
