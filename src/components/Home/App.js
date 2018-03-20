@@ -21,15 +21,15 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.setState({mounted: true})
-    document.addEventListener('keydown', this.handleKeyPress)
+    // document.addEventListener('keydown', this.handleKeyPress)
     bus.dispatch({event: 'setScroll', y: 0})
   }
 
 
-  componendWillUnmount() {
+  componentWillUnmount() {
     // stop when unmounting
-    document.removeEventListener(this.handleKeyPress)
-    this.subscription.unsubscribe()
+    // document.removeEventListener(this.handleKeyPress)
+    // this.subscription.unsubscribe()
   }
 
   render() {

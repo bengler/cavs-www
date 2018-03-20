@@ -87,19 +87,17 @@ class Builder extends THREE.Object3D {
     super()
     this.space = space
     this.fetch = fetch
-
-
-    setTimeout(async () => {
-      this.stub()
-      await this.addIntro()
-      await this.initGraph()
-      await this.addTheme(null)
-    }, 50)
-    bus.subscribe(this.handleBusMessage)
     this.components = []
+    this.stub()
+    const introAdded = this.addIntro()
+    const graphInitialized = this.initGraph()
+    this.ready = Promise.all([introAdded, graphInitialized])
+      .then(() => this.addTheme(null))
+    bus.subscribe(this.handleBusMessage)
   }
 
-  handleBusMessage = msg => {
+  handleBusMessage = async msg => {
+    await this.ready
     switch (msg.event) {
       case 'scrollBeyond':
         this.addTheme(msg.closest.obj)
