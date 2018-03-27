@@ -7,7 +7,7 @@ pipeline:
   build:
     image: eu.gcr.io/sanity-cloud/ci
     pull: true
-    secrets: [docker_auth]
+    secrets: [docker_auth, npmrc]
     commands:
     - ci-docker-build eu.gcr.io/sanity-cloud/cavs-www
 
