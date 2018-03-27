@@ -1,78 +1,48 @@
-aliases:
-- &dockerauth
-  username: $$DOCKER_USERNAME
-  password: "$$DOCKER_PASSWORD"
-  email: $$DOCKER_EMAIL
+clone:
+  clone:
+    image: plugins/git
+    depth: 1
 
-- &volumes
-  - "/root/.docker:/root/.docker"
-  - "/root/.kube:/root/.kube"
-  - "/var/run/docker.sock:/var/run/docker.sock"
-  - "/root/.npmrc:/root/.npmrc"
-
-cache:
-  mount:
-  - .git
-
-build:
+pipeline:
   build:
     image: eu.gcr.io/sanity-cloud/ci
     pull: true
-    auth_config: *dockerauth
-    volumes: *volumes
+    secrets: [docker_auth]
     commands:
-    - docker build --build-arg NPMRC="$(cat ~/.npmrc)" --pull -t eu.gcr.io/sanity-cloud/cavs-www:$$COMMIT .
+    - ci-docker-build eu.gcr.io/sanity-cloud/cavs-www
 
   publish:
     image: eu.gcr.io/sanity-cloud/ci
-    auth_config: *dockerauth
-    volumes: *volumes
+    secrets: [docker_auth]
     commands:
-    - docker tag eu.gcr.io/sanity-cloud/cavs-www:$$COMMIT eu.gcr.io/sanity-cloud/cavs-www:$$BRANCH
-    - docker push eu.gcr.io/sanity-cloud/cavs-www:$$COMMIT
-    - docker push eu.gcr.io/sanity-cloud/cavs-www:$$BRANCH
+    - ci-docker-push eu.gcr.io/sanity-cloud/cavs-www
     when:
       event: push
 
-  deploy:
+  deploy-production:
     image: eu.gcr.io/sanity-cloud/ci
-    auth_config: *dockerauth
-    volumes: *volumes
+    secrets: [kubernetes_auth, sentry_auth_token]
     commands:
-    - "sed -i -re 's/(image:[^:]+)($|:.+$)/\\1:$$COMMIT/g' kubernetes/production/deployment.yaml"
-    - kubectl --context kubernetes01-eu-w1 --namespace clients apply -f kubernetes/production/
-    - 'curl https://intake.opbeat.com/api/v1/organizations/$$OPBEAT_ORG/apps/950d503819/releases/ -o /dev/null -sSf -H "Authorization: Bearer $$OPBEAT_TOKEN" -d rev=`git log -n 1 --pretty=format:%H` -d branch=`git rev-parse --abbrev-ref HEAD` -d status=completed'
+    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www clients kubernetes/production/
+    #- ci-sentry-notify cavs-www production
     when:
       branch: master
       event: push
 
   deploy-staging:
     image: eu.gcr.io/sanity-cloud/ci
-    auth_config: *dockerauth
-    volumes: *volumes
+    secrets: [kubernetes_auth, sentry_auth_token]
     commands:
-    - "sed -i -re 's/(image:[^:]+)($|:.+$)/\\1:$$COMMIT/g' kubernetes/staging/deployment.yaml"
-    - kubectl --context kubernetes01-eu-w1 --namespace clients-staging apply -f kubernetes/staging/
-    - 'curl https://intake.opbeat.com/api/v1/organizations/$$OPBEAT_ORG/apps/b4fe6bbc01/releases/ -o /dev/null -sSf -H "Authorization: Bearer $$OPBEAT_TOKEN" -d rev=`git log -n 1 --pretty=format:%H` -d branch=`git rev-parse --abbrev-ref HEAD` -d status=completed'
+    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www clients-staging kubernetes/staging/
+    #- ci-sentry-notify cavs-www staging
     when:
       branch: staging
       event: push
 
-notify:
-  email:
-    from: $$SMTP_FROM
-    host: $$SMTP_HOST
-    port: $$SMTP_PORT
-    username: $$SMTP_USERNAME
-    password: $$SMTP_PASSWORD
+  notify:
+    image: eu.gcr.io/sanity-cloud/ci
+    secrets: [postmark_server_token, slack_webhook]
+    commands:
+    - ci-notify
     when:
-      failure: true
-
-  slack:
-    webhook_url: $$SLACK_WEBHOOK
-    username: $$SLACK_USERNAME
-    channel: $$SLACK_CHANNEL
-    template: "$$SLACK_TEMPLATE"
-    when:
-      failure: true
-      change: true
+      status: [failure, success]
