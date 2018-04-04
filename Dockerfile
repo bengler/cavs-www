@@ -12,12 +12,13 @@ RUN echo "$NPMRC" > ~/.npmrc && \
   npm install && \
   rm ~/.npmrc
 
+ENV NODE_ENV=production
+
 # Prepare app
 COPY . .
 RUN chown -R nodejs /srv/cavs-www \
   && npm run build
 
 # Run application
-ENV NODE_ENV=production
 EXPOSE 3000
 CMD ["gosu", "nodejs", "node", "build/server.js"]
