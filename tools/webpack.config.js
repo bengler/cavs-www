@@ -61,10 +61,7 @@ const config = {
             'stage-2',
             // JSX, Flow
             // https://github.com/babel/babel/tree/master/packages/babel-preset-react
-            'react',
-            // Optimize React code for the production build
-            // https://github.com/thejameskyle/babel-react-optimize
-            ...isDebug ? [] : ['react-optimize'],
+            'react'
           ],
           plugins: [
             // Adds component stack to warning messages
