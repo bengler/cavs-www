@@ -6,6 +6,7 @@ import bus from './bus'
 import {Space} from './Space'
 import {Column, Barrel} from '../Layout'
 import {Navigator} from './Navigator'
+import ThemeHeading from '../ThemeHeading'
 
 
 class DSpace extends React.PureComponent {
