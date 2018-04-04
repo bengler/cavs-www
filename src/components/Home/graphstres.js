@@ -4,34 +4,45 @@ import moment from 'moment'
 
 async function fetchData(fetch) {
   return fetch(`
-    *[defined(imageAssets)][0..20000]{
-      identifier,
-      _id,
-      _type,
-      title,
-      "date": date.date.utc,
+  *[_type == 'work2d' 
+  || _type == 'work3d'
+  || _type == 'correspondence'
+  || _type == 'document'
+  || _type == 'ephemera'
+  || _type == 'floorplan'
+  || _type == 'newsClipping'
+  || _type == 'poster'
+  || _type == 'publication'
+  || _type == 'stillImage'     
+][0..900]
+ {
+ identifier,
+ _id,
+ _type,
+ title,
+ "date": date.date.utc,
 
-      "asset": imageAssets[0].asset->{
-        url,
-        "width": metadata.dimensions.width,
-        "height": metadata.dimensions.height
-      },
-      format,
-      "creators": creators[]->{
-        _id,
-          name
-      },
-      "partOf": partOf[]->{
-        _id,
-        name,
-        "creators": creators[]->{
-          _id,
-          name
-        }
-      },
-      subjects,
-        "creationTime": date.date.utc
-    }
+ "asset": imageAssets[0].asset->{
+   url,
+   "width": metadata.dimensions.width,
+   "height": metadata.dimensions.height
+ },
+ format,
+ "creators": creators[]->{
+   _id,
+     name
+ },
+ "partOf": partOf[]->{
+   _id,
+   name,
+   "creators": creators[]->{
+     _id,
+     name
+   }
+ },
+ subjects,
+   "creationTime": date.date.utc
+}
   `)
 }
 
