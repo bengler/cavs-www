@@ -3,6 +3,7 @@ FROM eu.gcr.io/sanity-cloud/node:7.6
 ARG NPMRC
 
 # Set up environment
+ENV NODE_ENV=production
 WORKDIR /srv/cavs-www
 RUN useradd --home /srv/cavs-www --shell /bin/false nodejs
 
@@ -12,12 +13,14 @@ RUN echo "$NPMRC" > ~/.npmrc && \
   npm install && \
   rm ~/.npmrc
 
-ENV NODE_ENV=production
-
 # Prepare app
 COPY . .
 RUN chown -R nodejs /srv/cavs-www \
   && npm run build
+
+# Release hash (usually git commit) used for error reporting and such
+ARG RELEASE_HASH
+ENV SENTRY_RELEASE=$RELEASE_HASH
 
 # Run application
 EXPOSE 3000

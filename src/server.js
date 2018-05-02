@@ -1,10 +1,10 @@
-import opbeat from '@bengler/opbeat'
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import React from 'react'
 import ReactDOM from 'react-dom/server'
 import PrettyError from 'pretty-error'
+import raven from 'raven'
 import App from './components/App'
 import Html from './components/Html'
 import {ErrorPageWithoutStyle} from './routes/error/ErrorPage'
@@ -13,6 +13,8 @@ import createFetch from './createFetch'
 import router from './router'
 import assets from './assets.json' // eslint-disable-line import/no-unresolved
 import config from './config'
+
+raven.config().install()
 
 const app = express()
 
@@ -45,7 +47,7 @@ app.use(bodyParser.json())
 //   rootValue: { request: req },
 //   pretty: __DEV__,
 // })));
-opbeat.bengler.plugins.express(app)
+app.use(raven.requestHandler())
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
@@ -107,6 +109,8 @@ app.get('*', async (req, res, next) => {
 //
 // Error handling
 // -----------------------------------------------------------------------------
+app.use(raven.errorHandler())
+
 const pe = new PrettyError()
 pe.skipNodeFiles()
 pe.skipPackage('express')
