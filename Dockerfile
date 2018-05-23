@@ -3,7 +3,6 @@ FROM eu.gcr.io/sanity-cloud/node:7.6
 ARG NPMRC
 
 # Set up environment
-ENV NODE_ENV=production
 WORKDIR /srv/cavs-www
 RUN useradd --home /srv/cavs-www --shell /bin/false nodejs
 
@@ -12,6 +11,9 @@ COPY package.json .
 RUN echo "$NPMRC" > ~/.npmrc && \
   npm install && \
   rm ~/.npmrc
+
+# Set node environment
+ENV NODE_ENV=production
 
 # Prepare app
 COPY . .
