@@ -23,8 +23,8 @@ pipeline:
     image: eu.gcr.io/sanity-cloud/ci
     secrets: [kubernetes_auth, sentry_auth_token]
     commands:
-    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www clients kubernetes/production/
-    #- ci-sentry-notify cavs-www production
+    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www kubernetes01-eu-w1:clients kubernetes/production/
+    - ci-sentry-notify cavs-www production
     when:
       branch: master
       event: push
@@ -33,8 +33,8 @@ pipeline:
     image: eu.gcr.io/sanity-cloud/ci
     secrets: [kubernetes_auth, sentry_auth_token]
     commands:
-    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www clients-staging kubernetes/staging/
-    #- ci-sentry-notify cavs-www staging
+    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www kubernetes03-eu-w1:clients kubernetes/staging/
+    - ci-sentry-notify cavs-www staging
     when:
       branch: staging
       event: push
