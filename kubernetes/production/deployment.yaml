@@ -28,11 +28,11 @@ spec:
             secretKeyRef:
               name: opbeat
               key: organization-id
-        - name: SENTRY_DSN
+        - name: OPBEAT_SECRET_TOKEN
           valueFrom:
             secretKeyRef:
-              name: cavs-www
-              key: sentry-dsn
+              name: opbeat
+              key: secret-token
         readinessProbe:
           httpGet:
             port: 3000
