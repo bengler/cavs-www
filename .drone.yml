@@ -23,7 +23,7 @@ pipeline:
     image: eu.gcr.io/sanity-cloud/ci
     secrets: [kubernetes_auth, sentry_auth_token]
     commands:
-    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www clients kubernetes/production/
+    - ci-kubernetes-deploy eu.gcr.io/sanity-cloud/cavs-www kuberentes01-eu-w1-01:clients kubernetes/production/
     - ci-sentry-notify cavs-www production
     when:
       branch: master
