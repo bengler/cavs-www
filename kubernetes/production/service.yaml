@@ -4,6 +4,8 @@ metadata:
   name: cavs-www
   labels:
     app: cavs-www
+  annotations:
+    beta.cloud.google.com/backend-config: '{"ports": {"80":"cdn-backend-config"}}'
 spec:
   ports:
   - port: 80
