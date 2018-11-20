@@ -43,6 +43,8 @@ spec:
           requests:
             cpu: 0.01
             memory: '64M'
+          limits:
+            memory: '512M'
         lifecycle:
           preStop:
             exec:
