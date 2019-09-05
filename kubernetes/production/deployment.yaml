@@ -12,7 +12,6 @@ spec:
       labels:
         app: cavs-www
     spec:
-      automountServiceAccountToken: false
       containers:
       - image: eu.gcr.io/sanity-cloud/cavs-www:master
         imagePullPolicy: Always
